@@ -18,5 +18,5 @@ We use [Hetzner](https://www.hetzner.com/cloud) as our cloud provider.
 * [Hetzner Cloud Provider](https://registry.terraform.io/providers/hetznercloud/hcloud/latest/docs)
 * [kubernetes](https://registry.terraform.io/providers/hashicorp/kubernetes/latest)
 * [helm](https://registry.terraform.io/providers/hashicorp/helm/latest)
-* [tls]https://registry.terraform.io/providers/hashicorp/tls/latest
+* [tls](https://registry.terraform.io/providers/hashicorp/tls/latest)
 * [SSH Terraform Provider](https://registry.terraform.io/providers/loafoe/ssh/latest)
