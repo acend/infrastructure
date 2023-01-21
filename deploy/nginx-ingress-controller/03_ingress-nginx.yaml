@@ -15,4 +15,3 @@ spec:
         name: ingress-nginx
         namespace: ingress-nginx
       interval: 1m
-   values: {}
