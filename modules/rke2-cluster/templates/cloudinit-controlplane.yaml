@@ -1,0 +1,112 @@
+#cloud-config
+%{ if length(extra_ssh_keys) > 0 }
+ssh_authorized_keys:
+%{ for ssh_key in extra_ssh_keys }
+- ${ssh_key}
+%{ endfor }
+%{ endif }
+packages:
+- git
+- jq
+- curl
+- open-iscsi
+- unattended-upgrades
+package_update: true
+package_upgrade: true
+runcmd:
+- /opt/rke2/run_rke2.sh
+- rm /opt/rke2/run_rke2.sh
+write_files:
+- path: /var/lib/rancher/rke2/server/manifests/rke2-cilium-config.yaml
+  permission: "0600"
+  owner: root:root
+  content: |
+    ---
+    apiVersion: helm.cattle.io/v1
+    kind: HelmChartConfig
+    metadata:
+      name: rke2-cilium
+      namespace: kube-system
+    spec:
+      valuesContent: |-
+        tunnel: disabled
+        ipv4NativeRoutingCIDR: ${k8s-cluster-cidr}
+        kubeProxyReplacement: strict
+        k8sServiceHost: ${lb_address}
+        k8sServicePort: 6443
+        ipam:
+          mode: kubernetes
+        hubble:
+          enabled: true
+          metrics:
+            serviceMonitor:
+              enabled: false
+            enabled:
+            - dns:query;ignoreAAAA
+            - drop
+            - tcp
+            - flow
+            - icmp
+            - http
+          relay:
+            enabled: true
+          ui:
+            enabled: true
+        operator:
+          prometheus:
+            enabled: true
+            serviceMonitor:
+              enabled: false
+        prometheus:
+          enabled: true
+          serviceMonitor:
+            enabled: false
+- path: /etc/rancher/rke2/config.yaml
+  permissions: "0600"
+  owner: root:root
+  content: |
+    %{ if controlplane_index != 0 }
+    server: https://${lb_address}:9345
+    %{ endif }
+    cni: cilium
+    cluster-cidr: ${k8s-cluster-cidr}
+    disable:
+    - rke2-ingress-nginx
+    disable-cloud-controller: true
+    disable-kube-proxy: true
+    cloud-provider-name: external
+    tls-san:
+      - ${lb_address}
+      - ${lb_external_v4}
+      - ${lb_external_v6}
+     %{ for domain in domains }
+      - ${domain}
+     %{ endfor }
+    token: ${rke2_cluster_secret}
+- path: /opt/rke2/run_rke2.sh
+  permissions: "0755"
+  owner: root:root
+  content: |
+    #!/bin/bash
+    %{ if controlplane_index != 0 }
+    function num_healthy {
+      jq -r '[.load_balancer.targets | .[] | select(.label_selector.selector == "cluster=${clustername},controlplane=true") | .targets | .[] | select(.health_status | all(.status == "healthy"))] | length'
+    }
+    function get_lb {
+      LB="$(echo ${lb_id} | cut -d \- -f 1)"
+      curl -sSL -H "Authorization: Bearer ${api_token}" "https://api.hetzner.cloud/v1/load_balancers/$LB"
+    }
+    while true; do
+      res="$(get_lb | num_healthy)"
+      if [ "$?" == 0 ] && [ "$res" -ge ${controlplane_index} ]; then
+        break
+      fi
+      echo "not enought controlplanes ready to join next ($res / ${controlplane_index})"
+      sleep 10
+    done
+    %{ endif }
+    curl -fsSL https://raw.githubusercontent.com/rancher/rke2/master/install.sh --output install.sh
+    chmod u+x install.sh
+    INSTALL_RKE2_METHOD='tar' INSTALL_RKE2_TYPE=server INSTALL_RKE2_VERSION=${rke2_version} ./install.sh
+    systemctl enable rke2-server
+    systemctl start rke2-server
