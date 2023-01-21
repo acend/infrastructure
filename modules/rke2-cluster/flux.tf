@@ -22,6 +22,9 @@ resource "helm_release" "flux" {
 }
 
 resource "helm_release" "flux2-sync" {
+  depends_on = [
+    helm_release.flux
+  ]
   name = "flux2-sync"
 
   repository = "https://fluxcd-community.github.io/helm-charts"

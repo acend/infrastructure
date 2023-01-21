@@ -80,7 +80,7 @@ variable "worker_type" {
 variable "extra_ssh_keys" {
   type        = list(any)
   default     = []
-  description = "Extra ssh keys to inject into Rancher instances"
+  description = "Extra ssh keys to inject into vm's"
 }
 
 variable "domains" {
