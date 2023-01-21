@@ -1,0 +1,14 @@
+---
+secret:
+  create: true
+
+gitRepository:
+  spec:
+    url: ${giturl}
+    ref: 
+      branch: dev
+    ignore: |
+      # exclude all
+      /*
+      # include deploy dir
+      !/deploy

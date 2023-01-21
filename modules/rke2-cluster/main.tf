@@ -79,6 +79,30 @@ resource "hcloud_load_balancer_target" "controlplane" {
   depends_on       = [hcloud_load_balancer_network.lb]
 }
 
+resource "hcloud_firewall" "firewall" {
+  name = "k8s-cluster"
+  rule {
+    direction = "in"
+    protocol  = "tcp"
+    port      = "22"
+    source_ips = [
+      "0.0.0.0/0",
+      "::/0"
+    ]
+  }
+  rule {
+    direction = "in"
+    protocol  = "tcp"
+    port      = "9345"
+    source_ips = [for server in hcloud_server.controlplane : "${server.ipv4_address}/32"]
+  }
+
+  apply_to {
+    label_selector = "cluster=${var.clustername}"
+  }
+
+}
+
 resource "random_password" "rke2_cluster_secret" {
   length  = 256
   special = false

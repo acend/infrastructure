@@ -107,6 +107,8 @@ write_files:
     %{ endif }
     curl -fsSL https://raw.githubusercontent.com/rancher/rke2/master/install.sh --output install.sh
     chmod u+x install.sh
+    NODE_IP=$(curl -s http://169.254.169.254/hetzner/v1/metadata/private-networks | grep "ip:" | cut -f 3 -d" ")
+    echo "node-ip: $NODE_IP" >> /etc/rancher/rke2/config.yaml
     INSTALL_RKE2_METHOD='tar' INSTALL_RKE2_TYPE=server INSTALL_RKE2_VERSION=${rke2_version} ./install.sh
     systemctl enable rke2-server
     systemctl start rke2-server

@@ -1,59 +1,60 @@
-helmController:
-  nodeSelector:
-    node-role.kubernetes.io/control-plane: true
+---
+# helmController:
+#   nodeSelector:
+#     node-role.kubernetes.io/control-plane: true
 
-  tolerations:
-  - key: node-role.kubernetes.io/control-plane
-      operator: Equal
-      value: true
-      effect: NoSchedule
+#   tolerations:
+#   - key: node-role.kubernetes.io/control-plane
+#       operator: Equal
+#       value: true
+#       effect: NoSchedule
 
-imageReflectionController:
-  nodeSelector:
-    node-role.kubernetes.io/control-plane: true
+# imageReflectionController:
+#   nodeSelector:
+#     node-role.kubernetes.io/control-plane: true
 
-  tolerations:
-  - key: node-role.kubernetes.io/control-plane
-      operator: Equal
-      value: true
-      effect: NoSchedule
+#   tolerations:
+#   - key: node-role.kubernetes.io/control-plane
+#       operator: Equal
+#       value: true
+#       effect: NoSchedule
 
-imageAutomationController:
-  nodeSelector:
-    node-role.kubernetes.io/control-plane: true
+# imageAutomationController:
+#   nodeSelector:
+#     node-role.kubernetes.io/control-plane: true
 
-  tolerations:
-  - key: node-role.kubernetes.io/control-plane
-      operator: Equal
-      value: true
-      effect: NoSchedule
+#   tolerations:
+#   - key: node-role.kubernetes.io/control-plane
+#       operator: Equal
+#       value: true
+#       effect: NoSchedule
 
-kustomizeController:
-  nodeSelector:
-    node-role.kubernetes.io/control-plane: true
+# kustomizeController:
+#   nodeSelector:
+#     node-role.kubernetes.io/control-plane: true
 
-  tolerations:
-  - key: node-role.kubernetes.io/control-plane
-      operator: Equal
-      value: true
-      effect: NoSchedule
+#   tolerations:
+#   - key: node-role.kubernetes.io/control-plane
+#       operator: Equal
+#       value: true
+#       effect: NoSchedule
 
-notificationController:
-  nodeSelector:
-    node-role.kubernetes.io/control-plane: true
+# notificationController:
+#   nodeSelector:
+#     node-role.kubernetes.io/control-plane: true
 
-  tolerations:
-  - key: node-role.kubernetes.io/control-plane
-      operator: Equal
-      value: true
-      effect: NoSchedule
+#   tolerations:
+#   - key: node-role.kubernetes.io/control-plane
+#       operator: Equal
+#       value: true
+#       effect: NoSchedule
 
-sourceController:
-  nodeSelector:
-    node-role.kubernetes.io/control-plane: true
+# sourceController:
+#   nodeSelector:
+#     node-role.kubernetes.io/control-plane: true
 
-  tolerations:
-  - key: node-role.kubernetes.io/control-plane
-      operator: Equal
-      value: true
-      effect: NoSchedule
+#   tolerations:
+#   - key: node-role.kubernetes.io/control-plane
+#       operator: Equal
+#       value: true
+#       effect: NoSchedule
