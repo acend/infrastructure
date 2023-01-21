@@ -160,6 +160,11 @@ resource "kubernetes_deployment" "cloud-controller-manager" {
             value = var.networkzone
           }
 
+          env {
+            name = "HCLOUD_LOAD_BALANCERS_USE_PRIVATE_IP"
+            value = "true"
+          }
+
 
 
         }
