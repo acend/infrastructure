@@ -12,7 +12,7 @@ resource "time_sleep" "wait_120_seconds" {
   depends_on = [
     hcloud_server.controlplane
   ]
-  create_duration = "120s"
+  create_duration = "180s"
 }
 
 
