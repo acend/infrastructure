@@ -273,6 +273,12 @@ spec:
         - mountPath: /run/csi
           name: socket-dir
       serviceAccountName: hcloud-csi-controller
+      tolerations:
+      - key: "node-role.kubernetes.io/control-plane"
+        operator: "Exists"
+        effect: "NoSchedule"
+      nodeSelector:
+        node-role.kubernetes.io/control-plane: true
       volumes:
       - emptyDir: {}
         name: socket-dir

@@ -75,6 +75,8 @@ write_files:
     disable-cloud-controller: true
     disable-kube-proxy: true
     cloud-provider-name: external
+    node-taint:
+    - "node-role.kubernetes.io/control-plane=true:NoSchedule"
     tls-san:
       - ${lb_address}
       - ${lb_external_v4}

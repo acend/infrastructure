@@ -16,6 +16,10 @@ spec:
         namespace: kube-system
       interval: 1m
   values:
+    tolerations:
+    - key: "node-role.kubernetes.io/control-plane"
+      operator: "Exists"
+      effect: "NoSchedule"
     configuration:
       timeZone: Europe/Zurich
       startTime: 21:00
