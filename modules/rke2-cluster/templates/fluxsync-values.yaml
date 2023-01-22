@@ -11,4 +11,8 @@ gitRepository:
       # exclude all
       /*
       # include deploy dir
-      !/deploy
+      !/deploy/
+
+kustomization:
+  spec:
+    path: "./deploy/bootstrap"
