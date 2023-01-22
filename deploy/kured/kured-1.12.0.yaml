@@ -138,7 +138,7 @@ spec:
 #            - --reboot-delay=90s
             - --start-time=21:00
             - --end-time=23:59:59
-            - --time-zone=Europe/Zuerich
+            - --time-zone=Europe/Zurich
 #            - --annotate-nodes=false
 #            - --lock-release-delay=30m
 #            - --log-format=text
