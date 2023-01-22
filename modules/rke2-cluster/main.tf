@@ -7,6 +7,8 @@ provider "kubernetes" {
   client_certificate     = local.client_certificate
   client_key             = local.client_key
   cluster_ca_certificate = local.cluster_ca_certificate
+
+  #config_path    = "kubeconfig.yaml"
 }
 
 provider "helm" {
@@ -15,6 +17,8 @@ provider "helm" {
     client_certificate     = local.client_certificate
     client_key             = local.client_key
     cluster_ca_certificate = local.cluster_ca_certificate
+
+    #config_path    = "kubeconfig.yaml"
   }
 }
 
@@ -34,7 +38,12 @@ resource "hcloud_network_subnet" "subnet" {
 resource "hcloud_load_balancer" "lb" {
   name               = "lb-k8s"
   load_balancer_type = var.lb_type
+  #location           = var.location
   network_zone       = var.networkzone
+
+  labels = {
+    cluster : var.clustername,
+  }
 }
 
 resource "hcloud_load_balancer_network" "lb" {

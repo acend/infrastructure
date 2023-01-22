@@ -27,6 +27,10 @@ Terraform deploys the `GitRepository` resource pointing to this repository and o
 
 ## Applications
 
+### Monitoring
+
+The [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus) stack is used for monitoring.
+
 ### Ingress Controller
 
 The [NGINX Ingress Controller](https://kubernetes.github.io/ingress-nginx/) is used with a Hetzner LoadBalancer (automaticly deployed with a Kubernetes Service of Type `LoadBalancer`and the Hetzner Cloud Controller Manager)

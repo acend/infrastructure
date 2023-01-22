@@ -1,4 +1,7 @@
 resource "kubernetes_secret" "hcloud" {
+  depends_on = [
+    time_sleep.wait_for_k8s_api
+  ]
   metadata {
     name      = "hcloud"
     namespace = "kube-system"
@@ -14,6 +17,9 @@ resource "kubernetes_secret" "hcloud" {
 }
 
 resource "kubernetes_secret" "cloud-controller-manager" {
+  depends_on = [
+    time_sleep.wait_for_k8s_api
+  ]
   metadata {
     name = "cloud-controller-manager"
   }
@@ -46,6 +52,12 @@ resource "kubernetes_cluster_role_binding" "cloud-controller-manager" {
 }
 
 resource "kubernetes_deployment" "cloud-controller-manager" {
+
+   lifecycle {
+    ignore_changes = [
+      spec[0].template[0].spec[0].toleration
+    ]
+  }
 
   metadata {
     name      = "hcloud-cloud-controller-manager"

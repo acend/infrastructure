@@ -5,22 +5,12 @@ locals {
   client_certificate     = base64decode(local.kubeconfig.users[0].user.client-certificate-data)
   client_key             = base64decode(local.kubeconfig.users[0].user.client-key-data)
   cluster_ca_certificate = base64decode(local.kubeconfig.clusters[0].cluster.certificate-authority-data)
+ 
 }
 
-// Wait a bit to make sure k8s api is up and running
-resource "time_sleep" "wait_120_seconds" {
-  depends_on = [
-    hcloud_server.controlplane
-  ]
-  create_duration = "180s"
-}
 
 
 resource "ssh_resource" "getkubeconfig" {
-
-  depends_on = [
-    time_sleep.wait_120_seconds
-  ]
 
   when = "create"
 
@@ -36,4 +26,12 @@ resource "ssh_resource" "getkubeconfig" {
     "until [ -f /etc/rancher/rke2/rke2.yaml ]; do sleep 10; done;",
     "cat /etc/rancher/rke2/rke2.yaml"
   ]
+}
+
+// Wait a to make sure lb has the targets (at least one) up and running
+resource "time_sleep" "wait_for_k8s_api" {
+  depends_on = [
+    ssh_resource.getkubeconfig
+  ]
+  create_duration = "120s"
 }

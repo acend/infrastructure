@@ -1,3 +1,11 @@
+resource "hcloud_placement_group" "controlplane" {
+  name = "controlplane"
+  type = "spread"
+  labels = {
+    cluster : var.clustername,
+    controlplane : "true"
+  }
+}
 resource "hcloud_server" "controlplane" {
   count = var.controlplane_count
 
@@ -5,6 +13,8 @@ resource "hcloud_server" "controlplane" {
   location    = var.location
   image       = var.node_image_type
   server_type = var.controlplane_type
+
+  placement_group_id = hcloud_placement_group.controlplane.id
 
   labels = {
     cluster : var.clustername,

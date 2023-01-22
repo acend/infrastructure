@@ -1,6 +1,8 @@
 resource "kubernetes_namespace" "flux" {
+  depends_on = [
+    time_sleep.wait_for_k8s_api
+  ]
   metadata {
-
     name = "flux-system"
   }
 }
