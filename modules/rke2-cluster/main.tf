@@ -22,7 +22,6 @@ provider "helm" {
   }
 }
 
-
 resource "hcloud_network" "network" {
   name     = var.clustername
   ip_range = var.network
@@ -39,7 +38,7 @@ resource "hcloud_load_balancer" "lb" {
   name               = "lb-k8s"
   load_balancer_type = var.lb_type
   #location           = var.location
-  network_zone       = var.networkzone
+  network_zone = var.networkzone
 
   labels = {
     cluster : var.clustername,
@@ -100,16 +99,15 @@ resource "hcloud_firewall" "firewall" {
     ]
   }
   rule {
-    direction = "in"
-    protocol  = "tcp"
-    port      = "9345"
+    direction  = "in"
+    protocol   = "tcp"
+    port       = "9345"
     source_ips = [for server in hcloud_server.controlplane : "${server.ipv4_address}/32"]
   }
 
   apply_to {
     label_selector = "cluster=${var.clustername}"
   }
-
 }
 
 resource "random_password" "rke2_cluster_secret" {

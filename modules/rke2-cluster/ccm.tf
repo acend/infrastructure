@@ -7,7 +7,6 @@ resource "kubernetes_secret" "hcloud" {
     namespace = "kube-system"
   }
 
-
   data = {
     token   = var.hcloud_api_token
     network = hcloud_network.network.id
@@ -53,7 +52,7 @@ resource "kubernetes_cluster_role_binding" "cloud-controller-manager" {
 
 resource "kubernetes_deployment" "cloud-controller-manager" {
 
-   lifecycle {
+  lifecycle {
     ignore_changes = [
       spec[0].template[0].spec[0].toleration
     ]
@@ -173,7 +172,7 @@ resource "kubernetes_deployment" "cloud-controller-manager" {
           }
 
           env {
-            name = "HCLOUD_LOAD_BALANCERS_USE_PRIVATE_IP"
+            name  = "HCLOUD_LOAD_BALANCERS_USE_PRIVATE_IP"
             value = "true"
           }
 

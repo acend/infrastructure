@@ -6,6 +6,7 @@ resource "hcloud_placement_group" "controlplane" {
     controlplane : "true"
   }
 }
+
 resource "hcloud_server" "controlplane" {
   count = var.controlplane_count
 
@@ -45,7 +46,6 @@ resource "hcloud_server" "controlplane" {
     k8s-cluster-cidr = var.k8s-cluster-cidr
   })
 }
-
 
 resource "hcloud_server_network" "controlplane" {
   count      = var.controlplane_count
