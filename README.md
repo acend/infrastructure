@@ -68,7 +68,6 @@ For safe automated node reboots we use [kured](https://kured.dev/)
 * [tls](https://registry.terraform.io/providers/hashicorp/tls/latest)
 * [SSH Terraform Provider](https://registry.terraform.io/providers/loafoe/ssh/latest)
 
-
 ## Terraform usage
 
 Login into terraform cloud with your account using:
@@ -81,4 +80,4 @@ terraform login
 terraform init -backend-config=backend.hcl # only needed after initial checkout or when you add/change modules
 terraform plan # to verify
 terraform apply
-```
+``
