@@ -18,6 +18,32 @@ We use [Hetzner](https://www.hetzner.com/cloud) as our cloud provider and [RKE2]
 2. Terraform to delploy and bootstrap flux
 3. Flux to deploy resources on the Kubernetes Cluster
 
+```mermaid
+flowchart LR
+    A[Git Repository]
+    A --> B{Terraform Cloud}
+
+    B --> C{Hetzner Cloud}
+
+    C -- deploy ---> C1{Loadbalancer}
+    C1 -- with service ---> C11{K8s API 6443}
+    C1 -- withservice ---> C12{RKE2 API 9345}
+    C -- deploy ---> C2{Control Plane VM's}
+    C -- deploy ---> C3{Worker VM's}
+    C -- deploy ---> C4{Private Network}
+    C4 --> C41{Subnet for Nodes}
+    C -- deploy ---> C5{Firewall}
+    C2 -- configure --> cloudinit
+    C3 -- configure ---> cloudinit
+    
+    B-- initial bootstrap -->D
+
+    A --> D{Flux}
+
+    D -- install -->D1{Application}
+
+```
+
 ### Operating System
 
 We use Ubuntu 22.04 as our Node operating system. Unattended-upgrade for automated security patching is enabled. If necessary, kured will manage node reboots.
