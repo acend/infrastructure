@@ -37,8 +37,7 @@ resource "hcloud_network_subnet" "subnet" {
 resource "hcloud_load_balancer" "lb" {
   name               = "lb-k8s"
   load_balancer_type = var.lb_type
-  #location           = var.location
-  network_zone = var.networkzone
+  location           = var.location
 
   labels = {
     cluster : var.clustername,
