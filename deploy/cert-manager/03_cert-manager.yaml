@@ -18,21 +18,21 @@ spec:
   values:
     installCRDs: true
     nodeSelector:
-      node-role.kubernetes.io/control-plane: true
+      node-role.kubernetes.io/control-plane: "true"
     tolerations:
     - key: "node-role.kubernetes.io/control-plane"
       operator: "Exists"
       effect: "NoSchedule"
     webhook:
       nodeSelector:
-        node-role.kubernetes.io/control-plane: true
+        node-role.kubernetes.io/control-plane: "true"
       tolerations:
       - key: "node-role.kubernetes.io/control-plane"
         operator: "Exists"
         effect: "NoSchedule"
     cainjector:
       nodeSelector:
-        node-role.kubernetes.io/control-plane: true
+        node-role.kubernetes.io/control-plane: "true"
       tolerations:
       - key: "node-role.kubernetes.io/control-plane"
         operator: "Exists"
