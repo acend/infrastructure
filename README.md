@@ -1,9 +1,10 @@
 # infrastructure
+
 IaC for acend kubernetes resources
 
 This repo creates the basic acend infrastructure using terraform.
 
-We use [Hetzner](https://www.hetzner.com/cloud) as our cloud provider and [RKE2](https://docs.rke2.io/) is used to create the kubernetes cluster.[Kubernetes Cloud Controller Manager for Hetzner Cloud](https://github.com/hetznercloud/hcloud-cloud-controller-manager) is used to provision Load Balancer from Kubernetes Service (Type Loadbalancer) objects and also configure the networking & native routing for the Kubernetes cluster network traffic.
+We use [Hetzner](https://www.hetzner.com/cloud) as our cloud provider and [RKE2](https://docs.rke2.io/) is used to create the kubernetes cluster.[Kubernetes Cloud Controller Manager for Hetzner Cloud](https://github.com/hetznercloud/hcloud-cloud-controller-manager) is used to provision l balancer from Kubernetes service (type `Loadbalancer`) objects and also configure the networking & native routing for the Kubernetes cluster network traffic.
 
 [Flux](https://fluxcd.io/) is used to deploy resourcen on the Kubernetes Cluster
 
@@ -46,10 +47,11 @@ flowchart LR
 
 ### Operating System
 
-We use Ubuntu 22.04 as our Node operating system. Unattended-upgrade for automated security patching is enabled. If necessary, kured will manage node reboots.
+We use Ubuntu 22.04 as our node operating system. Unattended-upgrade for automated security patching is enabled. If necessary, kured will manage node reboots.
+
 ### Flux bootstrap & configuration
 
-Terraform deploys the `GitRepository` resource pointing to this repository and one `Kustomization` resource which will deploy all resources in `deploy/bootstrap`. The `deploy/boottrap` folder contains all more `Kustomization` resources to deploy all our applications. An application can be deployed using plain kubernetes resource files or from `HelmRepository` with a `HelmRelease`. See [Manage Helm Releases](https://fluxcd.io/flux/guides/helmreleases/) in the flux documentation. Currently most of our applications are deployed using a Helm chart.
+Terraform deploys the `GitRepository` resource pointing to this repository and one `Kustomization` resource which will deploy all resources in `deploy/bootstrap`. The `deploy/bootstrap` folder contains more `Kustomization` resources to deploy all our applications. An application can be deployed using plain Kubernetes resource files or from `HelmRepository` with a `HelmRelease`. See [Manage Helm Releases](https://fluxcd.io/flux/guides/helmreleases/) in the flux documentation. Currently most of our applications are deployed using a Helm chart.
 
 ## Applications
 
@@ -59,7 +61,7 @@ The [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus) st
 
 ### Ingress Controller
 
-The [NGINX Ingress Controller](https://kubernetes.github.io/ingress-nginx/) is used with a Hetzner LoadBalancer (automaticly deployed with a Kubernetes Service of Type `LoadBalancer`and the Hetzner Cloud Controller Manager)
+The [NGINX Ingress Controller](https://kubernetes.github.io/ingress-nginx/) is used with a Hetzner LoadBalancer (automaticly deployed with a Kubernetes service of type `LoadBalancer`and the Hetzner Cloud Controller Manager)
 
 ### Hetzner CSI
 
@@ -94,6 +96,8 @@ For safe automated node reboots we use [kured](https://kured.dev/)
 * [tls](https://registry.terraform.io/providers/hashicorp/tls/latest)
 * [SSH Terraform Provider](https://registry.terraform.io/providers/loafoe/ssh/latest)
 
+## How to's
+
 ## Terraform usage
 
 Login into terraform cloud with your account using:
@@ -106,4 +110,32 @@ terraform login
 terraform init -backend-config=backend.hcl # only needed after initial checkout or when you add/change modules
 terraform plan # to verify
 terraform apply
-``
+```
+
+### encrypt a secret
+
+```bash
+kubeseal --controller-name sealed-secrets -o yaml < secret.yaml > encrypted-secret.yaml
+```
+
+### upgrade Kubernetes version
+
+1. Change version in the System Upgrade Controller plan in `deploy/system-upgrade-controller/plans/02-plans.yaml`
+2. Change the Terraform variable `rke2_version` to match with the newly deployed version.
+
+### Backup sealed-secret controller keys
+
+From [How can I do a backup of my SealedSecrets?](https://github.com/bitnami-labs/sealed-secrets#how-can-i-do-a-backup-of-my-sealedsecrets):
+
+If you do want to make a backup of the encryption private keys, it's easy to do from an account with suitable access:
+
+```bash
+kubectl get secret -n kube-system -l sealedsecrets.bitnami.com/sealed-secrets-key -o yaml >main.key
+```
+
+To restore from a backup after some disaster, just put that secrets back before starting the controller - or if the controller was already started, replace the newly-created secrets and restart the controller:
+
+```bash
+kubectl apply -f main.key
+kubectl delete pod -n kube-system -l name=sealed-secrets-controller
+```
