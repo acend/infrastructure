@@ -278,7 +278,7 @@ spec:
         operator: "Exists"
         effect: "NoSchedule"
       nodeSelector:
-        node-role.kubernetes.io/control-plane: true
+        node-role.kubernetes.io/control-plane: "true"
       volumes:
       - emptyDir: {}
         name: socket-dir
