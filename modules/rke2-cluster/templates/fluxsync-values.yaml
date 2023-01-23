@@ -6,7 +6,7 @@ gitRepository:
   spec:
     url: ${giturl}
     ref: 
-      branch: dev
+      branch: main
     ignore: |
       # exclude all
       /*
