@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./deploy/kkubernetes-replicator/"
+  path: "./deploy/kubernetes-replicator/"
   prune: true
   sourceRef:
     kind: GitRepository
