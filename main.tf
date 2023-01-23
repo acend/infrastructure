@@ -1,7 +1,7 @@
 terraform {
-  backend "s3" {}
-  required_version = ">= 1.0"
+  backend "remote" {}
 }
+
 
 module "acend-cluster" {
   source = "./modules/rke2-cluster"
