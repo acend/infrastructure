@@ -81,8 +81,8 @@ write_files:
       - ${lb_address}
       - ${lb_external_v4}
       - ${lb_external_v6}
-     %{ for k8s_api_host in k8s_api_hosts }
-      - ${domain}
+     %{ for k8s_api_hostname in k8s_api_hostnames }
+      - ${k8s_api_hostname}
      %{ endfor }
     token: ${rke2_cluster_secret}
 - path: /opt/rke2/run_rke2.sh

@@ -41,7 +41,7 @@ resource "hcloud_server" "controlplane" {
 
     controlplane_index = count.index,
 
-    k8s_api_hosts = var.k8s_api_hosts
+    k8s_api_hostnames = var.k8s_api_hostnames
 
     k8s-cluster-cidr = var.k8s-cluster-cidr
   })

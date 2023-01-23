@@ -83,7 +83,7 @@ variable "extra_ssh_keys" {
   description = "Extra ssh keys to inject into vm's"
 }
 
-variable "k8s_api_hosts" {
+variable "k8s_api_hostnames" {
   type        = list(string)
   description = "Host Name of K8S API, added as SAN to API Certificate"
 }
