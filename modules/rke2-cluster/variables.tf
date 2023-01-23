@@ -60,20 +60,20 @@ variable "controlplane_count" {
 }
 
 variable "worker_count" {
-  default     = 0
+  default     = 2
   description = "Count of rke2 workers"
 }
 
 
 variable "controlplane_type" {
   type        = string
-  default     = "cx21"
+  default     = "CPX31"
   description = "machine type to use for the controlplanes"
 }
 
 variable "worker_type" {
   type        = string
-  default     = "cx21"
+  default     = "CPX41"
   description = "machine type to use for the controlplanes"
 }
 
@@ -83,9 +83,9 @@ variable "extra_ssh_keys" {
   description = "Extra ssh keys to inject into vm's"
 }
 
-variable "domains" {
+variable "k8s_api_hosts" {
   type        = list(string)
-  description = "domains of the cluster"
+  description = "Host Name of K8S API, added as SAN to API Certificate"
 }
 
 variable "k8s-cluster-cidr" {

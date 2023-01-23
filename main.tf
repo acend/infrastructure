@@ -6,11 +6,16 @@ terraform {
 module "acend-cluster" {
   source = "./modules/rke2-cluster"
 
-  clustername  = "acend"
-  rke2_version = "v1.26.0+rke2r1"
-  domains      = ["k8s.acend.ch"]
+  clustername = var.clustername
+
+  rke2_version = var.rke2_version
+
+  k8s_api_hosts = var.k8s_api_hosts
 
   hcloud_api_token = var.hcloud_api_token
-  extra_ssh_keys   = var.extra_ssh_keys
+
+  extra_ssh_keys     = var.extra_ssh_keys
+  controlplane_count = var.controlplane_count
+  worker_count       = var.worker_count
 
 }

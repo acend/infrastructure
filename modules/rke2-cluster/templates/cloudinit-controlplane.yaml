@@ -81,7 +81,7 @@ write_files:
       - ${lb_address}
       - ${lb_external_v4}
       - ${lb_external_v6}
-     %{ for domain in domains }
+     %{ for k8s_api_host in k8s_api_hosts }
       - ${domain}
      %{ endfor }
     token: ${rke2_cluster_secret}
