@@ -19,7 +19,7 @@ variable "worker_count" {
   description = "Count of rke2 workers"
 }
 
-variable "k8s_api_hosts" {
+variable "k8s_api_hostnames" {
   type        = list(string)
   description = "Host Name of K8S API, added as SAN to API Certificate"
 }

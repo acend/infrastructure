@@ -10,7 +10,7 @@ module "acend-cluster" {
 
   rke2_version = var.rke2_version
 
-  k8s_api_hosts = var.k8s_api_hosts
+  k8s_api_hostnames = var.k8s_api_hostnames
 
   hcloud_api_token = var.hcloud_api_token
 
