@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: acend
+spec:
+  route:
+    groupBy: ['alertname']
+    groupWait: 30s
+    groupInterval: 5m
+    repeatInterval: 12h
+    receiver: 'slack'
+  receivers:
+  - name: 'slack'
+    slackConfigs:
+    - channel: "#ops"
+      apiURL:
+        name: slack-webhook-url
+        key: webhook-url
+      
