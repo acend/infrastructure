@@ -16,28 +16,29 @@ spec:
         namespace: ingress-nginx
       interval: 1m
   values:
-    replicaCount: 2
-    metrics:
-      enabled: true
-      serviceMonitor:
+    controller:
+      replicaCount: 2
+      metrics:
         enabled: true
-    affinity:
-      podAntiAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 100
-          podAffinityTerm:
-            labelSelector:
-              matchExpressions:
-              - key: app.kubernetes.io/name
-                operator: In
-                values:
-                - ingress-nginx
-              - key: app.kubernetes.io/instance
-                operator: In
-                values:
-                - ingress-nginx
-              - key: app.kubernetes.io/component
-                operator: In
-                values:
-                - controller
-            topologyKey: kubernetes.io/hostname
+        serviceMonitor:
+          enabled: true
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values:
+                  - ingress-nginx
+                - key: app.kubernetes.io/instance
+                  operator: In
+                  values:
+                  - ingress-nginx
+                - key: app.kubernetes.io/component
+                  operator: In
+                  values:
+                  - controller
+              topologyKey: kubernetes.io/hostname
