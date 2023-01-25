@@ -20,9 +20,9 @@ spec:
       rbac:
         createAggregateClusterRoles: true
     alertmanager:
-      global:
-        slack_api_url: ${SLACK_INCOMING_WEBHOOK_URL}"
       config:
+        global:
+          slack_api_url: ${SLACK_INCOMING_WEBHOOK_URL}"
         receivers: 
         - name: 'slack-notifications'
           slack_configs:
