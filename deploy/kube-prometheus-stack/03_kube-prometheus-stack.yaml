@@ -21,19 +21,14 @@ spec:
         createAggregateClusterRoles: true
     alertmanager:
       config:
-        global:
-          slack_api_url: ${SLACK_INCOMING_WEBHOOK_URL}"
         receivers: 
         - name: 'slack-notifications'
           slack_configs:
           - channel: '#ops'
             send_resolved: true
-      extraEnv:
-      - name: SLACK_INCOMING_WEBHOOK_URL
-        valueFrom:
-          secretKeyRef:
-            name: slack-webhook-url
-            key: webhook
+            apiURL:
+              key: 'webhook-url'
+              name: 'slack-webhook-url'
     kubeProxy:
       enabled: false # kube-proxy less installation
     prometheus:
