@@ -17,7 +17,7 @@ spec:
       interval: 1m
   values:
     extraEnvVars:
-    - name: slackHookUrl
+    - name: notify-url
       valueFrom:
         secretKeyRef:
           name: slack-webhook-url
