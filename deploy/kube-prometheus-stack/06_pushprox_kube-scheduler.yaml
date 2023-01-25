@@ -182,7 +182,10 @@ metadata:
   namespace: monitoring
 spec:
   endpoints: 
-    - port: metrics
+    - params:
+        _scheme:
+        - https
+      port: metrics
       proxyUrl: http://pushprox-kube-scheduler-proxy.monitoring.svc:8080
   jobLabel: component
   podTargetLabels:
