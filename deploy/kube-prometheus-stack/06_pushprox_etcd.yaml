@@ -64,7 +64,7 @@ spec:
             fieldRef:
               fieldPath: status.hostIP
         - name: PORT
-          value: :9369
+          value: :10010
         - name: PROXY_URL
           value: http://pushprox-kube-etcd-proxy.monitoring.svc:8080
         securityContext:
