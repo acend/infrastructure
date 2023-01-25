@@ -18,7 +18,7 @@ spec:
       apiURL:
         name: slack-webhook-url
         key: webhook-url
-      icon_url: https://avatars3.githubusercontent.com/u/3380462
+      iconURL: https://avatars3.githubusercontent.com/u/3380462
       title: |-
         [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .CommonLabels.alertname }} for {{ .CommonLabels.job }}
         {{- if gt (len .CommonLabels) (len .GroupLabels) -}}
