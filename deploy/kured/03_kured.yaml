@@ -17,7 +17,7 @@ spec:
       interval: 1m
   values:
     extraEnvVars:
-    - name: notify-url
+    - name: KURED_NOTIFY_URL
       valueFrom:
         secretKeyRef:
           name: slack-webhook-url
