@@ -17,6 +17,9 @@ spec:
       interval: 1m
   values:
     installCRDs: true
+    prometheus:
+      servicemonitor:
+        enabled: true
     nodeSelector:
       node-role.kubernetes.io/control-plane: "true"
     tolerations:

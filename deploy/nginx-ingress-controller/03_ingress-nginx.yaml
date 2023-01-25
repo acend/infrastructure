@@ -17,6 +17,10 @@ spec:
       interval: 1m
   values:
     replicaCount: 2
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
     affinity:
       podAntiAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:

@@ -33,3 +33,7 @@ spec:
       rebootDays: [sun,mon,tue,wed,thu,fri,sat]
       slackChannel: "#ops"
       slackUsername: "kured"
+    metrics:
+      create: true
+    service:
+      create: true
