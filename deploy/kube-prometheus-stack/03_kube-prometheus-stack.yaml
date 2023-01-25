@@ -19,16 +19,6 @@ spec:
     global:
       rbac:
         createAggregateClusterRoles: true
-    alertmanager:
-      config:
-        receivers: 
-        - name: 'slack-notifications'
-          slack_configs:
-          - channel: '#ops'
-            send_resolved: true
-            apiURL:
-              key: 'webhook-url'
-              name: 'slack-webhook-url'
     kubeProxy:
       enabled: false # kube-proxy less installation
     prometheus:
