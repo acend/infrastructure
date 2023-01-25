@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rbac-manager
+  namespace: rbac-manager
+  labels:
+    app: rbac-manager
+  annotations:
+    polaris.fairwinds.com/deploymentMissingReplicas-exempt: 'true'
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rbac-manager
+      release: rbac-manager
+  template:
+    metadata:
+      labels:
+        app: rbac-manager
+        release: rbac-manager
+    spec:
+      serviceAccountName: rbac-manager
+      nodeSelector:
+        node-role.kubernetes.io/control-plane: "true"
+      tolerations:
+      - key: "node-role.kubernetes.io/control-plane"
+        operator: "Exists"
+        effect: "NoSchedule"
+      containers:
+      - name: rbac-manager
+        image: "quay.io/reactiveops/rbac-manager:v1"
+        imagePullPolicy: Always
+        # these liveness probes use the metrics endpoint
+        readinessProbe:
+          httpGet:
+            scheme: HTTP
+            path: /metrics
+            port: 8042
+          initialDelaySeconds: 5
+          timeoutSeconds: 3
+          periodSeconds: 3
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            scheme: HTTP
+            path: /metrics
+            port: 8042
+          initialDelaySeconds: 5
+          timeoutSeconds: 3
+          periodSeconds: 10
+          failureThreshold: 3
+        securityContext:
+          allowPrivilegeEscalation: false
+          privileged: false
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          capabilities:
+            drop:
+              - ALL
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        ports:
+          # metrics port
+          - name: http-metrics
+            containerPort: 8042
+            protocol: TCP
