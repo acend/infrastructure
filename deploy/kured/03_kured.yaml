@@ -16,6 +16,12 @@ spec:
         namespace: kube-system
       interval: 1m
   values:
+    extraEnvVars:
+    - name: slackHookUrl
+      valueFrom:
+        secretKeyRef:
+          name: slack-webhook-url
+          key: webhook
     tolerations:
     - key: "node-role.kubernetes.io/control-plane"
       operator: "Exists"
@@ -25,5 +31,5 @@ spec:
       startTime: 21:00
       endTime: 23:59:59
       rebootDays: [sun,mon,tue,wed,thu,fri,sat]
-
-    
+      slackChannel: "#ops"
+      slackUsername: "kured"
