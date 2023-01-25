@@ -14,6 +14,8 @@ spec:
        - {key: rke2-upgrade, operator: NotIn, values: ["disabled", "false"]}
        # When using k8s version 1.19 or older, swap control-plane with master
        - {key: node-role.kubernetes.io/control-plane, operator: In, values: ["true"]}
+  tolerations:
+  - {key: node-role.kubernetes.io/control-plane, effect: NoSchedule, operator: Exists}
   serviceAccountName: system-upgrade
   cordon: true
 #  drain:
