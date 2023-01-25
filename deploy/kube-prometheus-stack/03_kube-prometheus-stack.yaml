@@ -21,6 +21,12 @@ spec:
         createAggregateClusterRoles: true
     kubeProxy:
       enabled: false # kube-proxy less installation
+    kubeScheduler:
+      enabled: false # scraping via pushprox as binded to localhost
+    kubeControllerManager:
+      enabled: false # scraping via pushprox as binded to localhost
+    kubeEtcd:
+      enabled: false # scraping via pushprox as binded to localhost
     prometheus:
       prometheusSpec:
         ruleSelectorNilUsesHelmValues: false

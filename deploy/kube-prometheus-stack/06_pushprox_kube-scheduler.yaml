@@ -1,0 +1,169 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: pushprox-kube-scheduler-proxy
+  namespace: monitoring
+  labels: 
+    k8s-app: pushprox-kube-scheduler-proxy
+    component: "kube-scheduler"
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: pushprox-kube-scheduler-client
+  namespace: monitoring
+  labels: 
+    k8s-app: pushprox-kube-scheduler-client
+    component: "kube-scheduler"
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: pushprox-kube-scheduler-client
+  namespace: monitoring
+  labels: 
+    k8s-app: pushprox-kube-scheduler-client
+    component: "kube-scheduler"
+    pushprox-exporter: "client"
+spec:
+  selector:
+    matchLabels: 
+      k8s-app: pushprox-kube-scheduler-client
+      component: "kube-scheduler"
+  template:
+    metadata:
+      labels: 
+        k8s-app: pushprox-kube-scheduler-client
+        component: "kube-scheduler"
+    spec:
+      nodeSelector: 
+        node-role.kubernetes.io/master: "true"
+      tolerations: 
+      - effect: "NoExecute"
+        operator: "Exists"
+      - effect: "NoSchedule"
+        operator: "Exists"
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      serviceAccountName: pushprox-kube-scheduler-client
+      containers:
+      - name: pushprox-client
+        image: rancher/pushprox-client:v0.1.0-rancher2-client
+        command:
+          - "pushprox-client"
+        args:
+        - --fqdn=$(HOST_IP)
+        - --proxy-url=$(PROXY_URL)
+        - --metrics-addr=$(PORT)
+        - --allow-port=10259
+        - --use-localhost
+        - --insecure-skip-verify
+        - --token-path=/var/run/secrets/kubernetes.io/serviceaccount/token
+        env:
+        - name: HOST_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+        - name: PORT
+          value: :9369
+        - name: PROXY_URL
+          value: http://pushprox-kube-scheduler-proxy.monitoring.svc:8080
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pushprox-kube-scheduler-client
+  namespace: monitoring
+  labels: 
+    k8s-app: pushprox-kube-scheduler-client
+    component: "kube-scheduler"
+spec:
+  ports:
+  - name: metrics
+    port: 10259
+    protocol: TCP
+    targetPort: 10259
+  selector: 
+    k8s-app: pushprox-kube-scheduler-client
+    component: "kube-scheduler"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pushprox-kube-scheduler-proxy
+  namespace: monitoring
+  labels: 
+    k8s-app: pushprox-kube-scheduler-proxy
+    component: "kube-scheduler"
+    pushprox-exporter: "proxy"
+spec:
+  selector:
+    matchLabels: 
+      k8s-app: pushprox-kube-scheduler-proxy
+      component: "kube-scheduler"
+  template:
+    metadata:
+      labels: 
+        k8s-app: pushprox-kube-scheduler-proxy
+        component: "kube-scheduler"
+    spec: 
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+      nodeSelector: 
+        kubernetes.io/os: linux
+      tolerations: 
+        - key: "cattle.io/os"
+          value: "linux"
+          effect: "NoSchedule"
+          operator: "Equal"
+      serviceAccountName: pushprox-kube-scheduler-proxy
+      containers:
+      - name: pushprox-proxy
+        image: rancher/pushprox-proxy:v0.1.0-rancher2-proxy
+        command:
+          - "pushprox-proxy"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pushprox-kube-scheduler-proxy
+  namespace: monitoring
+  labels: 
+    k8s-app: pushprox-kube-scheduler-proxy
+    component: "kube-scheduler"
+spec:
+  ports:
+  - name: pp-proxy
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector: 
+    k8s-app: pushprox-kube-scheduler-proxy
+    component: "kube-scheduler"
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: pushprox-kube-scheduler
+  namespace: monitoring
+spec:
+  endpoints: 
+    - port: metrics
+      proxyUrl: http://pushprox-kube-scheduler-proxy.monitoring.svc:8080
+  jobLabel: component
+  podTargetLabels:
+  - component
+  - pushprox-exporter
+  namespaceSelector:
+    matchNames:
+    - monitoring
+  selector:
+    matchLabels: 
+      k8s-app: pushprox-kube-scheduler-client
