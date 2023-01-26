@@ -4,7 +4,7 @@ IaC for acend kubernetes resources
 
 This repo creates the basic acend infrastructure using terraform.
 
-We use [Hetzner](https://www.hetzner.com/cloud) as our cloud provider and [RKE2](https://docs.rke2.io/) is used to create the kubernetes cluster.[Kubernetes Cloud Controller Manager for Hetzner Cloud](https://github.com/hetznercloud/hcloud-cloud-controller-manager) is used to provision l balancer from Kubernetes service (type `Loadbalancer`) objects and also configure the networking & native routing for the Kubernetes cluster network traffic.
+We use [Hetzner](https://www.hetzner.com/cloud) as our cloud provider and [RKE2](https://docs.rke2.io/) is used to create the kubernetes cluster.[Kubernetes Cloud Controller Manager for Hetzner Cloud](https://github.com/hetznercloud/hcloud-cloud-controller-manager) is used to provision lobalancer from a Kubernetes service (type `Loadbalancer`) objects and also configure the networking & native routing for the Kubernetes cluster network traffic.
 
 [Flux](https://fluxcd.io/) is used to deploy resourcen on the Kubernetes Cluster
 
@@ -60,6 +60,28 @@ flowchart LR
 
 We use Ubuntu 22.04 as our node operating system. Unattended-upgrade for automated security patching is enabled. If necessary, [kured](https://kured.dev/) will manage node reboots.
 
+### Cluster Setup with RKE2
+
+A RKE2 cluster has two types of nodes, a server node with the Kubernetes controlplan and a agent node only with the kubelet.
+
+Our setup is based on the [High Availability](https://docs.rke2.io/install/ha) install instruction:
+
+* RKE2 config files are initially generated with terrafrom and placed in `/etc/rancher/rke2/config.yaml` with cloudinit.
+* Token is generated with Terraform (`resource "random_password" "rke2_cluster_secret"`)
+* Cilium is used as the CNI Plugin and configured with the `HelmChartConfig` in `/var/lib/rancher/rke2/server/manifests/rke2-cilium-config.yaml`
+* The Kubernetes cluster is kubeproxy free, the functionality is replaced with Cilium. See [Kubernetes Without kube-proxy](https://docs.cilium.io/en/v1.12/gettingstarted/kubeproxy-free/)
+* Native Routing is used instead of a tunneling mechanism (e.g. vxlan). The [Kubernetes Cloud Controller Manager for Hetzner Cloud](https://github.com/hetznercloud/hcloud-cloud-controller-manager) is used to manage and provision the network setup (subnet & routing) for the cluster.
+
+tl;dr; RKE2 Cluster Setup
+
+See [Anatomy of a Next Generation Kubernetes Distribution](https://docs.rke2.io/architecture) for more details
+
+1. Provision LoadBalancer for the Kubernetes API and the RKE2 Supervisor
+2. Provision first controlplane node.
+3. The RKE Supervisor listens on Port 9345/tcp for the other nodes to join the cluster
+4. controlplane node 2 & 3 joins the cluster using the same token and they have set `server: https://${lb_address}:9345` in the config file to join the existing cluster.
+5. Provision and join the agent nodes using the same token. They also have set `server: https://${lb_address}:9345` to join the existing cluster.
+
 ### Flux bootstrap & configuration
 
 Terraform deploys the `GitRepository` resource pointing to this repository and one `Kustomization` resource which will deploy all resources in `deploy/bootstrap`. The `deploy/bootstrap` folder contains more `Kustomization` resources to deploy all our applications. An application can be deployed using plain Kubernetes resource files or from `HelmRepository` with a `HelmRelease`. See [Manage Helm Releases](https://fluxcd.io/flux/guides/helmreleases/) in the flux documentation. Currently most of our applications are deployed using a Helm chart.
@@ -78,17 +100,17 @@ As the `kube-scheduler`, `kube-controller-manager`, `etcd` only listens on `loca
 
 The [NGINX Ingress Controller](https://kubernetes.github.io/ingress-nginx/) is used with a Hetzner LoadBalancer (automaticly deployed with a Kubernetes service of type `LoadBalancer`and the Hetzner Cloud Controller Manager).
 
-The NGINX Ingress Controller is scaled to 2 replicas and spread on the worker nodes.
+The NGINX Ingress Controller is scaled to 2 replicas and spread on the worker nodes. Proxy Protocol is enabled, `load-balancer.hetzner.cloud/uses-proxyprotocol: true` Annotation on the Service and `use-proxy-protocol: true` in the controller ConfigMap. This allows for real Client-IP's.
 
 ### Hetzner CSI
 
 To provision storage we use [Hetzner CSI Driver](https://github.com/hetznercloud/csi-driver).
 
+The StorageClass `hcloud-volumes` is set as default StorageClass
+
 ### Sealed Secrets
 
 To keep Secrets safe in our Git Repository we use [sealed secrets](https://sealed-secrets.netlify.app/)
-
-The StorageClass `hcloud-volumes` is set as default StorageClass
 
 ### Rancher System Upgrade Controller
 
@@ -98,8 +120,6 @@ Two plans are deployed:
 
 * `server-plan` updates the `rke2` binary on the control-plane nodes
 * `agent-plan` updates the `rke2` binary on the worker nodes after control-plane nodes are updated
-
-For a cluster update, change the `version` field in both plans.
 
 ### kured
 
@@ -152,7 +172,7 @@ kubeseal --controller-name sealed-secrets -o yaml < secret.yaml > encrypted-secr
 
 ### upgrade Kubernetes version
 
-1. Change version in the System Upgrade Controller plan in `deploy/system-upgrade-controller/plans/02-plans.yaml`
+1. Change version in the System Upgrade Controller plans (`server-plan` & `agent-plan`) in `deploy/system-upgrade-controller/plans/02-plans.yaml`
 2. Change the Terraform variable `rke2_version` to match with the newly deployed version.
 
 ### Backup sealed-secret controller keys
@@ -171,3 +191,13 @@ To restore from a backup after some disaster, just put that secrets back before 
 kubectl apply -f main.key
 kubectl delete pod -n kube-system -l name=sealed-secrets-controller
 ```
+
+### Change RKE2 configuration after initial bootstrap
+
+The rke2 configuration is in `/etc/rancher/rke2/config.yaml`. After a change run `systemctl restark rke2-server`. On the agent nodes, run `systemctl restart rke2-agent`.
+You have to change the settings on all nodes.
+
+### Change Cilium configuration
+
+The Cilium Helm values are in `/var/lib/rancher/rke2/server/manifests/rke2-cilium-config.yaml` on the server nodes. You have to change it on all nodes. Afterwards RKE2 automatically reconfigure cilium.
+RKE2 uses a cilium version bundled in the [rke2-cilium](https://github.com/rancher/rke2-charts/blob/main/charts/rke2-cilium/rke2-cilium) Helm chart from RKE2. The used version is shown in the [RKE2](https://github.com/rancher/rke2/releases/) release notes.
