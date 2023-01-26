@@ -35,3 +35,19 @@ variable "rke2_version" {
   default     = "v1.26.0+rke2r1"
   description = "Version of rke2 to install"
 }
+
+variable "provider-client-key" {
+  type = string
+}
+
+variable "provider-client-certificate" {
+  type = string
+}
+
+variable "provider-cluster_ca_certificate" {
+  type = string
+}
+
+variable "provider-k8s-api-host" {
+  type = string
+}
