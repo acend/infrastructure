@@ -1,13 +1,4 @@
 ---
-apiVersion: v1
-kind: Secret
-metadata:
-  name: ci-bot-training
-  annotations:
-    kubernetes.io/service-account.name: ci-bot-training
-type: kubernetes.io/service-account-token
-
----
 apiVersion: rbacmanager.reactiveops.io/v1beta1
 kind: RBACDefinition
 metadata:
@@ -23,3 +14,12 @@ rbacBindings:
         namespaceSelector:
           matchLabels:
             training: "true"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ci-bot-training
+  namespace: rbac-manager
+  annotations:
+    kubernetes.io/service-account.name: ci-bot-training
+type: kubernetes.io/service-account-token
