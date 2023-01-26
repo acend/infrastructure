@@ -12,4 +12,4 @@ rbacBindings:
       - clusterRole: edit
         namespaceSelector:
           matchLabels:
-            training: true
+            training: "true"
