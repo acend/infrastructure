@@ -31,8 +31,6 @@ spec:
       startTime: 21:00
       endTime: 23:59:59
       rebootDays: [sun,mon,tue,wed,thu,fri,sat]
-      slackChannel: "#ops"
-      slackUsername: "kured"
     metrics:
       create: true
     service:
