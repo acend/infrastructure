@@ -91,3 +91,20 @@ variable "k8s_api_hostnames" {
 variable "k8s-cluster-cidr" {
   default = "10.244.0.0/16"
 }
+
+
+variable "provider-client-key" {
+  type = string
+}
+
+variable "provider-client-certificate" {
+  type = string
+}
+
+variable "provider-cluster_ca_certificate" {
+  type = string
+}
+
+variable "provider-k8s-api-host" {
+  type = string
+}
