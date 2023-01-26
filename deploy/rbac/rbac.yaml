@@ -1,0 +1,15 @@
+apiVersion: rbacmanager.reactiveops.io/v1beta1
+kind: RBACDefinition
+metadata:
+  name: training-deployment
+rbacBindings:
+  - name: ci-bot-training
+    subjects:
+      - kind: ServiceAccount
+        name: ci-bot-training
+        namespace: rbac-manager
+    roleBindings:
+      - clusterRole: edit
+        namespaceSelector:
+          matchLabels:
+            training: true

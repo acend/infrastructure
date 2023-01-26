@@ -34,7 +34,7 @@ flowchart LR
     C -- deploy ---> C4{Private Network}
     C4 --> C41{Subnet for Nodes}
     C -- deploy ---> C5{Firewall}
-    C2 -- configure --> cloudinit
+    C2 -- configure ---> cloudinit
     C3 -- configure ---> cloudinit
     
     B-- initial bootstrap -->D
@@ -43,11 +43,17 @@ flowchart LR
 
     D -- install -->D1{Application}
 
+    D1 --> D1K{Kustomization}
+
+    D1K --> D1HREPO{Helmrepositories}
+    D1K --> D1HRELEASE{helmreleases}
+    D1K --> PLAIN{Plain Resources}
+
 ```
 
 ### Operating System
 
-We use Ubuntu 22.04 as our node operating system. Unattended-upgrade for automated security patching is enabled. If necessary, kured will manage node reboots.
+We use Ubuntu 22.04 as our node operating system. Unattended-upgrade for automated security patching is enabled. If necessary, [kured](https://kured.dev/) will manage node reboots.
 
 ### Flux bootstrap & configuration
 
@@ -59,29 +65,50 @@ Terraform deploys the `GitRepository` resource pointing to this repository and o
 
 The [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus) stack is used for monitoring.
 
+The montoring stack is deployed in the `monitoring` namespace.
+
+As the `kube-scheduler`, `kube-controller-manager`, `etcd` only listens on `localhost` on the metrics port, [pushprox](https://github.com/prometheus-community/PushProx) is used to collect the metrics.
+
 ### Ingress Controller
 
-The [NGINX Ingress Controller](https://kubernetes.github.io/ingress-nginx/) is used with a Hetzner LoadBalancer (automaticly deployed with a Kubernetes service of type `LoadBalancer`and the Hetzner Cloud Controller Manager)
+The [NGINX Ingress Controller](https://kubernetes.github.io/ingress-nginx/) is used with a Hetzner LoadBalancer (automaticly deployed with a Kubernetes service of type `LoadBalancer`and the Hetzner Cloud Controller Manager).
+
+The NGINX Ingress Controller is scaled to 2 replicas and spread on the worker nodes.
 
 ### Hetzner CSI
 
-To provision storage we use  [Hetzner CSI Driver](https://github.com/hetznercloud/csi-driver).
+To provision storage we use [Hetzner CSI Driver](https://github.com/hetznercloud/csi-driver).
 
 ### Sealed Secrets
 
 To keep Secrets safe in our Git Repository we use [sealed secrets](https://sealed-secrets.netlify.app/)
 
+The StorageClass `hcloud-volumes` is set as default StorageClass
+
 ### Rancher System Upgrade Controller
 
 For the Kubernetes Cluster upgrade we use the [Rancher System Upgrade Controller](https://github.com/rancher/system-upgrade-controller) which allows for automated rke2 upgrades.
+
+Two plans are deployed:
+
+* `server-plan` updates the `rke2` binary on the control-plane nodes
+* `agent-plan` updates the `rke2` binary on the worker nodes after control-plane nodes are updated
+
+For a cluster update, change the `version` field in both plans.
 
 ### kured
 
 For safe automated node reboots we use [kured](https://kured.dev/)
 
+When a reboot of a node is requered, `/var/run/reboot-required` is created by `unattended-upgrade`. Kured detects this and will safly reboot the node. Reboots are done everyday between 21:00 and 23:59:59 Europe/Zurich timezone. Befor rebooting, the node gets cordoned and drained and after the reboot uncordoned again. Only one node at the same time is rebooted.
+
 ### kyverno
 
 [Kyverno](https://kyverno.io/) is deployed as a policy engine.
+
+### rbac-manager
+
+For easy ServiceAccount and RBAC Management the [rbac-manager](https://rbac-manager.docs.fairwinds.com/) is installed.
 
 ## Dependencies
 
