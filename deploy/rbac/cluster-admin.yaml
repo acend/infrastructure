@@ -1,0 +1,36 @@
+---
+apiVersion: rbacmanager.reactiveops.io/v1beta1
+kind: RBACDefinition
+metadata:
+  name: cluster-admin
+rbacBindings:
+  - name: cluster-admin
+    subjects:
+      - kind: ServiceAccount
+        name: sebastian
+        namespace: rbac-manager
+      - kind: ServiceAccount
+        name: daniel
+        namespace: rbac-manager
+    clusterRoleBindings:
+      - clusterRole: cluster-admin
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: sebastian
+  namespace: rbac-manager
+  annotations:
+    kubernetes.io/service-account.name: sebastian
+type: kubernetes.io/service-account-token
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: daniel
+  namespace: rbac-manager
+  annotations:
+    kubernetes.io/service-account.name: daniel
+type: kubernetes.io/service-account-token
