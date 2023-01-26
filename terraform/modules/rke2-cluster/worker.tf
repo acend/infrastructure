@@ -1,5 +1,14 @@
 resource "hcloud_server" "worker" {
   count       = var.worker_count
+
+  lifecycle {
+    ignore_changes = [
+      # Ignore user_data for existing nodes as this requires a replacement
+      user_data
+    ]
+  }
+
+
   name        = "${var.clustername}-worker-${count.index}"
   location    = var.location
   image       = var.node_image_type
