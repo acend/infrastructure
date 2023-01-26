@@ -60,7 +60,7 @@ flowchart LR
 
 We use Ubuntu 22.04 as our node operating system. Unattended-upgrade for automated security patching is enabled. If necessary, [kured](https://kured.dev/) will manage node reboots.
 
-### Cluster Setup with RKE2
+### Cluster Configuration and Setup
 
 A RKE2 cluster has two types of nodes, a server node with the Kubernetes controlplan and a agent node only with the kubelet.
 
@@ -72,7 +72,7 @@ Our setup is based on the [High Availability](https://docs.rke2.io/install/ha) i
 * The Kubernetes cluster is kubeproxy free, the functionality is replaced with Cilium. See [Kubernetes Without kube-proxy](https://docs.cilium.io/en/v1.12/gettingstarted/kubeproxy-free/)
 * Native Routing is used instead of a tunneling mechanism (e.g. vxlan). The [Kubernetes Cloud Controller Manager for Hetzner Cloud](https://github.com/hetznercloud/hcloud-cloud-controller-manager) is used to manage and provision the network setup (subnet & routing) for the cluster.
 
-tl;dr; RKE2 Cluster Setup
+#### tl;dr; Provision a Kubernetes Cluster with RKE2
 
 See [Anatomy of a Next Generation Kubernetes Distribution](https://docs.rke2.io/architecture) for more details
 
