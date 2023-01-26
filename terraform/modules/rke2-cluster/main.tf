@@ -11,8 +11,8 @@ provider "kubernetes" {
   # cluster_ca_certificate = local.cluster_ca_certificate
 
   host                   = var.provider-k8s-api-host
-  client_certificate     = base64decode(var.provider-client-certificate)
-  client_key             = base64decode(var.provider-client-key)
+  client_certificate     = base64decode(nonsensitive(var.provider-client-certificate))
+  client_key             = base64decode(nonsensitive(var.provider-client-key))
   cluster_ca_certificate = base64decode(var.provider-cluster_ca_certificate)
 }
 
@@ -26,8 +26,8 @@ provider "helm" {
     # cluster_ca_certificate = local.cluster_ca_certificate
 
     host                   = var.provider-k8s-api-host
-    client_certificate     = base64decode(var.provider-client-certificate)
-    client_key             = base64decode(var.provider-client-key)
+    client_certificate     = base64decode(nonsensitive(var.provider-client-certificate))
+    client_key             = base64decode(nonsensitive(var.provider-client-key))
     cluster_ca_certificate = base64decode(var.provider-cluster_ca_certificate)
 
   }
