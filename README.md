@@ -8,6 +8,11 @@ We use [Hetzner](https://www.hetzner.com/cloud) as our cloud provider and [RKE2]
 
 [Flux](https://fluxcd.io/) is used to deploy resourcen on the Kubernetes Cluster
 
+Folder structure:
+
+* `deploy`: Resources for flux application deployment
+* `terraform`: All terraform files for infrastructure deployment
+
 ## Workflow
 
 1. Terraform to deploy base infrastructure
