@@ -138,7 +138,12 @@ For easy ServiceAccount and RBAC Management the [rbac-manager](https://rbac-mana
 ## Dependencies
 
 * [Terraform](https://www.terraform.io/)
+
+Check [Install Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli) for more details on how to use and install the cli.
+  
 * [Flux](https://fluxcd.io/)
+
+Check [Flux CLI](https://fluxcd.io/flux/cmd/) for more details on how to use and install the cli.
 
 ### Terraform provider & modules
 
@@ -201,3 +206,29 @@ You have to change the settings on all nodes.
 
 The Cilium Helm values are in `/var/lib/rancher/rke2/server/manifests/rke2-cilium-config.yaml` on the server nodes. You have to change it on all nodes. Afterwards RKE2 automatically reconfigure cilium.
 RKE2 uses a cilium version bundled in the [rke2-cilium](https://github.com/rancher/rke2-charts/blob/main/charts/rke2-cilium/rke2-cilium) Helm chart from RKE2. The used version is shown in the [RKE2](https://github.com/rancher/rke2/releases/) release notes.
+
+### Force a manual reconcile of the flux resources
+
+In the current setup, flux does reconcile the resources every 5 minutes. This is configurable on a per resource base. If you want to force the reconcile manualy you can run `flux reconcile source git flux2-sync`. `flux2-sync` is this attached Git Repository and therefore all resources defined will be reconciled. You can also manually reconcile selected resources e.g. `flux reconcile helmrelease -n ingress-nginx ingress-nginx` to only recocile the `ingress-nginx` HelmRelease. See `flux reconcile -h` for all commands.
+
+### Observe network traffic with hubble and the hubble-ui
+
+Hubble is the observability toolof the Cilium CNI. Hubble UI is a WebUI for hubble to observe network flows.
+
+To acess the Hubble UI you have to forward the `hubble-ui` service with:
+
+```bash
+kubectl -n kube-system port-forward svc/hubble-ui 8080:80
+```
+
+and then you can open http://locahhost:8080 in your browser.
+
+You can also install the hubble cli locally by downloading the correct binary from the [Github Release](https://github.com/cilium/hubble/releases) page.
+
+To use the hubble cli you have to forward the `hubble-relay` service with:
+
+```bash
+kubectl -n kube-system port-forward svc/hubble-relay 4245:80
+```
+
+and then you can use the `hubble` cli locally. Check `hubble -h` for details on how to use it.
