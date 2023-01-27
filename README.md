@@ -2,9 +2,9 @@
 
 IaC for acend kubernetes resources
 
-This repo creates the basic acend infrastructure using terraform.
+This repo creates the basic acend infrastructure using Terraform.
 
-We use [Hetzner](https://www.hetzner.com/cloud) as our cloud provider and [RKE2](https://docs.rke2.io/) is used to create the kubernetes cluster.[Kubernetes Cloud Controller Manager for Hetzner Cloud](https://github.com/hetznercloud/hcloud-cloud-controller-manager) is used to provision lobalancer from a Kubernetes service (type `Loadbalancer`) objects and also configure the networking & native routing for the Kubernetes cluster network traffic.
+We use [Hetzner](https://www.hetzner.com/cloud) as our cloud provider and [RKE2](https://docs.rke2.io/) to create the kubernetes cluster.[Kubernetes Cloud Controller Manager for Hetzner Cloud](https://github.com/hetznercloud/hcloud-cloud-controller-manager) to provision lobalancer from a Kubernetes service (type `Loadbalancer`) objects and also configure the networking & native routing for the Kubernetes cluster network traffic.
 
 [ArgoCD](https://argo-cd.readthedocs.io/en/stable/) is used to deploy resourcen on the Kubernetes Cluster
 
@@ -96,6 +96,8 @@ The montoring stack is deployed in the `monitoring` namespace.
 
 As the `kube-scheduler`, `kube-controller-manager`, `etcd` only listens on `localhost` on the metrics port, [pushprox](https://github.com/prometheus-community/PushProx) is used to collect the metrics.
 
+Alertmanager is configured to send alerts to the #ops channel in our Slack workspace.
+
 ### Ingress Controller
 
 The [NGINX Ingress Controller](https://kubernetes.github.io/ingress-nginx/) is used with a Hetzner LoadBalancer (automaticly deployed with a Kubernetes service of type `LoadBalancer`and the Hetzner Cloud Controller Manager).
@@ -142,7 +144,6 @@ For easy ServiceAccount and RBAC Management the [rbac-manager](https://rbac-mana
 Check [Install Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli) for more details on how to use and install the cli.
   
 * [ArgoCD](https://argo-cd.readthedocs.io/)
-
 
 ### Terraform provider & modules
 
@@ -232,12 +233,18 @@ and then you can use the `hubble` cli locally. Check `hubble -h` for details on 
 
 Extend the RBACDefinition in `deploy/rbac/cluster-admin.yaml` and add a new `subject` to the `cluster-admin` `roleBindings`. As Kubernetes version >= 1.26 does not automaticly create a ServiceAccount Token (see [Kubernetes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#manually-create-an-api-token-for-a-serviceaccount)), you also have to add the `Secret` with the `kubernetes.io/service-account.name` Annotation. Check `deploy/rbac/cluster-admin.yaml` for examples.
 
-Then you need someone who has already access to the cluster to get the Service Account token. You can optain the token and create a kubeconfig file with
+Then you need someone who has already access to the cluster to get the Service Account token. You can optain the token and create a kubeconfig file with:
 
 ```bash
-TOKEN=$(kubectl -n rbac-manager get secret <secretname> -o jsonpath={.data.token} | base64 -d)
-CA_CERT=$(kubectl -n rbac-manager get secret <secretname> -o jsonpath={.data.'ca\.crt'} | base64 -d)
+# executed by someone with Access to the cluster
+USERNAME=<username>
+IPK8SAPI=<K8S Load Balancer IP or Hostname>
+TOKEN=$(kubectl -n rbac-manager get secret $USERNAME -o jsonpath={.data.token} | base64 -d)
+kubectl -n rbac-manager get secret $USERNAME -o jsonpath={.data.'ca\.crt'} | base64 -d > ca.crt
+export KUBECONFIG=./kubeconfig.yaml
+kubectl config set-credentials $USERNAME --token=$TOKEN
+kubectl config set-cluster acend-infra --certificate-authority=./ca.crt --embed-certs=true --server https://$IPK8SAPI:6443
+kubectl config set-context acend --cluster acend-infra --user $USERNAME
+kubectl config use-context acend
+cat ./kubeconfig.yaml
 ```
-
-The token can be used in a kubeconfig File.
-
