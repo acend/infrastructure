@@ -8,5 +8,11 @@
   },
   "kubernetes": {
     "fileMatch": ["deploy/.+\\.yaml$"]
-  }
+  },
+  "packageRules": [
+    {
+      "matchPath": "[deploy/hetzner-csi/base/hetzner-csi.yaml"],
+      "groupName": "csi storage"
+    }
+  ]
 }
