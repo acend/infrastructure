@@ -18,11 +18,6 @@ spec:
   values:
     controller:
       replicaCount: 2
-      config:
-        use-proxy-protocol: true
-      service:
-        annotations:
-          load-balancer.hetzner.cloud/uses-proxyprotocol: true
       metrics:
         enabled: true
         serviceMonitor:
