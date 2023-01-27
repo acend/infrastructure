@@ -23,4 +23,6 @@ module "acend-cluster" {
   provider-cluster_ca_certificate = var.provider-cluster_ca_certificate
   provider-k8s-api-host           = var.provider-k8s-api-host
 
+  cluster-domain = var.cluster-domain
+
 }

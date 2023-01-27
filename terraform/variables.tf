@@ -10,11 +10,13 @@ variable "extra_ssh_keys" {
 }
 
 variable "controlplane_count" {
+  type        = number
   default     = 3
   description = "Count of rke2 servers"
 }
 
 variable "worker_count" {
+  type        = number
   default     = 2
   description = "Count of rke2 workers"
 }
