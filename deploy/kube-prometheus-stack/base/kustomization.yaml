@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- namespace.yaml
+- slack_secret.yaml
+- alertmanagerconfig.yaml
+- pushprox_etcd.yaml
+- pushprox_kube-controller-manager.yaml
+- pushprox_kube-scheduler.yaml
+- grafana-dashboards/cilium.yaml
+- grafana-dashboards/etcd.yaml
+- grafana-dashboards/nginx.yaml
+- grafana-dashboards/node-exporter.yaml
+
+
+helmCharts:
+  - name: kube-prometheus-stack
+    releaseName: kube-prometheus-stack
+    namespace: monitoring
+    version: 44.3.0
+    valuesFile: values.yaml
+    repo: https://prometheus-community.github.io/helm-charts
+
+

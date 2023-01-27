@@ -1,13 +1,16 @@
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
+apiVersion: argoproj.io/v1alpha1
+kind: Application
 metadata:
+  annotations:
   name: kube-prometheus-stack
-  namespace: flux-system
+  namespace: argocd
 spec:
-  interval: 5m
-  path: "./deploy/kube-prometheus-stack/"
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux2-sync
+  destination:
+    namespace: kube-system
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: deploy/kube-prometheus-stack/base
+    repoURL: https://github.com/acend/infrastructure.git
+    targetRevision: HEAD
