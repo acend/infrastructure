@@ -11,6 +11,6 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: deploy/nginx-ingress-controller.yaml/base
+    path: deploy/nginx-ingress-controller/base
     repoURL: https://github.com/acend/infrastructure.git
     targetRevision: HEAD
