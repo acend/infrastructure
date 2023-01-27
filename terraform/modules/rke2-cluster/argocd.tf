@@ -47,7 +47,7 @@ resource "kubernetes_manifest" "bootstrap" {
       "project": "default"
       "source": {
         "repoURL": "https://github.com/acend/infrastructure.git"
-        "ragetRevision": "HEAD"
+        "targetRevision": "HEAD"
         "path": "deploy/bootstrap"
       }
       "destination": {
