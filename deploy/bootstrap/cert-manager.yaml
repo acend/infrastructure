@@ -1,13 +1,16 @@
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
+apiVersion: argoproj.io/v1alpha1
+kind: Application
 metadata:
+  annotations:
   name: cert-manager
-  namespace: flux-system
+  namespace: argocd
 spec:
-  interval: 5m
-  path: "./deploy/cert-manager/"
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux2-sync
+  destination:
+    namespace: kube-system
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: deploy/cert-manager/base
+    repoURL: https://github.com/acend/infrastructure.git
+    targetRevision: HEAD
