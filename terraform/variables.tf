@@ -55,7 +55,7 @@ variable "provider-k8s-api-host" {
 }
 
 variable "cluster-domain" {
-  type = string
+  type        = string
   description = "default domain used for example by ingress resources"
-  default = "k8s.acend.ch"
+  default     = "k8s.acend.ch"
 }

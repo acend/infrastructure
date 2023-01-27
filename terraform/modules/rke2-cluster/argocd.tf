@@ -24,10 +24,10 @@ resource "helm_release" "argocd" {
   chart      = "argo-cd"
   namespace  = kubernetes_namespace.argocd.metadata.0.name
   version    = "5.19.9"
-  
+
   values = [
     templatefile("${path.module}/templates/argocd-values.yaml", {
-        cluster-domain = var.cluster-domain
+      cluster-domain = var.cluster-domain
     }),
   ]
 
@@ -39,10 +39,10 @@ resource "helm_release" "argocd-bootstrap" {
   chart      = "argocd-apps"
   namespace  = kubernetes_namespace.argocd.metadata.0.name
   version    = "0.0.6"
-  
+
   values = [
     templatefile("${path.module}/templates/argocd-bootstrap-values.yaml", {
-        namespace = helm_release.argocd.namespace
+      namespace = helm_release.argocd.namespace
     }),
   ]
 

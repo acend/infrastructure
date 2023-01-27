@@ -1,5 +1,5 @@
 resource "hcloud_server" "worker" {
-  count       = var.worker_count
+  count = var.worker_count
 
   lifecycle {
     ignore_changes = [
