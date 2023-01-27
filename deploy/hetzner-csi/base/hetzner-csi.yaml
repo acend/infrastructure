@@ -311,7 +311,7 @@ spec:
       containers:
       - args:
         - --kubelet-registration-path=/var/lib/kubelet/plugins/csi.hetzner.cloud/socket
-        image: k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.2.0
+        image: k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.7.0
         name: csi-node-driver-registrar
         volumeMounts:
         - mountPath: /run/csi
