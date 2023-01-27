@@ -44,11 +44,9 @@ flowchart LR
     
     B-- initial bootstrap -->D
 
-    A --> D{ArgoCD}
+    A --> D{ArgoCD + Boostrap Application}
 
-    D -- install -->D1{Bootstrap Application}
-
-    D1 --> D1K{Applications}
+    D -- install -->D1{Applications}
 
 ```
 
