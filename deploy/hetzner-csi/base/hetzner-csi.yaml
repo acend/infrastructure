@@ -214,7 +214,7 @@ spec:
         volumeMounts:
         - mountPath: /run/csi
           name: socket-dir
-      - image: k8s.gcr.io/sig-storage/csi-resizer:v1.2.0
+      - image: k8s.gcr.io/sig-storage/csi-resizer:v1.7.0
         name: csi-resizer
         volumeMounts:
         - mountPath: /run/csi
