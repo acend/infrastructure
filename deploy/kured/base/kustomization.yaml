@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- slack_secret.yaml
+
+helmCharts:
+  - name: kured
+    releaseName: kured
+    namespace: kube-system
+    version: 4.2.0
+    valuesFile: values.yaml
+    repo: https://kubereboot.github.io/charts
+
+

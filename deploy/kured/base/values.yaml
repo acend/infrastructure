@@ -1,0 +1,20 @@
+extraEnvVars:
+- name: KURED_NOTIFY_URL
+  valueFrom:
+    secretKeyRef:
+      name: slack-webhook-url
+      key: webhook-url
+tolerations:
+- key: "node-role.kubernetes.io/control-plane"
+  operator: "Exists"
+  effect: "NoSchedule"
+configuration:
+  timeZone: Europe/Zurich
+  startTime: 21:00
+  endTime: 23:59:59
+  rebootDays: [sun,mon,tue,wed,thu,fri,sat]
+  lock-release-delay: 2m
+metrics:
+  create: true
+service:
+  create: true
