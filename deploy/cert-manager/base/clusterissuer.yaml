@@ -34,7 +34,7 @@ spec:
               apiUrl: https://api.ns1.hosttech.eu/api/user/v1
         selector:
           dnsNames:
-          - 'labz.com'
-          - '*.labz.com'
-          - 'k8s.labz.com'
-          - '*.k8s.labz.com'
+          - 'labz.ch'
+          - '*.labz.ch'
+          - 'k8s.labz.ch'
+          - '*.k8s.labz.ch'
