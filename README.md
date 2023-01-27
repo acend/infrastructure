@@ -86,6 +86,12 @@ See [Anatomy of a Next Generation Kubernetes Distribution](https://docs.rke2.io/
 
 Terraform deploys the `GitRepository` resource pointing to this repository and one `Kustomization` resource which will deploy all resources in `deploy/bootstrap`. The `deploy/bootstrap` folder contains more `Kustomization` resources to deploy all our applications. An application can be deployed using plain Kubernetes resource files or from `HelmRepository` with a `HelmRelease`. See [Manage Helm Releases](https://fluxcd.io/flux/guides/helmreleases/) in the flux documentation. Currently most of our applications are deployed using a Helm chart.
 
+### Cluster access
+
+For the moment, no external authentication provider is included (see https://github.com/acend/infrastructure/issues/11). We rely on ServiceAccounts and ServiceAccount JWT Tokens to authenticate. RKE2 provides a set of Admin Credentials on intial installation. All other ServiceAccounts and the JWT Tokens are created manually or using the rbac-manager.
+
+See the How to section on how to create a new Service Account with `cluster-admin` permission.
+
 ## Applications
 
 ### Monitoring
@@ -232,3 +238,17 @@ kubectl -n kube-system port-forward svc/hubble-relay 4245:80
 ```
 
 and then you can use the `hubble` cli locally. Check `hubble -h` for details on how to use it.
+
+### Create a new ServiceAccount with a JWT Token and `cluster-admin` privileges
+
+Extend the RBACDefinition in `deploy/rbac/cluster-admin.yaml` and add a new `subject` to the `cluster-admin` `roleBindings`. As Kubernetes version >= 1.26 does not automaticly create a ServiceAccount Token (see [Kubernetes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#manually-create-an-api-token-for-a-serviceaccount)), you also have to add the `Secret` with the `kubernetes.io/service-account.name` Annotation. Check `deploy/rbac/cluster-admin.yaml` for examples.
+
+Then you need someone who has already access to the cluster to get the Service Account token. You can optain the token and create a kubeconfig file with
+
+```bash
+TOKEN=$(kubectl -n rbac-manager get secret <secretname> -o jsonpath={.data.token} | base64 -d)
+CA_CERT=$(kubectl -n rbac-manager get secret <secretname> -o jsonpath={.data.'ca\.crt'} | base64 -d)
+```
+
+The token can be used in a kubeconfig File.
+
