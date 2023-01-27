@@ -34,9 +34,9 @@ resource "helm_release" "argocd" {
 }
 
 resource "helm_release" "argocd-bootstrap" {
-  name       = "argocd"
+  name       = "argocd-bootstrap"
   repository = "https://argoproj.github.io/argo-helm"
-  chart      = "argo-cd"
+  chart      = "argocd-apps"
   namespace  = kubernetes_namespace.argocd.metadata.0.name
   version    = "0.0.6"
   
