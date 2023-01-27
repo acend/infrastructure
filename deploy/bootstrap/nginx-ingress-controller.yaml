@@ -3,7 +3,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   annotations:
-  name: nginx-ingress-controller.yaml
+  name: nginx-ingress-controller
   namespace: argocd
 spec:
   destination:
