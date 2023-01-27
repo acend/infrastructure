@@ -9,3 +9,7 @@ output "kubeconfig" {
 output "kubeconfig_raw" {
   value = local.kubeconfig_raw
 }
+
+output "argocd-admin-secret" {
+  value = data.kubernetes_secret.admin-secret.data.password
+}

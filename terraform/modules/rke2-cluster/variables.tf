@@ -108,3 +108,9 @@ variable "provider-cluster_ca_certificate" {
 variable "provider-k8s-api-host" {
   type = string
 }
+
+variable "cluster-domain" {
+  type = string
+  description = "default domain used for example by ingress resources"
+  default = "k8s.acend.ch"
+}
