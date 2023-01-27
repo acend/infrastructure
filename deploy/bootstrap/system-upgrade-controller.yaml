@@ -1,33 +1,16 @@
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
+apiVersion: argoproj.io/v1alpha1
+kind: Application
 metadata:
+  annotations:
   name: system-upgrade-controller
-  namespace: flux-system
+  namespace: argocd
 spec:
-  interval: 5m
-  path: "./deploy/system-upgrade-controller/controller/"
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux2-sync
-  healthChecks:
-    - apiVersion: apps/v1
-      kind: Deployment
-      name: system-upgrade-controller
-      namespace: system-upgrade
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: suc-plan
-  namespace: flux-system
-spec:
-  interval: 5m
-  dependsOn:
-    - name: system-upgrade-controller
-  path: "./deploy/system-upgrade-controller/plans/"
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux2-sync
+  destination:
+    namespace: kube-system
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: deploy/system-upgrade-controller/base
+    repoURL: https://github.com/acend/infrastructure.git
+    targetRevision: HEAD
