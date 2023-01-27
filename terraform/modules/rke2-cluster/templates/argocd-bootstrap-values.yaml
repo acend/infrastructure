@@ -1,0 +1,11 @@
+applications: 
+- name: argocd
+  namespace: ${namespace}
+  project: default
+  source:
+    repoURL: https://github.com/acend/infrastructure.git
+    targetRevision: HEAD
+    path: deploy/bootstrap
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ${namespace}
