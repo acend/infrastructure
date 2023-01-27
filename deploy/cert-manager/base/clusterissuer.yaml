@@ -13,3 +13,28 @@ spec:
     - http01:
         ingress:
           class: nginx
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod-dns01
+spec:
+  acme:
+    email: info@acend.ch
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-prod-dns01
+    solvers:
+      - dns01:
+          webhook:
+            groupName: acme.acend.ch
+            solverName: hosttech
+            config:
+              secretName: hosttech-secret
+              apiUrl: https://api.ns1.hosttech.eu/api/user/v1
+        selector:
+          dnsNames:
+          - 'labz.com'
+          - '*.labz.com'
+          - 'k8s.labz.com'
+          - '*.k8s.labz.com'
