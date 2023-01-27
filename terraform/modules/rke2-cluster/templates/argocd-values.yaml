@@ -5,6 +5,8 @@ controller:
 server:
   config:
     url: "https://argocd.${cluster-domain}"
+    kustomize.buildOptions:
+    - --enable-helm
     resource.exclusions: |
       - kinds:
         - "ciliumidentities"
