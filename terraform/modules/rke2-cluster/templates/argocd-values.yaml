@@ -17,7 +17,7 @@ server:
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     hosts:
     - "argocd.${cluster-domain}"
-    https: "true"
+    https: true
     tls:
     - hosts:
       - "argocd.${cluster-domain}"
@@ -28,7 +28,7 @@ server:
       nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
     hosts:
     - "argocd-grpc.${cluster-domain}"
-    https: "true"
+    https: true
     tls:
     - hosts:
       - "argocd-grpc.${cluster-domain}"
