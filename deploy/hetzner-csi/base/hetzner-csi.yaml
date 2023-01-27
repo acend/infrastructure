@@ -209,7 +209,7 @@ spec:
         app: hcloud-csi-controller
     spec:
       containers:
-      - image: k8s.gcr.io/sig-storage/csi-attacher:v3.2.1
+      - image: k8s.gcr.io/sig-storage/csi-attacher:v4.1.0
         name: csi-attacher
         volumeMounts:
         - mountPath: /run/csi
