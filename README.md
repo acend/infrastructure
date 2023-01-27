@@ -6,11 +6,11 @@ This repo creates the basic acend infrastructure using terraform.
 
 We use [Hetzner](https://www.hetzner.com/cloud) as our cloud provider and [RKE2](https://docs.rke2.io/) is used to create the kubernetes cluster.[Kubernetes Cloud Controller Manager for Hetzner Cloud](https://github.com/hetznercloud/hcloud-cloud-controller-manager) is used to provision lobalancer from a Kubernetes service (type `Loadbalancer`) objects and also configure the networking & native routing for the Kubernetes cluster network traffic.
 
-[Flux](https://fluxcd.io/) is used to deploy resourcen on the Kubernetes Cluster
+[ArgoCD](https://argo-cd.readthedocs.io/en/stable/) is used to deploy resourcen on the Kubernetes Cluster
 
 Folder structure:
 
-* `deploy`: Resources for flux application deployment
+* `deploy`: Resources for ArgoCD application deployment
 * `terraform`: All terraform files for infrastructure deployment
 
 ## Workflow
@@ -21,8 +21,8 @@ Folder structure:
    * Loadbalancer for Kubernetes API and RKE2
    * Firewall
    * Hetzner Cloud Controller Manager for the Kubernetes Cluster Networking
-2. Terraform to delploy and bootstrap flux
-3. Flux to deploy resources on the Kubernetes Cluster
+2. Terraform to delploy and bootstrap ArgoCD
+3. ArgoCD to deploy resources on the Kubernetes Cluster
 
 ```mermaid
 flowchart LR
@@ -44,15 +44,11 @@ flowchart LR
     
     B-- initial bootstrap -->D
 
-    A --> D{Flux}
+    A --> D{ArgoCD}
 
-    D -- install -->D1{Application}
+    D -- install -->D1{Bootstrap Application}
 
-    D1 --> D1K{Kustomization}
-
-    D1K --> D1HREPO{Helmrepositories}
-    D1K --> D1HRELEASE{helmreleases}
-    D1K --> PLAIN{Plain Resources}
+    D1 --> D1K{Applications}
 
 ```
 
@@ -82,9 +78,9 @@ See [Anatomy of a Next Generation Kubernetes Distribution](https://docs.rke2.io/
 4. controlplane node 2 & 3 joins the cluster using the same token and they have set `server: https://${lb_address}:9345` in the config file to join the existing cluster.
 5. Provision and join the agent nodes using the same token. They also have set `server: https://${lb_address}:9345` to join the existing cluster.
 
-### Flux bootstrap & configuration
+### ArgoCD bootstrap & configuration
 
-Terraform deploys the `GitRepository` resource pointing to this repository and one `Kustomization` resource which will deploy all resources in `deploy/bootstrap`. The `deploy/bootstrap` folder contains more `Kustomization` resources to deploy all our applications. An application can be deployed using plain Kubernetes resource files or from `HelmRepository` with a `HelmRelease`. See [Manage Helm Releases](https://fluxcd.io/flux/guides/helmreleases/) in the flux documentation. Currently most of our applications are deployed using a Helm chart.
+Terraform deploys a ArgoCD `Application` resource pointing to this repository which will deploy all resources from `deploy/bootstrap`. The `deploy/bootstrap` folder contains more ArgoCD `Applications` resources to deploy all our applications. An application can be deployed using plain Kubernetes resource files or from Kustomize, or from Helm Charts. See [ArgoCD Documentation](https://argo-cd.readthedocs.io/en/stable/user-guide/application_sources/) for details
 
 ### Cluster access
 
@@ -147,9 +143,8 @@ For easy ServiceAccount and RBAC Management the [rbac-manager](https://rbac-mana
 
 Check [Install Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli) for more details on how to use and install the cli.
   
-* [Flux](https://fluxcd.io/)
+* [ArgoCD](https://argo-cd.readthedocs.io/)
 
-Check [Flux CLI](https://fluxcd.io/flux/cmd/) for more details on how to use and install the cli.
 
 ### Terraform provider & modules
 
@@ -212,10 +207,6 @@ You have to change the settings on all nodes.
 
 The Cilium Helm values are in `/var/lib/rancher/rke2/server/manifests/rke2-cilium-config.yaml` on the server nodes. You have to change it on all nodes. Afterwards RKE2 automatically reconfigure cilium.
 RKE2 uses a cilium version bundled in the [rke2-cilium](https://github.com/rancher/rke2-charts/blob/main/charts/rke2-cilium/rke2-cilium) Helm chart from RKE2. The used version is shown in the [RKE2](https://github.com/rancher/rke2/releases/) release notes.
-
-### Force a manual reconcile of the flux resources
-
-In the current setup, flux does reconcile the resources every 5 minutes. This is configurable on a per resource base. If you want to force the reconcile manualy you can run `flux reconcile source git flux2-sync`. `flux2-sync` is this attached Git Repository and therefore all resources defined will be reconciled. You can also manually reconcile selected resources e.g. `flux reconcile helmrelease -n ingress-nginx ingress-nginx` to only recocile the `ingress-nginx` HelmRelease. See `flux reconcile -h` for all commands.
 
 ### Observe network traffic with hubble and the hubble-ui
 
