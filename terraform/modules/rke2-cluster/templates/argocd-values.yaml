@@ -15,6 +15,7 @@ server:
     annotations:
       nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
     hosts:
     - "argocd.${cluster-domain}"
     https: true
@@ -26,6 +27,7 @@ server:
     enabled: true
     annotations:
       nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
     hosts:
     - "argocd-grpc.${cluster-domain}"
     https: true
