@@ -12,6 +12,7 @@ server:
         - "ciliumnodes"
   ingress:
     enabled: true
+    ingressClassName: nginx
     annotations:
       nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
@@ -25,6 +26,7 @@ server:
       secretName: argocd-tls
   ingressGrpc:
     enabled: true
+    ingressClassName: nginx
     annotations:
       nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
       cert-manager.io/cluster-issuer: letsencrypt-prod
