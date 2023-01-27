@@ -22,7 +22,7 @@ server:
     tls:
     - hosts:
       - "argocd.${cluster-domain}"
-      secretName: argocd
+      secretName: argocd-tls
   ingressGrpc:
     enabled: true
     annotations:
@@ -34,7 +34,7 @@ server:
     tls:
     - hosts:
       - "argocd-grpc.${cluster-domain}"
-      secretName: argocd-grpc
+      secretName: argocd-grpc-tls
     
   metrics:
     enabled: true
