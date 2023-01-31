@@ -33,6 +33,9 @@ resource "helm_release" "argocd" {
 }
 
 resource "helm_release" "argocd-bootstrap" {
+  triggers = {
+    always_run = timestamp()
+  }
   name       = "argocd-bootstrap"
   repository = "https://argoproj.github.io/argo-helm"
   chart      = "argocd-apps"
