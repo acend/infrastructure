@@ -30,7 +30,6 @@ resource "helm_release" "argocd" {
       cluster-domain = var.cluster-domain
     }),
   ]
-
 }
 
 resource "helm_release" "argocd-bootstrap" {
@@ -45,5 +44,4 @@ resource "helm_release" "argocd-bootstrap" {
       namespace = helm_release.argocd.namespace
     }),
   ]
-
 }
