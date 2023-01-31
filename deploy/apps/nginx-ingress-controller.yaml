@@ -1,16 +1,49 @@
----
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  annotations:
   name: nginx-ingress-controller
   namespace: argocd
 spec:
-  destination:
-    namespace: kube-system
-    server: https://kubernetes.default.svc
   project: default
   source:
-    path: deploy/nginx-ingress-controller/base
-    repoURL: https://github.com/acend/infrastructure.git
-    targetRevision: HEAD
+    chart: ingress-nginx
+    repoURL: https://kubernetes.github.io/ingress-nginx
+    targetRevision: 4.4.2
+    helm:
+      releaseName: ingress-nginx
+      values: |
+        controller:
+          replicaCount: 2
+          ingressClassResource:
+            default: true
+          metrics:
+            enabled: true
+            serviceMonitor:
+              enabled: true
+          affinity:
+            podAntiAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+              - weight: 100
+                podAffinityTerm:
+                  labelSelector:
+                    matchExpressions:
+                    - key: app.kubernetes.io/name
+                      operator: In
+                      values:
+                      - ingress-nginx
+                    - key: app.kubernetes.io/instance
+                      operator: In
+                      values:
+                      - ingress-nginx
+                    - key: app.kubernetes.io/component
+                      operator: In
+                      values:
+                      - controller
+                  topologyKey: kubernetes.io/hostname%
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: ingress-nginx
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+
