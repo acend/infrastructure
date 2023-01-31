@@ -2,15 +2,24 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  annotations:
   name: kubernetes-replicator
   namespace: argocd
 spec:
-  destination:
-    namespace: kube-system
-    server: https://kubernetes.default.svc
   project: default
   source:
-    path: deploy/kubernetes-replicator/base
-    repoURL: https://github.com/acend/infrastructure.git
-    targetRevision: HEAD
+    chart: kubernetes-replicator
+    repoURL: https://helm.mittwald.de
+    targetRevision: v2.7.3
+    helm:
+      releaseName: kubernetes-replicator
+      values: |
+        tolerations:
+          - key: "node-role.kubernetes.io/control-plane"
+            operator: "Exists"
+            effect: "NoSchedule"
+        nodeSelector:
+          node-role.kubernetes.io/control-plane: "true"
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: kube-system
+
