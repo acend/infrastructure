@@ -1,3 +1,4 @@
+kyverno.pdb.apiVersion: "policy/v1"
 replicaCount: 3
 tolerations:
 - key: "node-role.kubernetes.io/control-plane"
