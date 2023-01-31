@@ -3,7 +3,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   annotations:
-  name: sealed-secrets
+  name: utils
   namespace: argocd
 spec:
   destination:
@@ -11,6 +11,6 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: deploy/sealed-secrets/base
+    path: deploy/utils
     repoURL: https://github.com/acend/infrastructure.git
     targetRevision: HEAD
