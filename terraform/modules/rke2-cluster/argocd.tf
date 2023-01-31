@@ -39,7 +39,7 @@ resource "helm_release" "argocd-bootstrap" {
   chart        = "argocd-apps"
   namespace    = kubernetes_namespace.argocd.metadata.0.name
   version      = "0.0.7"
-  reset_Values = true
+  reset_values = true
 
   values = [
     templatefile("${path.module}/templates/argocd-bootstrap-values.yaml", {
