@@ -1,11 +1,12 @@
 applications: 
 - name: argocd
-  namespace: ${namespace}
   project: default
   source:
     repoURL: https://github.com/acend/infrastructure.git
     targetRevision: HEAD
-    path: deploy
+    path: deploy/apps
   destination:
     server: https://kubernetes.default.svc
     namespace: ${namespace}
+  syncPolicy:
+    automated: {}
