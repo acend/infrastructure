@@ -7,3 +7,4 @@ nodeSelector:
   node-role.kubernetes.io/control-plane: "true"
 serviceMonitor:
   enabled: true
+
