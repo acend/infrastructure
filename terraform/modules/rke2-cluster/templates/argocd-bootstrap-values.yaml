@@ -5,7 +5,7 @@ applications:
   source:
     repoURL: https://github.com/acend/infrastructure.git
     targetRevision: HEAD
-    path: deploy/bootstrap
+    path: deploy
   destination:
     server: https://kubernetes.default.svc
     namespace: ${namespace}
