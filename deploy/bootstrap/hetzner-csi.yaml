@@ -11,6 +11,6 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: deploy/kubernetes
-    repoURL: https://github.com/hetznercloud/csi-driver.git
-    targetRevision: v2.1.1
+    path: deploy/hetzner-csi/base
+    repoURL: https://github.com/acend/infrastructure.git
+    targetRevision: HEAD
