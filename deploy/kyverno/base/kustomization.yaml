@@ -1,15 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: kyverno
-patchesJSON6902:
-- target:
-    version: v1
-    kind: Namespace
-    name: base-namespace
-  patch: |-
-    - op: add
-      path: /metadata/name
-      value: kyverno
+
+resources:
+- namespace.yaml
 
 helmCharts:
   - name: kyverno
