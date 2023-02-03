@@ -6,7 +6,6 @@ helmCharts:
     releaseName: kubernetes-replicator
     namespace: kube-system
     version: v2.7.3
-    valuesFile: values.yaml
     repo: https://helm.mittwald.de
     valuesInLine:
       tolerations:
