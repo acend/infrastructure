@@ -1,0 +1,8 @@
+apiVersion: v2
+type: application
+name: kyverno
+version: 2.7.0
+description: Kubernetes Native Policy Management
+home: https://kyverno.io/
+sources:
+  - https://github.com/kyverno/kyverno
