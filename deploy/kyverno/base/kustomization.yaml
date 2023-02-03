@@ -9,8 +9,6 @@ helmCharts:
     version: 2.7.0
     repo: https://kyverno.github.io/kyverno/
     valuesInLine:
-      templating:
-        enabled: true
       kyverno:
         namespace: kyverno
       replicaCount: 3
