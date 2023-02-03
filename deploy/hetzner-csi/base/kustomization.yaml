@@ -1,4 +1,4 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - github.com/hetznercloud/csi-driver/tree/v2.1.1/deploy/kubernetes
+  - git@github.com:hetznercloud/csi-driver/deploy/kubernetes?ref=v2.1.1
