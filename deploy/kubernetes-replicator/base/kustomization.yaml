@@ -8,7 +8,7 @@ helmCharts:
     version: v2.7.3
     valuesFile: values.yaml
     repo: https://helm.mittwald.de
-    valuesInLine: |
+    valuesInLine:
       tolerations:
         - key: "node-role.kubernetes.io/control-plane"
           operator: "Exists"
