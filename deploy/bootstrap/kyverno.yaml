@@ -14,3 +14,10 @@ spec:
     path: deploy/kyverno/base
     repoURL: https://github.com/acend/infrastructure.git
     targetRevision: HEAD
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kyverno
+  labels:
+    app: kyverno
