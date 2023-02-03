@@ -7,7 +7,7 @@ patchesJSON6902:
     kind: Namespace
     name: base-namespace
   patch: |-
-    - op: replace
+    - op: add
       path: /metadata/name
       value: kyverno
 
