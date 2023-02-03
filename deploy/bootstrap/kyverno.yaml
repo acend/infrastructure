@@ -1,31 +1,16 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
+  annotations:
   name: kyverno
   namespace: argocd
 spec:
+  destination:
+    namespace: kube-system
+    server: https://kubernetes.default.svc
   project: default
   source:
-    chart: kyverno
-    repoURL: https://kyverno.github.io/kyverno/
-    targetRevision: 2.7.0
-    helm:
-      releaseName: kyverno
-      values: |
-        replicaCount: 3
-        tolerations:
-          - key: "node-role.kubernetes.io/control-plane"
-            operator: "Exists"
-            effect: "NoSchedule"
-        nodeSelector:
-          node-role.kubernetes.io/control-plane: "true"
-        metrics:
-          serviceMonitor:
-            enabled: true
-  destination:
-    server: "https://kubernetes.default.svc"
-    namespace: kyverno
-  syncPolicy:
-    syncOptions:
-    - CreateNamespace=true
-
+    path: deploy/kyverno/base
+    repoURL: https://github.com/acend/infrastructure.git
+    targetRevision: HEAD
