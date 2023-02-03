@@ -9,6 +9,7 @@ helmCharts:
     version: 2.7.0
     repo: https://kyverno.github.io/kyverno/
     valuesInLine:
+      kyverno.pdb.apiVersion: "policy/v1"
       replicaCount: 3
       tolerations:
         - key: "node-role.kubernetes.io/control-plane"
