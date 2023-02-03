@@ -10,9 +10,9 @@ spec:
     privateKeySecretRef:
       name: letsencrypt-prod
     solvers:
-    - http01:
-        ingress:
-          class: nginx
+      - http01:
+          ingress:
+            class: nginx
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -34,7 +34,7 @@ spec:
               apiUrl: https://api.ns1.hosttech.eu/api/user/v1
         selector:
           dnsNames:
-          - 'labz.ch'
-          - '*.labz.ch'
-          - 'k8s.labz.ch'
-          - '*.k8s.labz.ch'
+            - 'labz.ch'
+            - '*.labz.ch'
+            - 'k8s.labz.ch'
+            - '*.k8s.labz.ch'

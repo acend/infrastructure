@@ -1,23 +1,45 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- namespace.yaml
-- clusterissuer.yaml
-- hosttech-secret.yaml
-
-
+  - clusterissuer.yaml
+  - hosttech-secret.yaml
 
 helmCharts:
   - name: cert-manager
     releaseName: cert-manager
     namespace: cert-manager
     version: v1.11.0
-    valuesFile: values-certmanager.yaml
     repo: https://charts.jetstack.io
+    valuesInLine:
+      installCRDs: true
+      prometheus:
+        servicemonitor:
+          enabled: true
+      nodeSelector:
+        node-role.kubernetes.io/control-plane: "true"
+      tolerations:
+      - key: "node-role.kubernetes.io/control-plane"
+        operator: "Exists"
+        effect: "NoSchedule"
+      webhook:
+        nodeSelector:
+          node-role.kubernetes.io/control-plane: "true"
+        tolerations:
+        - key: "node-role.kubernetes.io/control-plane"
+          operator: "Exists"
+          effect: "NoSchedule"
+      cainjector:
+        nodeSelector:
+          node-role.kubernetes.io/control-plane: "true"
+        tolerations:
+        - key: "node-role.kubernetes.io/control-plane"
+          operator: "Exists"
+          effect: "NoSchedule"
+
   - name: cert-manager-webhook-hosttech
     releaseName: cert-manager-webhook-hosttech
     namespace: cert-manager
     version: 0.3.0
-    valuesFile: values-certmanager-webhook-hosttech.yaml
     repo: https://piccobit.github.io/helm-charts
-
+    valuesInLine:
+      groupName: acme.acend.ch
