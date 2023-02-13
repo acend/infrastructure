@@ -38,3 +38,7 @@ spec:
             - '*.labz.ch'
             - 'k8s.labz.ch'
             - '*.k8s.labz.ch'
+            - 'acend.ch'
+            - '*.acend.ch'
+            - 'k8s.acend.ch'
+            - '*.k8s.acend.ch'
