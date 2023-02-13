@@ -17,10 +17,3 @@ spec:
     automated: {}
     syncOptions:
     - ServerSideApply=true
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: cert-manager
-  labels:
-    app: cert-manager
