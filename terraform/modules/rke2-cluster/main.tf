@@ -81,7 +81,7 @@ resource "restapi_object" "lb-api-a-record" {
 resource "restapi_object" "lb-api-aaaa-record" {
   provider = restapi.hosttech_dns
   path = "/api/user/v1/zones/${local.acend-zone-id}/records"
-  data = "{\"type\": \"AAAA\",\"name\": \"k8s-${var.clustername}\",\"ipv4\": \"${hcloud_load_balancer.lb.ipv6}\",\"ttl\": 3600,\"comment\": \"K8s API for Cluster ${var.clustername}\"}"
+  data = "{\"type\": \"AAAA\",\"name\": \"k8s-${var.clustername}\",\"ipv6\": \"${hcloud_load_balancer.lb.ipv6}\",\"ttl\": 3600,\"comment\": \"K8s API for Cluster ${var.clustername}\"}"
   id_attribute = "data/id"
 }
 
