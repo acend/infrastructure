@@ -12,7 +12,8 @@ module "acend-cluster" {
 
   k8s_api_hostnames = var.k8s_api_hostnames
 
-  hcloud_api_token = var.hcloud_api_token
+  hcloud_api_token   = var.hcloud_api_token
+  hosttech_dns_token = var.hosttech_dns_token
 
   extra_ssh_keys     = var.extra_ssh_keys
   controlplane_count = var.controlplane_count

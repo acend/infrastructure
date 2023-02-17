@@ -3,6 +3,12 @@ variable "hcloud_api_token" {
   description = "hetzner api token with read permission to read lb state"
 }
 
+variable "hosttech_dns_token" {
+  type        = string
+  description = "hosttech dns api token"
+}
+
+
 variable "extra_ssh_keys" {
   type        = list(any)
   default     = []
