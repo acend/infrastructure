@@ -9,7 +9,7 @@ spec:
   - '*.training.acend.ch'
   issuerRef:
     kind: ClusterIssuer
-    name: acend-letsencrypt-acme
+    name: letsencrypt-prod-dns01
   secretName: acend-wildcard
   secretTemplate:
     annotations:
