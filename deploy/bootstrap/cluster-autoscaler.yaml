@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cluter-autoscaler
+  name: cluster-autoscaler
   namespace: argocd
 spec:
   destination:
@@ -10,7 +10,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: deploy/cluter-autoscaler/base
+    path: deploy/cluster-autoscaler/base
     repoURL: https://github.com/acend/infrastructure.git
     targetRevision: HEAD
   syncPolicy:
