@@ -19,8 +19,6 @@ write_files:
     server: https://${lb_address}:9345
     token: ${rke2_cluster_secret}
     cloud-provider-name: external
-    node-label:
-    - "node-role.kubernetes.io/worker=true"
 - path: /opt/rke2/run_rke2.sh
   permissions: "0755"
   owner: root:root
