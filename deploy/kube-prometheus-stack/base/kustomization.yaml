@@ -9,6 +9,7 @@ resources:
 - pushprox_kube-controller-manager.yaml
 - pushprox_kube-scheduler.yaml
 - grafana-dashboards/cilium.yaml
+- grafana-dashboards/cluster-autoscaler.yaml
 - grafana-dashboards/etcd.yaml
 - grafana-dashboards/nginx.yaml
 - grafana-dashboards/node-exporter.yaml
