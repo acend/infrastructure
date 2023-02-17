@@ -114,11 +114,8 @@ The StorageClass `hcloud-volumes` is set as default StorageClass
 
 To keep Secrets safe in our Git Repository we use [sealed secrets](https://sealed-secrets.netlify.app/)
 
-Examples:
-```
-kubectl -n monitoring create secret generic github-client --from-literal=GF_AUTH_GITHUB_CLIENT_ID="xyz" --from-literal=GF_AUTH_GITHUB_CLIENT_SECRET="xyz" --dry-run=client -o yaml > github-client.yaml
-kubeseal --format yaml --controller-name sealed-secrets <github-client.yaml >sealed-github-client.yaml
-```
+For examples on how to use see [How To's / Encrypt a Secret](#encrypt-a-secret)
+
 
 ### Rancher System Upgrade Controller
 
@@ -178,8 +175,15 @@ terraform apply
 
 ### encrypt a secret
 
+Examples:
+
 ```bash
 kubeseal --controller-name sealed-secrets -o yaml < secret.yaml > encrypted-secret.yaml
+```
+
+```bash
+kubectl -n monitoring create secret generic github-client --from-literal=GF_AUTH_GITHUB_CLIENT_ID="xyz" --from-literal=GF_AUTH_GITHUB_CLIENT_SECRET="xyz" --dry-run=client -o yaml > github-client.yaml
+kubeseal --format yaml --controller-name sealed-secrets <github-client.yaml >sealed-github-client.yaml
 ```
 
 ### upgrade Kubernetes version
@@ -269,5 +273,5 @@ terraform output argocd-admin-secret
 Run the following command in the `terraform` subfolder to get the kubeconfig file for the admin user created by RKE2:
 
 ```bash
-terraform output -raw ubeconfig_raw > kubeconfig.yaml
+terraform output -raw kubeconfig_raw > kubeconfig.yaml
 ```
