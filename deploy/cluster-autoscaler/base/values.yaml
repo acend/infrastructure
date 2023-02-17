@@ -12,6 +12,7 @@ extraEnv:
 
 extraArgs:
   write-status-configmap: true
+  scan-interval: 60s
 
 
 extraEnvSecrets:
