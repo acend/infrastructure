@@ -1,6 +1,8 @@
 locals {
-  kubernetes_api_host    = "https://${hcloud_load_balancer.lb.ipv4}:6443"
-  kubeconfig_raw         = replace(ssh_resource.getkubeconfig.result, "server: https://127.0.0.1:6443", "server: https://${hcloud_load_balancer.lb.ipv4}:6443")
+  kubernetes_api_ipv4    = "${hcloud_load_balancer.lb.ipv4}"
+  kubernetes_api_ipv6    = "${hcloud_load_balancer.lb.ipv6}"
+  kubernetes_api         = "https://${var.k8s_api_hostnames.0}:6443"
+  kubeconfig_raw         = replace(ssh_resource.getkubeconfig.result, "server: https://127.0.0.1:6443", "server: ${local.kubernetes_api}")
   kubeconfig             = yamldecode(local.kubeconfig_raw)
   client_certificate     = base64decode(local.kubeconfig.users[0].user.client-certificate-data)
   client_key             = base64decode(local.kubeconfig.users[0].user.client-key-data)

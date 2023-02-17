@@ -1,6 +1,15 @@
-output "kubernetes_api_host" {
-  value = local.kubernetes_api_host
+output "kubernetes_api" {
+  value = local.kubernetes_api
 }
+
+output "kubernetes_api_ipv4" {
+  value = local.kubernetes_api_ipv6
+}
+
+output "kubernetes_api_ipv6" {
+  value = local.kubernetes_api_ipv6
+}
+
 
 output "kubeconfig" {
   value = local.kubeconfig

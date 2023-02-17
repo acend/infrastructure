@@ -1,5 +1,13 @@
-output "kubernetes_api_host" {
-  value = module.acend-cluster.kubernetes_api_host
+output "kubernetes_api" {
+  value = module.acend-cluster.kubernetes_api
+}
+
+output "kubernetes_api_ipv4" {
+  value = module.acend-cluster.kubernetes_api_ipv4
+}
+
+output "kubernetes_api_ipv6" {
+  value = module.acend-cluster.kubernetes_api_ipv6
 }
 
 output "kubeconfig" {
