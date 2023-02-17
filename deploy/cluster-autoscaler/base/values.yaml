@@ -3,7 +3,7 @@ cloudProvider: hetzner
 autoscalingGroups:
   - name: CPX41:NBG1:pool1
     maxSize: 2
-    minSize: 1
+    minSize: 0
 
 
 extraEnv:
