@@ -120,6 +120,12 @@ For the moment, no external authentication provider is included (see https://git
 
 See the [Create a new ServiceAccount with a JWT Token and `cluster-admin` privileges](#create-a-new-serviceaccount-with-a-jwt-token-and-cluster-admin-privileges) to create a new cluster access with `cluster-admin` privileges.
 
+#### ci-bot Access
+
+There is a Service Account with name `ci-bot` in Namespace `rbac-manager` wich can be used to deploy into the Cluster from a CICD System (e.g. Github Actions). The `ci-bot` has a Role Binding to the `edit` Cluster Role in all Namespaces where the label `ci-bot: true` is set.
+
+There is a Kyverno `ClusterPolicy` with name `add-ci-bot-label-to-acend-ns` which automaticly adds the `ci-bot: true` Label to all Namespaces starting with `acend`.
+
 ## Applications
 
 The following applications are deployed:
