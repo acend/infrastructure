@@ -1,7 +1,7 @@
 cloudProvider: hetzner
 
 autoscalingGroups:
-  - name: CPX41:NBG1:pool1
+  - name: CPX41:NBG1:acend-workerpool1
     maxSize: 2
     minSize: 0
 
