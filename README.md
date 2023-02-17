@@ -271,7 +271,7 @@ and then you can use the `hubble` cli locally. Check `hubble -h` for details on 
 
 Extend the RBACDefinition in `deploy/rbac/cluster-admin.yaml` and add a new `subject` to the `cluster-admin` `roleBindings`. As Kubernetes version >= 1.26 does not automaticly create a ServiceAccount Token (see [Kubernetes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#manually-create-an-api-token-for-a-serviceaccount)), you also have to add the `Secret` with the `kubernetes.io/service-account.name` Annotation. Check `deploy/rbac/cluster-admin.yaml` for examples.
 
-Then you need someone who has already access to the cluster to get the Service Account token. You can optain the token and create a kubeconfig file with:
+Then you need someone who has already access to the cluster to get the Service Account token. You can obtain the token and create a kubeconfig file with:
 
 ```bash
 # executed by someone with Access to the cluster
@@ -284,6 +284,7 @@ kubectl config set-credentials $USERNAME --token=$TOKEN
 kubectl config set-cluster acend-infra --certificate-authority=./ca.crt --embed-certs=true --server https://$IPK8SAPI:6443
 kubectl config set-context acend --cluster acend-infra --user $USERNAME
 kubectl config use-context acend
+unset KUBECONFIG
 cat ./kubeconfig.yaml
 ```
 
