@@ -2,12 +2,12 @@
 apiVersion: rbacmanager.reactiveops.io/v1beta1
 kind: RBACDefinition
 metadata:
-  name: training-deployment
+  name: ci-bot
 rbacBindings:
-  - name: ci-bot-training
+  - name: ci-bot
     subjects:
       - kind: ServiceAccount
-        name: ci-bot-training
+        name: ci-bot
         namespace: rbac-manager
     roleBindings:
       - clusterRole: edit
@@ -18,8 +18,8 @@ rbacBindings:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: ci-bot-training
+  name: ci-bot
   namespace: rbac-manager
   annotations:
-    kubernetes.io/service-account.name: ci-bot-training
+    kubernetes.io/service-account.name: ci-bot
 type: kubernetes.io/service-account-token
