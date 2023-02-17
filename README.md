@@ -25,7 +25,7 @@ Folder structure:
    * Loadbalancer for Kubernetes API and RKE2
    * Firewall
    * Hetzner Cloud Controller Manager for the Kubernetes Cluster Networking
-2. Terraform to delploy and bootstrap ArgoCD
+2. Terraform to deploy and bootstrap ArgoCD
 3. ArgoCD to deploy resources on the Kubernetes Cluster
 4. Cluster Autoscaler to scale the cluster beyond the minimal cluster size created with Terraform.
 
