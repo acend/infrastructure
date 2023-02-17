@@ -258,7 +258,7 @@ cat ./kubeconfig.yaml
 
 ### Get ArgoCD admin credentials
 
-Run the following command in the `terraform` subfolder to get the `admin` password for Argocd:
+Run the following command in the `terraform` subfolder to get the `admin` password for ArgoCD:
 
 ```bash
 terraform output argocd-admin-secret
