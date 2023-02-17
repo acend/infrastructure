@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
 - namespace.yaml
 - slack_secret.yaml
-- github_secret.yaml
+- github_client.yaml
 - alertmanagerconfig.yaml
 - pushprox_etcd.yaml
 - pushprox_kube-controller-manager.yaml
