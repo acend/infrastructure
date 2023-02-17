@@ -13,7 +13,7 @@ rbacBindings:
       - clusterRole: edit
         namespaceSelector:
           matchLabels:
-            training: "true"
+            ci-bot: "true"
 ---
 apiVersion: v1
 kind: Secret
