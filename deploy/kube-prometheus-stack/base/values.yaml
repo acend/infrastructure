@@ -42,6 +42,11 @@ grafana:
       - hosts:
         - grafana.k8s.labz.ch
         secretName: grafana-general-tls
+  serviceMonitor:
+      enabled: true
+  persistence:
+    enabled: true
+    size: 5Gi
 prometheus:
   prometheusSpec:
     ruleSelectorNilUsesHelmValues: false
