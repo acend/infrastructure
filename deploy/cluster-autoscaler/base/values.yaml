@@ -11,6 +11,7 @@ extraEnv:
 
 extraArgs:
   write-status-configmap: true
+  scale-up-node-group-to-min-size-enabled: true
 
 
 extraEnvSecrets:
