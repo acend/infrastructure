@@ -95,12 +95,14 @@ The following terraform variables are important:
 
 Root:
 
-* `clustername`: The name of the Kubernetes Cluster. This is used as label on the cloud resources for better identification
+* `clustername`: The name of the Kubernetes Cluster. This is used as label on the cloud resources for better identification.
 * `controlplane_count`: The number of controlplane nodes Terraform deploys. This should always be set to `3`
 * `worker_count`: The number of worker nodes Terraform deploys. This should be set to a minimum of `2`
 * `k8s_api_hostnames`: A list of hostnames to be added to the Kubernetes API Certificate
 * `extra_ssh_keys`: A list of extra SSH keys (besides the one generated in Terraform) to be deployed on the cluster nodes.
 * `hcloud_api_token`: Hetzner API Token
+* `hosttech_dns_token`: Hosttech API Token for DNS API
+* `hosttech-dns-zone-id"`: Hosttech ZoneID in which DNS Entry for the k8s API LB are created
 * `provider-*`: Initially the kubeconfig file is retreived from the first controlplane node and then used to deploy onto the cluster. You can use `provider-client-certificate`, `provider-cluster_ca_certificate`, `provider-client-key`, `provider-k8s-api-host` instead. Don't forget to change the `kubernetes` and `helm` provider in `terraform/modules/rke2-cluster/main.tf` if you wan't to.
   
 modules/rke2-cluster (currently not set via root you can change defaults in `modules/rke2-cluster/variables.tf`)
