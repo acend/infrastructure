@@ -43,3 +43,29 @@ resource "hcloud_server_network" "worker" {
   server_id  = hcloud_server.worker[count.index].id
   network_id = hcloud_network.network.id
 }
+
+
+resource "kubernetes_secret" "cloud_init_worker" {
+  metadata {
+    name      = "cloud-init-worker"
+    namespace = "kube-system"
+  }
+
+  data = {
+    "cloudinit.yaml" = templatefile("${path.module}/templates/cloudinit-worker.yaml", {
+        api_token = var.hcloud_api_token,
+
+        clustername = var.clustername,
+
+        rke2_version        = var.rke2_version,
+        rke2_cluster_secret = random_password.rke2_cluster_secret.result,
+
+        extra_ssh_keys = var.extra_ssh_keys,
+
+        lb_address = hcloud_load_balancer_network.lb.ip,
+        lb_id      = hcloud_load_balancer.lb.id,
+      })
+  }
+
+  type = "Opaque"
+}
