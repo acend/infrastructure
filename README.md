@@ -201,6 +201,39 @@ For safe automated node reboots we use [kured](https://kured.dev/)
 
 When a reboot of a node is requered, `/var/run/reboot-required` is created by `unattended-upgrade`. Kured detects this and will safly reboot the node. Reboots are done everyday between 21:00 and 23:59:59 Europe/Zurich timezone. Befor rebooting, the node gets cordoned and drained and after the reboot uncordoned again. Only one node at the same time is rebooted.
 
+### kuberetes-replicator
+
+The [Kubernetes Replicator](https://github.com/mittwald/kubernetes-replicator) is installed to sync Secrets (and ConfigMaps) between namespaces.
+
+Example:
+
+Push a Secret into other Namespaces by Namespace name:
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  annotations:
+    replicator.v1.mittwald.de/replicate-to: "my-ns-1,namespace-[0-9]*"
+data:
+  key1: <value>
+```
+
+Push a Secret into other Namespaces by Labels:
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  annotations:
+    replicator.v1.mittwald.de/replicate-to-matching: >
+      my-label=value,my-other-label,my-other-label notin (foo,bar)
+data:
+  key1: <value>
+```
+
+The Kubernetes Replicator is scheduled on the control plane nodes.
+
 ### kyverno
 
 [Kyverno](https://kyverno.io/) is deployed as a policy engine.
