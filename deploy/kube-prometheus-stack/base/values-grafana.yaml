@@ -1,3 +1,4 @@
+envFromSecret: github-client
 grafana.ini:
   server:
     domain: grafana.k8s.labz.ch
