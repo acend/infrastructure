@@ -275,3 +275,21 @@ Run the following command in the `terraform` subfolder to get the kubeconfig fil
 ```bash
 terraform output -raw kubeconfig_raw > kubeconfig.yaml
 ```
+
+### Access Prometheus and Alertmanager UI
+
+Prometheus:
+
+```bash
+kubectl -n monitoring port-forward svc/kube-prometheus-stack-prometheus 9090
+```
+
+and then open [http://localhost:9090](http://localhost:9090)
+
+Alertmanager:
+
+```bash
+kubectl -n monitoring port-forward svc/kube-prometheus-stack-alertmanager 9093
+```
+
+and then open [http://localhost:9093](http://localhost:9093)
