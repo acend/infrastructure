@@ -130,7 +130,23 @@ There is a Kyverno `ClusterPolicy` with name `add-ci-bot-label-to-acend-ns` whic
 
 The following applications are deployed:
 
+### Cert-Manager
+
+Folder: `deploy/cert-manager`
+
+[Cert Manager](https://cert-manager.io/) is used to issue Certificates (Let's Encrypt).
+The [ACME Webhook for the hosttech DNS API](https://github.com/piccobit/cert-manager-webhook-hosttech) is used for `dns01` challenges with our DNS provider.
+
+The following `ClusterIssuer` are available:
+
+* `letsencrypt-prod`: for general http01 challenge.
+* `letsencrypt-prod-dns01`: for dns01 challenge using the hosttech acme webhook.
+
+All Cert-Manager components are scheduled on the control plane nodes.
+
 ### Cluster Autoscaler
+
+Folder: `deploy/cluster-autoscaler`
 
 The [Cluster Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler) with the [Hetzner Provider](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/cloudprovider/hetzner/README.md) is used to automaticly scale the Kubernetes Cluster beyond the minimal cluster size of 3 control plane nodes and 2 Worker nodes.
 
@@ -152,7 +168,20 @@ For more details on how the Cluster Autoscaler works, see [FAQ](https://github.c
 
 The cluster autoscaler is scheduled on the control plane nodes.
 
+
+### Hetzner CSI
+
+Folder: none, directly from upstream repository
+
+To provision storage we use [Hetzner CSI Driver](https://github.com/hetznercloud/csi-driver).
+
+The StorageClass `hcloud-volumes` is set as default StorageClass.
+
+The hetzner csi provider is scheduled on the control plane nodes.
+
 ### Monitoring
+
+Folder: `deploy/kube-prometheus-stack`
 
 The [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus) stack is used for monitoring (Prometheus-Operator, Prometheus, Alertmanager, Grafana, Node-Exporter, kube-state-metrics).
 
@@ -162,46 +191,9 @@ As the `kube-scheduler`, `kube-controller-manager`, `etcd` only listens on `loca
 
 Alertmanager is configured to send alerts to the #ops channel in our Slack workspace.
 
-### Ingress Controller
-
-The [NGINX Ingress Controller](https://kubernetes.github.io/ingress-nginx/) is used with a Hetzner LoadBalancer (automaticly deployed with a Kubernetes service of type `LoadBalancer`and the Hetzner Cloud Controller Manager).
-
-The NGINX Ingress Controller is scaled to 2 replicas and spread on the worker nodes. Proxy Protocol is enabled, `load-balancer.hetzner.cloud/uses-proxyprotocol: true` Annotation on the Service and `use-proxy-protocol: true` in the controller ConfigMap. This allows for real Client-IP's.
-
-### Hetzner CSI
-
-To provision storage we use [Hetzner CSI Driver](https://github.com/hetznercloud/csi-driver).
-
-The StorageClass `hcloud-volumes` is set as default StorageClass.
-
-The hetzner csi provider is scheduled on the control plane nodes.
-
-### Sealed Secrets
-
-To keep Secrets safe in our Git Repository we use [sealed secrets](https://sealed-secrets.netlify.app/)
-
-For examples on how to use see [How To's / Encrypt a Secret](#encrypt-a-secret)
-
-Sealed Secrets is scheduled on the control plane nodes.
-
-### Rancher System Upgrade Controller
-
-For the Kubernetes Cluster upgrade we use the [Rancher System Upgrade Controller](https://github.com/rancher/system-upgrade-controller) which allows for automated rke2 upgrades.
-
-Two plans are deployed:
-
-* `server-plan` updates the `rke2` binary on the control-plane nodes
-* `agent-plan` updates the `rke2` binary on the worker nodes after control-plane nodes are updated
-
-The System Upgrade Controller is scheduled on the control plane nodes.
-
-### kured
-
-For safe automated node reboots we use [kured](https://kured.dev/)
-
-When a reboot of a node is requered, `/var/run/reboot-required` is created by `unattended-upgrade`. Kured detects this and will safly reboot the node. Reboots are done everyday between 21:00 and 23:59:59 Europe/Zurich timezone. Befor rebooting, the node gets cordoned and drained and after the reboot uncordoned again. Only one node at the same time is rebooted.
-
 ### kuberetes-replicator
+
+Folder: `deploy/kubernetes-replicator`
 
 The [Kubernetes Replicator](https://github.com/mittwald/kubernetes-replicator) is installed to sync Secrets (and ConfigMaps) between namespaces.
 
@@ -234,17 +226,61 @@ data:
 
 The Kubernetes Replicator is scheduled on the control plane nodes.
 
+### kured
+
+Folder: `deploy/kured`
+
+For safe automated node reboots we use [kured](https://kured.dev/)
+
+When a reboot of a node is requered, `/var/run/reboot-required` is created by `unattended-upgrade`. Kured detects this and will safly reboot the node. Reboots are done everyday between 21:00 and 23:59:59 Europe/Zurich timezone. Befor rebooting, the node gets cordoned and drained and after the reboot uncordoned again. Only one node at the same time is rebooted.
+
 ### kyverno
+
+Folder: `deploy/kyverno`
 
 [Kyverno](https://kyverno.io/) is deployed as a policy engine.
 
 Kyverno is scheduled on the control plane nodes.
 
+### NGINX Ingress Controller
+
+Folder: `deploy/nginx-ingress-controller`
+
+The [NGINX Ingress Controller](https://kubernetes.github.io/ingress-nginx/) is used with a Hetzner LoadBalancer (automaticly deployed with a Kubernetes service of type `LoadBalancer`and the Hetzner Cloud Controller Manager).
+
+The NGINX Ingress Controller is scaled to 2 replicas and spread on the worker nodes. Proxy Protocol is enabled, `load-balancer.hetzner.cloud/uses-proxyprotocol: true` Annotation on the Service and `use-proxy-protocol: true` in the controller ConfigMap. This allows for real Client-IP's.
+
+
 ### rbac-manager
+
+Folder: `deploy/rbac-manager` & `deploy/rbac`
 
 For easy ServiceAccount and RBAC Management the [rbac-manager](https://rbac-manager.docs.fairwinds.com/) is installed.
 
 The RBAC manager scheduled on the control plane nodes.
+
+### Sealed Secrets
+
+Folder: `deploy/csealed-secrets`
+
+To keep Secrets safe in our Git Repository we use [sealed secrets](https://sealed-secrets.netlify.app/)
+
+For examples on how to use see [How To's / Encrypt a Secret](#encrypt-a-secret)
+
+Sealed Secrets is scheduled on the control plane nodes.
+
+### System Upgrade Controller
+
+Folder: `deploy/system-upgrade-controller`
+
+For the Kubernetes Cluster upgrade we use the [Rancher System Upgrade Controller](https://github.com/rancher/system-upgrade-controller) which allows for automated rke2 upgrades.
+
+Two plans are deployed:
+
+* `server-plan` updates the `rke2` binary on the control-plane nodes
+* `agent-plan` updates the `rke2` binary on the worker nodes after control-plane nodes are updated
+
+The System Upgrade Controller is scheduled on the control plane nodes.
 
 ## Dependencies
 
