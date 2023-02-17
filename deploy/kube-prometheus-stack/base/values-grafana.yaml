@@ -2,7 +2,7 @@ grafana.ini:
   server:
     domain: grafana.k8s.labz.ch
     root_url: https://grafana.k8s.labz.ch
-  auth.gitlab:
+  auth.github:
     enabled: true
     allow_sign_up: true
     client_id: aaaabbbbcccc
