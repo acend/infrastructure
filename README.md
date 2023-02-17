@@ -92,16 +92,17 @@ Root:
 * `hcloud_api_token`: Hetzner API Token
 * `provider-*`: Initially the kubeconfig file is retreived from the first controlplane node and then used to deploy onto the cluster. You can use `provider-client-certificate`, `provider-cluster_ca_certificate`, `provider-client-key`, `provider-k8s-api-host` instead. Don't forget to change the `kubernetes` and `helm` provider in `terraform/modules/rke2-cluster/main.tf` if you wan't to.
   
-modules/rke2-cluster (currently not set via root you can change defaults in `modules/rke2-cluster/variabled.tf`)
+modules/rke2-cluster (currently not set via root you can change defaults in `modules/rke2-cluster/variables.tf`)
 
 * `location`: The Hetzner location where cloud resources are deployed. Defaults to `nbg1`
 * `rke2_version`: the RKE2 version for initial node bootstraping.
-* `networkzone`: the Hetzner network zone for the private network
+* `networkzone`: the Hetzner network zone for the private network. Defaults to `eu-central`
 * `lb_type`: Load Balancer Type for the K8S API and RKE2 API. Defaults to `lb11`
 * `node_image_type`: The image type of all deployed vm's. Defaults to `ubuntu-22.04`
 * `controlplane_type`: The node type for the control plane nodes. Defaults to `cpx31`
 * `worker_type`: The node type for the worker nodes. Defaults to `cpx41`
 * `cluster-domain`: the domain used in Ingress Resources e.g. for ArgoCD.
+  
 ### ArgoCD bootstrap & configuration
 
 Terraform deploys a ArgoCD `Application` resource pointing to this repository which will deploy all resources from `deploy/bootstrap`. The `deploy/bootstrap` folder contains more ArgoCD `Applications` resources to deploy all our applications. An application can be deployed using plain Kubernetes resource files or from Kustomize, or from Helm Charts. See [ArgoCD Documentation](https://argo-cd.readthedocs.io/en/stable/user-guide/application_sources/) for details
@@ -110,13 +111,15 @@ Terraform deploys a ArgoCD `Application` resource pointing to this repository wh
 
 For the moment, no external authentication provider is included (see https://github.com/acend/infrastructure/issues/11). We rely on ServiceAccounts and ServiceAccount JWT Tokens to authenticate. RKE2 provides a set of Admin Credentials on intial installation. All other ServiceAccounts and the JWT Tokens are created manually or using the rbac-manager.
 
-See the How to section on how to create a new Service Account with `cluster-admin` permission.
+See the [Create a new ServiceAccount with a JWT Token and `cluster-admin` privileges](#create-a-new-serviceaccount-with-a-jwt-token-and-cluster-admin-privileges) to create a new cluster access with `cluster-admin` privileges.
 
 ## Applications
 
+The following applications are deployed:
+
 ### Monitoring
 
-The [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus) stack is used for monitoring.
+The [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus) stack is used for monitoring (Prometheus-Operator, Prometheus, Alertmanager, Grafana, Node-Exporter, kube-state-metrics).
 
 The montoring stack is deployed in the `monitoring` namespace.
 
@@ -141,7 +144,6 @@ The StorageClass `hcloud-volumes` is set as default StorageClass
 To keep Secrets safe in our Git Repository we use [sealed secrets](https://sealed-secrets.netlify.app/)
 
 For examples on how to use see [How To's / Encrypt a Secret](#encrypt-a-secret)
-
 
 ### Rancher System Upgrade Controller
 
@@ -198,7 +200,6 @@ terraform plan # to verify
 terraform apply
 ```
 
-
 ### encrypt a secret
 
 Examples:
@@ -214,7 +215,7 @@ kubeseal --format yaml --controller-name sealed-secrets <github-client.yaml >sea
 
 ### upgrade Kubernetes version
 
-1. Change version in the System Upgrade Controller plans (`server-plan` & `agent-plan`) in `deploy/system-upgrade-controller/plans/02-plans.yaml`
+1. Change version in the System Upgrade Controller plans (`server-plan` & `agent-plan`) in `deploy/system-upgrade-controller/base/plans.yaml`
 2. Change the Terraform variable `rke2_version` to match with the newly deployed version.
 
 ### Backup sealed-secret controller keys
@@ -236,7 +237,7 @@ kubectl delete pod -n kube-system -l name=sealed-secrets-controller
 
 ### Change RKE2 configuration after initial bootstrap
 
-The rke2 configuration is in `/etc/rancher/rke2/config.yaml`. After a change run `systemctl restark rke2-server`. On the agent nodes, run `systemctl restart rke2-agent`.
+The rke2 configuration is in `/etc/rancher/rke2/config.yaml` and was initially generated with terraform and deployed using cloud-init. Terrafrm does not change this anymore after initial node setup. Thereform you have to manually change (or recreate the node). After a change run `systemctl restark rke2-server`. On the agent nodes, run `systemctl restart rke2-agent`.
 You have to change the settings on all nodes.
 
 ### Change Cilium configuration
@@ -254,7 +255,7 @@ To acess the Hubble UI you have to forward the `hubble-ui` service with:
 kubectl -n kube-system port-forward svc/hubble-ui 8080:80
 ```
 
-and then you can open http://locahhost:8080 in your browser.
+and then you can open [http://locahhost:8080](http://locahhost:8080) in your browser.
 
 You can also install the hubble cli locally by downloading the correct binary from the [Github Release](https://github.com/cilium/hubble/releases) page.
 
@@ -321,3 +322,17 @@ kubectl -n monitoring port-forward svc/kube-prometheus-stack-alertmanager 9093
 ```
 
 and then open [http://localhost:9093](http://localhost:9093)
+
+### Access ArgoCD when no ingress controller is available
+
+In case where no ingress controller is available, you can still access ArgoCD using a port-forward:
+
+```bash
+kubectl -n argocd port-forward svc/argocd-server 8443:443
+```
+
+and then you can use the `argocd` cli with and the admin credentials:
+
+```bash
+argocd login localhost:8443
+```
