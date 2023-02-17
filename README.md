@@ -17,7 +17,9 @@ Folder structure:
 * `deploy`: Resources for ArgoCD application deployment
 * `terraform`: All terraform files for infrastructure deployment
 
-## Workflow
+## Cluster Creation Workflow
+
+In order to deploy our acend Kubernetes Cluster the following steps are necessary:
 
 1. Terraform to deploy base infrastructure
    * VM's for controlplane and worker nodes
@@ -59,7 +61,7 @@ flowchart LR
 
 We use Ubuntu 22.04 as our node operating system. Unattended-upgrade for automated security patching is enabled. If necessary, [kured](https://kured.dev/) will manage node reboots.
 
-### Cluster Configuration and Setup
+### Cluster basic Design & Configuration and Setup Procedure
 
 A RKE2 cluster has two types of nodes, a server node with the Kubernetes controlplan and a agent node only with the kubelet.
 
@@ -85,6 +87,8 @@ See [Anatomy of a Next Generation Kubernetes Distribution](https://docs.rke2.io/
 
 ### Terraform Configuration
 
+Check [Install Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli) for more details on how to use and install the cli.
+
 #### Important variables
 
 The following terraform variables are important:
@@ -109,12 +113,27 @@ modules/rke2-cluster (currently not set via root you can change defaults in `mod
 * `controlplane_type`: The node type for the control plane nodes. Defaults to `cpx31`
 * `worker_type`: The node type for the worker nodes. Defaults to `cpx41`
 * `cluster-domain`: the domain used in Ingress Resources e.g. for ArgoCD.
+
+#### Terraform provider & modules
+
+* [Hetzner Cloud Provider](https://registry.terraform.io/providers/hetznercloud/hcloud/latest/docs)
+* [kubernetes](https://registry.terraform.io/providers/hashicorp/kubernetes/latest)
+* [helm](https://registry.terraform.io/providers/hashicorp/helm/latest)
+* [tls](https://registry.terraform.io/providers/hashicorp/tls/latest)
+* [SSH Terraform Provider](https://registry.terraform.io/providers/loafoe/ssh/latest)
   
-### ArgoCD bootstrap & configuration
+### ArgoCD bootstrap & Configuration
 
-Terraform deploys a ArgoCD `Application` resource pointing to this repository which will deploy all resources from `deploy/bootstrap`. The `deploy/bootstrap` folder contains more ArgoCD `Applications` resources to deploy all our applications. An application can be deployed using plain Kubernetes resource files or from Kustomize, or from Helm Charts. See [ArgoCD Documentation](https://argo-cd.readthedocs.io/en/stable/user-guide/application_sources/) for details
+Terraform deploys a ArgoCD `Application` resource pointing to this repository which will deploy all resources from `deploy/bootstrap`. The `deploy/bootstrap` folder contains more ArgoCD `Applications` resources to deploy all our applications. An application can be deployed using plain Kubernetes resource files, from Kustomize or from Helm Charts. See [ArgoCD Documentation](https://argo-cd.readthedocs.io/en/stable/user-guide/application_sources/) for details.
 
-### Cluster access
+Design decisions:
+
+* We use [kustomize application](https://argo-cd.readthedocs.io/en/stable/user-guide/kustomize/). Each application folder in the `deploy` contains a `kustomization.yaml` defining all the resources that shall be deployed.
+* Each application folder contains a `base` folder.
+* Each application folder can include a `overlay` folder if needed (e.g. if this repo is deployed into multiple environments)
+* For Helm Charts we also use [kustomize to generate YAML resources out of a Helm Chart](https://github.com/kubernetes-sigs/kustomize/blob/master/examples/chart.md)
+
+### Cluster Access
 
 For the moment, no external authentication provider is included (see https://github.com/acend/infrastructure/issues/11). We rely on ServiceAccounts and ServiceAccount JWT Tokens to authenticate. RKE2 provides a set of Admin Credentials on intial installation. All other ServiceAccounts and the JWT Tokens are created manually or using the rbac-manager.
 
@@ -282,21 +301,14 @@ Two plans are deployed:
 
 The System Upgrade Controller is scheduled on the control plane nodes.
 
-## Dependencies
+## Acend configuration
 
-* [Terraform](https://www.terraform.io/)
+Folder: `deploy/acend`
 
-Check [Install Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli) for more details on how to use and install the cli.
-  
-* [ArgoCD](https://argo-cd.readthedocs.io/)
+For the acend related resources there is an `acend` ArgoCD Application. The application does:
 
-### Terraform provider & modules
-
-* [Hetzner Cloud Provider](https://registry.terraform.io/providers/hetznercloud/hcloud/latest/docs)
-* [kubernetes](https://registry.terraform.io/providers/hashicorp/kubernetes/latest)
-* [helm](https://registry.terraform.io/providers/hashicorp/helm/latest)
-* [tls](https://registry.terraform.io/providers/hashicorp/tls/latest)
-* [SSH Terraform Provider](https://registry.terraform.io/providers/loafoe/ssh/latest)
+* Deploy acend Namespaces (in which Github can deploy resources)
+* Acend Certificates (e.g. our `*.training.acend.ch` wildcard certificate shared in all `acend-*` Namespaces)
 
 ## How to's
 
@@ -311,8 +323,9 @@ terraform login
 ```bash
 terraform init -backend-config=backend.hcl # only needed after initial checkout or when you add/change modules
 terraform plan # to verify
-terraform apply
 ```
+
+As we use Terraform cloud, a `terraform apply` cannot be executed locally. You have to commit/push your changes and then let Terraform cloud execute the run.
 
 ### encrypt a secret
 
