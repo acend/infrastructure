@@ -36,7 +36,7 @@ data:
       "fiscalYearStartMonth": 0,
       "gnetId": 3831,
       "graphTooltip": 0,
-      "id": 29,
+      "id": 30,
       "links": [],
       "liveNow": false,
       "panels": [
@@ -1015,8 +1015,7 @@ data:
       },
       "timezone": "browser",
       "title": "Kubernetes Cluster Autoscaler (via Prometheus)",
-      "uid": "WwkmLbJVz",
+      "uid": "Ua1uYbJVk",
       "version": 1,
       "weekStart": ""
     }
-  }
