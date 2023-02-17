@@ -76,6 +76,32 @@ See [Anatomy of a Next Generation Kubernetes Distribution](https://docs.rke2.io/
 4. controlplane node 2 & 3 joins the cluster using the same token and they have set `server: https://${lb_address}:9345` in the config file to join the existing cluster.
 5. Provision and join the agent nodes using the same token. They also have set `server: https://${lb_address}:9345` to join the existing cluster.
 
+### Terraform Configuration
+
+#### Important variables
+
+The following terraform variables are important:
+
+Root:
+
+* `clustername`: The name of the Kubernetes Cluster. This is used as label on the cloud resources for better identification
+* `controlplane_count`: The number of controlplane nodes Terraform deploys. This should always be set to `3`
+* `worker`: The number of worker nodes Terraform deploys. This should be set to a minimum of `2`
+* `k8s_api_hostnames`: A list of hostnames to be added to the Kubernetes API Certificate
+* `extra_ssh_keys`: A list of extra SSH keys (besides the one generated in Terraform) to be deployed on the cluster nodes.
+* `hcloud_api_token`: Hetzner API Token
+* `provider-*`: Initially the kubeconfig file is retreived from the first controlplane node and then used to deploy onto the cluster. You can use `provider-client-certificate`, `provider-cluster_ca_certificate`, `provider-client-key`, `provider-k8s-api-host` instead. Don't forget to change the `kubernetes` and `helm` provider in `terraform/modules/rke2-cluster/main.tf` if you wan't to.
+  
+modules/rke2-cluster (currently not set via root you can change defaults in `modules/rke2-cluster/variabled.tf`)
+
+* `location`: The Hetzner location where cloud resources are deployed. Defaults to `nbg1`
+* `rke2_version`: the RKE2 version for initial node bootstraping.
+* `networkzone`: the Hetzner network zone for the private network
+* `lb_type`: Load Balancer Type for the K8S API and RKE2 API. Defaults to `lb11`
+* `node_image_type`: The image type of all deployed vm's. Defaults to `ubuntu-22.04`
+* `controlplane_type`: The node type for the control plane nodes. Defaults to `cpx31`
+* `worker_type`: The node type for the worker nodes. Defaults to `cpx41`
+* `cluster-domain`: the domain used in Ingress Resources e.g. for ArgoCD.
 ### ArgoCD bootstrap & configuration
 
 Terraform deploys a ArgoCD `Application` resource pointing to this repository which will deploy all resources from `deploy/bootstrap`. The `deploy/bootstrap` folder contains more ArgoCD `Applications` resources to deploy all our applications. An application can be deployed using plain Kubernetes resource files or from Kustomize, or from Helm Charts. See [ArgoCD Documentation](https://argo-cd.readthedocs.io/en/stable/user-guide/application_sources/) for details
