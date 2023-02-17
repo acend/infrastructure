@@ -4,7 +4,7 @@ kind: ConfigMap
 metadata:
   labels:
     grafana_dashboard: "1"
-  name: etcd
+  name: cluster-autoscaler
   namespace: monitoring
 data:
   cluster-autoscaler.json: |
