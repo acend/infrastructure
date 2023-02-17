@@ -2,11 +2,15 @@
 
 IaC for acend kubernetes resources
 
-This repo creates the basic acend infrastructure using Terraform.
+This repo creates the basic acend infrastructure using Terraform and ArgoCD.
 
 We use [Hetzner](https://www.hetzner.com/cloud) as our cloud provider and [RKE2](https://docs.rke2.io/) to create the kubernetes cluster.[Kubernetes Cloud Controller Manager for Hetzner Cloud](https://github.com/hetznercloud/hcloud-cloud-controller-manager) to provision lobalancer from a Kubernetes service (type `Loadbalancer`) objects and also configure the networking & native routing for the Kubernetes cluster network traffic.
 
 [ArgoCD](https://argo-cd.readthedocs.io/en/stable/) is used to deploy resourcen on the Kubernetes Cluster
+
+[Cluster Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler) is used to scale the Kubernetes Cluster beyond the initial minimal cluster size deployed by Terraform.
+
+The minimal cluster size is set to 3 control plane nodes and 2 worker nodes.
 
 Folder structure:
 
@@ -23,6 +27,7 @@ Folder structure:
    * Hetzner Cloud Controller Manager for the Kubernetes Cluster Networking
 2. Terraform to delploy and bootstrap ArgoCD
 3. ArgoCD to deploy resources on the Kubernetes Cluster
+4. Cluster Autoscaler to scale the cluster beyond the minimal cluster size created with Terraform.
 
 ```mermaid
 flowchart LR
@@ -65,6 +70,7 @@ Our setup is based on the [High Availability](https://docs.rke2.io/install/ha) i
 * Cilium is used as the CNI Plugin and configured with the `HelmChartConfig` in `/var/lib/rancher/rke2/server/manifests/rke2-cilium-config.yaml`
 * The Kubernetes cluster is kubeproxy free, the functionality is replaced with Cilium. See [Kubernetes Without kube-proxy](https://docs.cilium.io/en/v1.12/gettingstarted/kubeproxy-free/)
 * Native Routing is used instead of a tunneling mechanism (e.g. vxlan). The [Kubernetes Cloud Controller Manager for Hetzner Cloud](https://github.com/hetznercloud/hcloud-cloud-controller-manager) is used to manage and provision the network setup (subnet & routing) for the cluster.
+* Control plane nodes are tainted with `node-role.kubernetes.io/control-plane:true:NoSchedule`. Some of the applications (critical, infrastructure related are scheduled on control plane nodes)
 
 #### tl;dr; Provision a Kubernetes Cluster with RKE2
 
@@ -75,6 +81,7 @@ See [Anatomy of a Next Generation Kubernetes Distribution](https://docs.rke2.io/
 3. The RKE Supervisor listens on Port 9345/tcp for the other nodes to join the cluster
 4. controlplane node 2 & 3 joins the cluster using the same token and they have set `server: https://${lb_address}:9345` in the config file to join the existing cluster.
 5. Provision and join the agent nodes using the same token. They also have set `server: https://${lb_address}:9345` to join the existing cluster.
+6. Scale cluster when needed using the cluster autoscaler.
 
 ### Terraform Configuration
 
@@ -86,7 +93,7 @@ Root:
 
 * `clustername`: The name of the Kubernetes Cluster. This is used as label on the cloud resources for better identification
 * `controlplane_count`: The number of controlplane nodes Terraform deploys. This should always be set to `3`
-* `worker`: The number of worker nodes Terraform deploys. This should be set to a minimum of `2`
+* `worker_count`: The number of worker nodes Terraform deploys. This should be set to a minimum of `2`
 * `k8s_api_hostnames`: A list of hostnames to be added to the Kubernetes API Certificate
 * `extra_ssh_keys`: A list of extra SSH keys (besides the one generated in Terraform) to be deployed on the cluster nodes.
 * `hcloud_api_token`: Hetzner API Token
@@ -117,6 +124,28 @@ See the [Create a new ServiceAccount with a JWT Token and `cluster-admin` privil
 
 The following applications are deployed:
 
+### Cluster Autoscaler
+
+The [Cluster Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler) with the [Hetzner Provider](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/cloudprovider/hetzner/README.md) is used to automaticly scale the Kubernetes Cluster beyond the minimal cluster size of 3 control plane nodes and 2 Worker nodes.
+
+The cluster autoscaler uses the same cloud-init file for the worker node as Terraform does. Terraform created a Secret on the cluster with the cloud init file that is used by the cluster autoscaler.
+
+Currently there is one autoscaling group defined in the cluster autoscaler config (see `deploy/cluster-autoscaler/base/values.yaml`):
+
+```yaml
+autoscalingGroups:
+  - name: CPX41:NBG1:acend-workerpool1
+    maxSize: 2
+    minSize: 0
+```
+
+This will deploy new nodes whenever needed (when there are `Pending` Pods) and also scales down again when possible. The `CPX41` node type is used and they are deployed in the `nbg1` zone of Hetzner (same as the initially deployed two worker with Terraform).
+The two initially deployed worker nodes will never be removed and is part of the minimal cluster size.
+
+For more details on how the Cluster Autoscaler works, see [FAQ](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md).
+
+The cluster autoscaler is scheduled on the control plane nodes.
+
 ### Monitoring
 
 The [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus) stack is used for monitoring (Prometheus-Operator, Prometheus, Alertmanager, Grafana, Node-Exporter, kube-state-metrics).
@@ -137,13 +166,17 @@ The NGINX Ingress Controller is scaled to 2 replicas and spread on the worker no
 
 To provision storage we use [Hetzner CSI Driver](https://github.com/hetznercloud/csi-driver).
 
-The StorageClass `hcloud-volumes` is set as default StorageClass
+The StorageClass `hcloud-volumes` is set as default StorageClass.
+
+The hetzner csi provider is scheduled on the control plane nodes.
 
 ### Sealed Secrets
 
 To keep Secrets safe in our Git Repository we use [sealed secrets](https://sealed-secrets.netlify.app/)
 
 For examples on how to use see [How To's / Encrypt a Secret](#encrypt-a-secret)
+
+Sealed Secrets is scheduled on the control plane nodes.
 
 ### Rancher System Upgrade Controller
 
@@ -153,6 +186,8 @@ Two plans are deployed:
 
 * `server-plan` updates the `rke2` binary on the control-plane nodes
 * `agent-plan` updates the `rke2` binary on the worker nodes after control-plane nodes are updated
+
+The System Upgrade Controller is scheduled on the control plane nodes.
 
 ### kured
 
@@ -164,9 +199,13 @@ When a reboot of a node is requered, `/var/run/reboot-required` is created by `u
 
 [Kyverno](https://kyverno.io/) is deployed as a policy engine.
 
+Kyverno is scheduled on the control plane nodes.
+
 ### rbac-manager
 
 For easy ServiceAccount and RBAC Management the [rbac-manager](https://rbac-manager.docs.fairwinds.com/) is installed.
+
+The RBAC manager scheduled on the control plane nodes.
 
 ## Dependencies
 
@@ -188,7 +227,7 @@ Check [Install Terraform](https://developer.hashicorp.com/terraform/tutorials/aw
 
 ## Terraform usage
 
-Login into terraform cloud with your account using:
+Login into Terraform cloud with your account using:
 
 ```bash
 terraform login
@@ -237,13 +276,12 @@ kubectl delete pod -n kube-system -l name=sealed-secrets-controller
 
 ### Change RKE2 configuration after initial bootstrap
 
-The rke2 configuration is in `/etc/rancher/rke2/config.yaml` and was initially generated with terraform and deployed using cloud-init. Terrafrm does not change this anymore after initial node setup. Thereform you have to manually change (or recreate the node). After a change run `systemctl restark rke2-server`. On the agent nodes, run `systemctl restart rke2-agent`.
-You have to change the settings on all nodes.
+The rke2 configuration is in `/etc/rancher/rke2/config.yaml` and was initially generated with terraform and deployed using cloud-init. Terraform does not change this anymore after initial node setup. Therefore you have to manually change (or recreate the node). After a change run `systemctl restark rke2-server`. On the agent nodes, run `systemctl restart rke2-agent`. You have to change the settings on all nodes.
 
 ### Change Cilium configuration
 
 The Cilium Helm values are in `/var/lib/rancher/rke2/server/manifests/rke2-cilium-config.yaml` on the server nodes. You have to change it on all nodes. Afterwards RKE2 automatically reconfigure cilium.
-RKE2 uses a cilium version bundled in the [rke2-cilium](https://github.com/rancher/rke2-charts/blob/main/charts/rke2-cilium/rke2-cilium) Helm chart from RKE2. The used version is shown in the [RKE2](https://github.com/rancher/rke2/releases/) release notes.
+RKE2 uses a Cilium version bundled in the [rke2-cilium](https://github.com/rancher/rke2-charts/blob/main/charts/rke2-cilium/rke2-cilium) Helm chart from RKE2. The used version is shown in the [RKE2](https://github.com/rancher/rke2/releases/) release notes.
 
 ### Observe network traffic with hubble and the hubble-ui
 
