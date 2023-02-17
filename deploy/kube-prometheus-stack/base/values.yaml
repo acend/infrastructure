@@ -26,6 +26,8 @@ grafana:
       token_url: https://github.com/login/oauth/access_token
       api_url: https://api.github.com/user
       allowed_organizations: acend
+      allow_assign_grafana_admin: true
+      role_attribute_path: contains(groups[*], '@acend/team-cluster-admins') && 'GrafanaAdmin' || 'Viewer'
     auth:
       disable_login_form: true
   ingress:
