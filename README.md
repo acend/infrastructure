@@ -278,6 +278,8 @@ terraform output -raw kubeconfig_raw > kubeconfig.yaml
 
 ### Access Prometheus and Alertmanager UI
 
+The Prometheus and Alertmanager UI are not exposed via Ingress Resource. You have to port-forward the services and access it via `localhost`.
+
 Prometheus:
 
 ```bash
