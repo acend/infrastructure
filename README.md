@@ -175,6 +175,7 @@ terraform plan # to verify
 terraform apply
 ```
 
+
 ### encrypt a secret
 
 ```bash
@@ -253,4 +254,20 @@ kubectl config set-cluster acend-infra --certificate-authority=./ca.crt --embed-
 kubectl config set-context acend --cluster acend-infra --user $USERNAME
 kubectl config use-context acend
 cat ./kubeconfig.yaml
+```
+
+### Get ArgoCD admin credentials
+
+Run the following command in the `terraform` subfolder to get the `admin` password for Argocd:
+
+```bash
+terraform output argocd-admin-secret
+```
+
+### Get rke2 admin kubeconfig
+
+Run the following command in the `terraform` subfolder to get the kubeconfig file for the admin user created by RKE2:
+
+```bash
+terraform output -raw ubeconfig_raw > kubeconfig.yaml
 ```
