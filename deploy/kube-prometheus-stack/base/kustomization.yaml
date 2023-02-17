@@ -12,7 +12,6 @@ resources:
 - grafana-dashboards/nginx.yaml
 - grafana-dashboards/node-exporter.yaml
 
-
 helmCharts:
   - name: kube-prometheus-stack
     releaseName: kube-prometheus-stack
@@ -21,4 +20,11 @@ helmCharts:
     valuesFile: values.yaml
     repo: https://prometheus-community.github.io/helm-charts
 
+helmCharts:
+  - name: grafana
+    releaseName: grafana
+    namespace: monitoring
+    version: 6.50.6
+    valuesFile: values-grafana.yaml
+    repo: https://grafana.github.io/helm-charts
 
