@@ -9,6 +9,9 @@ autoscalingGroups:
 extraEnv:
   HCLOUD_IMAGE: "ubuntu-22.04"
 
+extraArgs:
+  write-status-configmap: true
+
 
 extraEnvSecrets:
   HCLOUD_TOKEN:
