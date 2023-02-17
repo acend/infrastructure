@@ -8,6 +8,11 @@ variable "hosttech_dns_token" {
   description = "hosttech dns api token"
 }
 
+variable "hosttech-dns-zone-id" {
+  type        = string
+  description = "Zone ID of the hosttech DNS Zone where LoadBalancer A/AAAA records are created"
+}
+
 
 variable "location" {
   type        = string

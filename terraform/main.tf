@@ -15,6 +15,8 @@ module "acend-cluster" {
   hcloud_api_token   = var.hcloud_api_token
   hosttech_dns_token = var.hosttech_dns_token
 
+  hosttech-dns-zone-id = var.hosttech-dns-zone-id
+
   extra_ssh_keys     = var.extra_ssh_keys
   controlplane_count = var.controlplane_count
   worker_count       = var.worker_count
