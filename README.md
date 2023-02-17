@@ -114,6 +114,12 @@ The StorageClass `hcloud-volumes` is set as default StorageClass
 
 To keep Secrets safe in our Git Repository we use [sealed secrets](https://sealed-secrets.netlify.app/)
 
+Examples:
+```
+kubectl -n monitoring create secret generic github-client --from-literal=GF_AUTH_GITHUB_CLIENT_ID="xyz" --from-literal=GF_AUTH_GITHUB_CLIENT_SECRET="xyz" --dry-run=client -o yaml > github-client.yaml
+kubeseal --format yaml --controller-name sealed-secrets <github-client.yaml >sealed-github-client.yaml
+```
+
 ### Rancher System Upgrade Controller
 
 For the Kubernetes Cluster upgrade we use the [Rancher System Upgrade Controller](https://github.com/rancher/system-upgrade-controller) which allows for automated rke2 upgrades.
