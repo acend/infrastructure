@@ -52,7 +52,7 @@ resource "kubernetes_secret" "cloud_init_worker" {
   }
 
   data = {
-    "cloudinit.yaml" = templatefile("${path.module}/templates/cloudinit-worker.yaml", {
+    "cloudinit.yaml" = base64encode(templatefile("${path.module}/templates/cloudinit-worker.yaml", {
         api_token = var.hcloud_api_token,
 
         clustername = var.clustername,
@@ -64,7 +64,7 @@ resource "kubernetes_secret" "cloud_init_worker" {
 
         lb_address = hcloud_load_balancer_network.lb.ip,
         lb_id      = hcloud_load_balancer.lb.id,
-      })
+      }))
   }
 
   type = "Opaque"
