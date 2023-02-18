@@ -15,4 +15,6 @@ spec:
     repoURL: https://github.com/hetznercloud/csi-driver.git
     targetRevision: v2.1.1
   syncPolicy:
-    automated: {}
+    automated:
+      prune: true
+      selfHeal: true
