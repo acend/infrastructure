@@ -29,6 +29,11 @@ variable "controlplane_count" {
   type        = number
   default     = 3
   description = "Count of rke2 servers"
+
+  validation {
+    condition     = var.controlplane_count == 3
+    error_message = "You must have 3 control plane nodes."
+  }
 }
 
 variable "worker_count" {

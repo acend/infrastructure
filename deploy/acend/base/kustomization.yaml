@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
 - acend-namespaces.yaml
 - acend-ns-cilium.yaml
-#- acend-wildcard-certificate.yaml
+- acend-wildcard-certificate.yaml
