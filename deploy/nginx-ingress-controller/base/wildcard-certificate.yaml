@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: k8s-prod-wildcard
+  namespace: ingress-nginx
+spec:
+  dnsNames:
+  - '*.k8s-prod.acend.ch'
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt-prod-dns01
+  secretName: k8s-prod-wildcard

@@ -21,7 +21,7 @@ spec:
     rules:
     - alert: CertManagerCertExpirySoon
       annotations:
-        dashboard_url: https://grafana.example.com/d/TvuRo2iMk/cert-manager
+        dashboard_url: https://grafana.k8s-prod.acend.ch/d/TvuRo2iMk/cert-manager
         description: The domain that this cert covers will be unavailable after {{ $value
           | humanizeDuration }}. Clients using endpoints that this cert protects will
           start to fail in {{ $value | humanizeDuration }}.
@@ -37,7 +37,7 @@ spec:
         severity: warning
     - alert: CertManagerCertNotReady
       annotations:
-        dashboard_url: https://grafana.example.com/d/TvuRo2iMk/cert-manager
+        dashboard_url: https://grafana.k8s-prod.acend.ch/d/TvuRo2iMk/cert-manager
         description: This certificate has not been ready to serve traffic for at least
           10m. If the cert is being renewed or there is another valid cert, the ingress
           controller _may_ be able to serve that instead.
@@ -52,7 +52,7 @@ spec:
         severity: critical
     - alert: CertManagerHittingRateLimits
       annotations:
-        dashboard_url: https://grafana.example.com/d/TvuRo2iMk/cert-manager
+        dashboard_url: https://grafana.k8s-prod.acend.ch/d/TvuRo2iMk/cert-manager
         description: Depending on the rate limit, cert-manager may be unable to generate
           certificates for up to a week.
         runbook_url: https://github.com/acend/infrastructure/blob/main/RUNBOOK.md#certmanagerhittingratelimits
