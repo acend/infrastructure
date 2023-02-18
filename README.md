@@ -407,14 +407,14 @@ Then you need someone who has already access to the cluster to get the Service A
 
 ```bash
 # executed by someone with Access to the cluster
-USERNAME=<username>
+SA=<username>
 IPK8SAPI=<K8S Load Balancer IP or Hostname>
-TOKEN=$(kubectl -n rbac-manager get secret $USERNAME -o jsonpath={.data.token} | base64 -d)
-kubectl -n rbac-manager get secret $USERNAME -o jsonpath={.data.'ca\.crt'} | base64 -d > ca.crt
+TOKEN=$(kubectl -n rbac-manager get secret $SA -o jsonpath={.data.token} | base64 -d)
+kubectl -n rbac-manager get secret $SA -o jsonpath={.data.'ca\.crt'} | base64 -d > ca.crt
 export KUBECONFIG=./kubeconfig.yaml
-kubectl config set-credentials $USERNAME --token=$TOKEN
+kubectl config set-credentials $SA --token=$TOKEN
 kubectl config set-cluster acend-infra --certificate-authority=./ca.crt --embed-certs=true --server https://$IPK8SAPI:6443
-kubectl config set-context acend --cluster acend-infra --user $USERNAME
+kubectl config set-context acend --cluster acend-infra --user $SA
 kubectl config use-context acend
 unset KUBECONFIG
 cat ./kubeconfig.yaml
