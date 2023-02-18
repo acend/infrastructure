@@ -4,6 +4,8 @@ resources:
   - namespace.yaml
   - clusterissuer.yaml
   - hosttech-secret.yaml
+  - grafana-dashboard.yaml
+  - prometheus-rules.yaml
 
 helmCharts:
   - name: cert-manager

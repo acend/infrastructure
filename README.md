@@ -161,7 +161,9 @@ The [ACME Webhook for the hosttech DNS API](https://github.com/piccobit/cert-man
 The following `ClusterIssuer` are available:
 
 * `letsencrypt-prod`: for general http01 challenge.
-* `letsencrypt-prod-dns01`: for dns01 challenge using the hosttech acme webhook.
+* `letsencrypt-prod-dns01`: for dns01 challenge using the hosttech acme webhook. The token for hosttech is stored in the `hosttech-secret` Secret in Namespace `cert-manager`
+
+Check the [hosttech DNS API](https://api.ns1.hosttech.eu/api/documentation/) for details on how to get a token
 
 All Cert-Manager components are scheduled on the control plane nodes.
 
