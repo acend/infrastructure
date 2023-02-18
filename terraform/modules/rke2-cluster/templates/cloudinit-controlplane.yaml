@@ -65,7 +65,7 @@ write_files:
   permissions: "0600"
   owner: root:root
   content: |
-    %{ if controlplane_index != 0 }
+    %{ if controlplane_index != 0 || !first_install}
     server: https://${lb_address}:9345
     %{ endif }
     cni: cilium

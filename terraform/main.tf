@@ -28,4 +28,6 @@ module "acend-cluster" {
 
   cluster-domain = var.cluster-domain
 
+  first_install = var.first_install
+
 }

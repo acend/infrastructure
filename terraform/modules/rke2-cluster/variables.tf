@@ -13,6 +13,11 @@ variable "hosttech-dns-zone-id" {
   description = "Zone ID of the hosttech DNS Zone where LoadBalancer A/AAAA records are created"
 }
 
+variable "first_install" {
+  type = bool
+  default = false
+  description = "Indicate if this is the very first installation. RKE2 needs to handle the first controlplane node special when its the initial installation"
+}
 
 variable "location" {
   type        = string

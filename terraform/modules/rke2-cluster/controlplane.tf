@@ -51,6 +51,8 @@ resource "hcloud_server" "controlplane" {
     k8s_api_hostnames = var.k8s_api_hostnames
 
     k8s-cluster-cidr = var.k8s-cluster-cidr
+
+    first_install = var.first_install
   })
 }
 

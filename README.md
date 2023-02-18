@@ -452,6 +452,8 @@ kubectl -n monitoring port-forward svc/kube-prometheus-stack-alertmanager 9093
 
 and then open [http://localhost:9093](http://localhost:9093)
 
+## Troubleshooting
+
 ### Access ArgoCD when no ingress controller is available
 
 In case where no ingress controller is available, you can still access ArgoCD using a port-forward:
@@ -465,3 +467,11 @@ and then you can use the `argocd` cli with and the admin credentials:
 ```bash
 argocd login localhost:8443
 ```
+
+### Recreate Nodes
+
+1. Delete the node from Kubernetes with `kubectl delete node <nodename>
+2. Delete the vm from Hetzner cloud
+3. Let Terraform recreate the VM'
+
+**warning**: Don't remove all controlplane together. Do it one by one.
