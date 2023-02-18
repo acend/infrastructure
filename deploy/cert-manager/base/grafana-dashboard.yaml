@@ -5,7 +5,7 @@ metadata:
   labels:
     grafana_dashboard: "1"
   name: cert-manager
-  namespace: cert-manager
+  namespace: monitoring
 data:
   cert-manager.json: |
     {
