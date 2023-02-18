@@ -13,6 +13,7 @@ resources:
 - grafana-dashboards/etcd.yaml
 - grafana-dashboards/nginx.yaml
 - grafana-dashboards/node-exporter.yaml
+- prometheus-rules/argocd.yaml
 
 helmCharts:
   - name: kube-prometheus-stack
