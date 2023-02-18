@@ -36,12 +36,11 @@ data:
       "fiscalYearStartMonth": 0,
       "gnetId": 17813,
       "graphTooltip": 0,
-      "id": 64,
       "links": [],
       "liveNow": false,
       "panels": [
         {
-          "collapsed": true,
+          "collapsed": false,
           "gridPos": {
             "h": 1,
             "w": 24,
@@ -49,192 +48,192 @@ data:
             "y": 0
           },
           "id": 12,
-          "panels": [
+          "panels": [],
+          "title": "Quick Overview",
+          "type": "row"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "description": "Total number by type of security issues identified in the cluster",
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 1
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Critical"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "red",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "High"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "orange",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Medium"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "dark-yellow",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Low"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "green",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Unknown"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 24,
+            "x": 0,
+            "y": 1
+          },
+          "id": 21,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "center",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "9.3.6",
+          "targets": [
             {
               "datasource": {
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "description": "Total number by type of security issues identified in the cluster",
-              "fieldConfig": {
-                "defaults": {
-                  "mappings": [],
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "color": "green"
-                      },
-                      {
-                        "color": "red",
-                        "value": 1
-                      }
-                    ]
-                  },
-                  "unit": "none"
-                },
-                "overrides": [
-                  {
-                    "matcher": {
-                      "id": "byName",
-                      "options": "Critical"
-                    },
-                    "properties": [
-                      {
-                        "id": "color",
-                        "value": {
-                          "fixedColor": "red",
-                          "mode": "fixed"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "matcher": {
-                      "id": "byName",
-                      "options": "High"
-                    },
-                    "properties": [
-                      {
-                        "id": "color",
-                        "value": {
-                          "fixedColor": "orange",
-                          "mode": "fixed"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "matcher": {
-                      "id": "byName",
-                      "options": "Medium"
-                    },
-                    "properties": [
-                      {
-                        "id": "color",
-                        "value": {
-                          "fixedColor": "dark-yellow",
-                          "mode": "fixed"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "matcher": {
-                      "id": "byName",
-                      "options": "Low"
-                    },
-                    "properties": [
-                      {
-                        "id": "color",
-                        "value": {
-                          "fixedColor": "green",
-                          "mode": "fixed"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "matcher": {
-                      "id": "byName",
-                      "options": "Unknown"
-                    },
-                    "properties": [
-                      {
-                        "id": "color",
-                        "value": {
-                          "mode": "fixed"
-                        }
-                      }
-                    ]
-                  }
-                ]
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "sum(trivy_image_vulnerabilities)",
+              "instant": true,
+              "legendFormat": "Vulnerabilities",
+              "range": false,
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
               },
-              "gridPos": {
-                "h": 9,
-                "w": 24,
-                "x": 0,
-                "y": 1
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "sum(trivy_resource_configaudits)",
+              "hide": false,
+              "instant": true,
+              "legendFormat": "Misconfiguration",
+              "range": false,
+              "refId": "B"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
               },
-              "id": 21,
-              "options": {
-                "colorMode": "background",
-                "graphMode": "none",
-                "justifyMode": "center",
-                "orientation": "auto",
-                "reduceOptions": {
-                  "calcs": [
-                    "lastNotNull"
-                  ],
-                  "fields": "",
-                  "values": false
-                },
-                "textMode": "auto"
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "sum(trivy_image_exposedsecrets)",
+              "hide": false,
+              "instant": true,
+              "legendFormat": "Exposed Secrets",
+              "range": false,
+              "refId": "C"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
               },
-              "pluginVersion": "9.3.1",
-              "targets": [
-                {
-                  "datasource": {
-                    "type": "prometheus",
-                    "uid": "prometheus"
-                  },
-                  "editorMode": "code",
-                  "exemplar": false,
-                  "expr": "sum(trivy_image_vulnerabilities)",
-                  "instant": true,
-                  "legendFormat": "Vulnerabilities",
-                  "range": false,
-                  "refId": "A"
-                },
-                {
-                  "datasource": {
-                    "type": "prometheus",
-                    "uid": "prometheus"
-                  },
-                  "editorMode": "code",
-                  "exemplar": false,
-                  "expr": "sum(trivy_resource_configaudits)",
-                  "hide": false,
-                  "instant": true,
-                  "legendFormat": "Misconfiguration",
-                  "range": false,
-                  "refId": "B"
-                },
-                {
-                  "datasource": {
-                    "type": "prometheus",
-                    "uid": "prometheus"
-                  },
-                  "editorMode": "code",
-                  "exemplar": false,
-                  "expr": "sum(trivy_image_exposedsecrets)",
-                  "hide": false,
-                  "instant": true,
-                  "legendFormat": "Exposed Secrets",
-                  "range": false,
-                  "refId": "C"
-                },
-                {
-                  "datasource": {
-                    "type": "prometheus",
-                    "uid": "prometheus"
-                  },
-                  "editorMode": "code",
-                  "exemplar": false,
-                  "expr": "sum(trivy_clusterrole_clusterrbacassessments)",
-                  "hide": false,
-                  "instant": true,
-                  "legendFormat": "RBAC Assessment",
-                  "range": false,
-                  "refId": "D"
-                }
-              ],
-              "title": "Number and Type of Security Issues",
-              "type": "stat"
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "sum(trivy_clusterrole_clusterrbacassessments)",
+              "hide": false,
+              "instant": true,
+              "legendFormat": "RBAC Assessment",
+              "range": false,
+              "refId": "D"
             }
           ],
-          "title": "Quick Overview",
-          "type": "row"
+          "title": "Number and Type of Security Issues",
+          "type": "stat"
         },
         {
           "collapsed": true,
@@ -242,7 +241,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 1
+            "y": 10
           },
           "id": 2,
           "panels": [
@@ -766,7 +765,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 2
+            "y": 11
           },
           "id": 4,
           "panels": [
@@ -962,7 +961,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 3
+            "y": 12
           },
           "id": 8,
           "panels": [
@@ -1172,7 +1171,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 4
+            "y": 13
           },
           "id": 6,
           "panels": [
@@ -1289,8 +1288,8 @@ data:
         "list": []
       },
       "time": {
-        "from": "2023-01-06T03:43:58.156Z",
-        "to": "2023-01-06T04:37:20.108Z"
+        "from": "now-1h",
+        "to": "now"
       },
       "timepicker": {},
       "timezone": "",
