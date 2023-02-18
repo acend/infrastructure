@@ -124,6 +124,7 @@ modules/rke2-cluster (currently not set via root you can change defaults in `mod
 * [helm](https://registry.terraform.io/providers/hashicorp/helm/latest)
 * [tls](https://registry.terraform.io/providers/hashicorp/tls/latest)
 * [SSH Terraform Provider](https://registry.terraform.io/providers/loafoe/ssh/latest)
+* [Terraform provider for generic REST APIs](https://registry.terraform.io/providers/Mastercard/restapi/1.18.0)
   
 ### ArgoCD bootstrap & Configuration
 
