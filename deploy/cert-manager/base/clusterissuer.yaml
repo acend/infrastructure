@@ -43,3 +43,4 @@ spec:
             - 'k8s.acend.ch'
             - '*.k8s.acend.ch'
             - '*.training.acend.ch'
+            - '*.test.acend.ch'
