@@ -4,7 +4,7 @@ kind: ConfigMap
 metadata:
   labels:
     grafana_dashboard: "1"
-  name: trivy-operator-grafana-dashboard
+  name: trivy-operator
   namespace: monitoring
 data:
   trivy-operator.json: |
