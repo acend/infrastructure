@@ -4,6 +4,7 @@ namespace: trivy-system
 
 resources:
   - namespace.yaml
+  - grafana-dashboard.yaml
 
 helmCharts:
   - name: trivy-operator
