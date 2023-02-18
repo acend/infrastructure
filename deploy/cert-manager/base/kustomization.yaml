@@ -46,3 +46,19 @@ helmCharts:
     repo: https://piccobit.github.io/helm-charts
     valuesInLine:
       groupName: acme.acend.ch
+
+patches:
+- target:
+    kind: Certificate
+    name: cert-manager-webhook-hosttech-ca
+  patch: |-
+    - op: replace
+      path: /spec/duration
+      value: 43800h0m0s
+- target:
+    kind: Certificate
+    name: cert-manager-webhook-hosttech-webhook-tls
+  patch: |-
+    - op: replace
+      path: /spec/duration
+      value: 8760h0m0s
