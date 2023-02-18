@@ -3,7 +3,8 @@ kind: Kustomization
 namespace: ingress-nginx
 
 resources:
-  - "namespace.yaml"
+  - namespace.yaml
+  - wildcard-certificate.yaml
 
 helmCharts:
   - name: ingress-nginx
