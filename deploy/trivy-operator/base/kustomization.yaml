@@ -12,3 +12,4 @@ helmCharts:
     version: 0.11.1
     repo: https://aquasecurity.github.io/helm-charts
     valuesFile: values.yaml
+    includeCRDs: true
