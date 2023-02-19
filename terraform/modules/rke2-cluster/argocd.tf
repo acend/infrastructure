@@ -27,7 +27,8 @@ resource "helm_release" "argocd" {
 
   values = [
     templatefile("${path.module}/templates/argocd-values.yaml", {
-      cluster-domain = var.cluster-domain
+      cluster-domain                 = var.cluster-domain
+      github-app-argocd-clientSecret = var.github-app-argocd-clientSecret
     }),
   ]
 }

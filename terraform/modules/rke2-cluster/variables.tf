@@ -130,3 +130,8 @@ variable "cluster-domain" {
   description = "default domain used for example by ingress resources"
   default     = "k8s.labz.ch"
 }
+
+variable "github-app-argocd-clientSecret" {
+  type = string
+  desciption = "The client Secret for the ArgoCD Github Authentication"
+}
