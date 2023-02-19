@@ -132,6 +132,6 @@ variable "cluster-domain" {
 }
 
 variable "github-app-argocd-clientSecret" {
-  type = string
-  desciption = "The client Secret for the ArgoCD Github Authentication"
+  type        = string
+  description = "The client Secret for the ArgoCD Github Authentication"
 }
