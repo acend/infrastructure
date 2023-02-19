@@ -105,6 +105,7 @@ Root:
 * `hosttech-dns-zone-id"`: Hosttech ZoneID in which DNS Entry for the k8s API LB are created
 * `provider-*`: Initially the kubeconfig file is retreived from the first controlplane node and then used to deploy onto the cluster. You can use `provider-client-certificate`, `provider-cluster_ca_certificate`, `provider-client-key`, `provider-k8s-api-host` instead. Don't forget to change the `kubernetes` and `helm` provider in `terraform/modules/rke2-cluster/main.tf` if you wan't to.
 * `first_install`:  set this to `true` if its the very first installation. RKE2 requires the very first control plane node to handle special. And also the DNS Records for the Ingress Controller LoadBalancer is only available after ArgoCD has installed the Ingress Contoller. Defaults to `false`
+* `github-app-argocd-clientSecret`: Client Secret for the GitHub Oauth App used in ArgoCD for authentication
   
 modules/rke2-cluster (currently not set via root you can change defaults in `modules/rke2-cluster/variables.tf`)
 
@@ -132,6 +133,7 @@ Terraform deploys a ArgoCD `Application` resource pointing to this repository wh
 
 Design decisions:
 
+* We follow the [App of Apps Pattern](https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/)
 * We use [kustomize application](https://argo-cd.readthedocs.io/en/stable/user-guide/kustomize/). Each application folder in the `deploy` contains a `kustomization.yaml` defining all the resources that shall be deployed.
 * Each application folder contains a `base` folder.
 * Each application folder can include a `overlay` folder if needed (e.g. if this repo is deployed into multiple environments)
