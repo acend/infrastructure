@@ -153,6 +153,14 @@ There is a Kyverno `ClusterPolicy` with name `add-ci-bot-label-to-acend-ns` whic
 
 The following applications are deployed:
 
+## ArgoCD
+
+Folder: `terraform/modules/rke2-cluster/argocd.tf`
+
+ArgoCD is deployed and then bootstrapped via Terraform.
+
+Login via GitHub OAuth is enabled. User in team `acend/team-cluster-admins` get full access to ArgoCD. There is also a local admin account. See [Get ArgoCD admin Credentials](#get-argocd-admin-credentials)
+
 ### Cert-Manager
 
 Folder: `deploy/cert-manager`
@@ -426,6 +434,12 @@ Run the following command in the `terraform` subfolder to get the `admin` passwo
 
 ```bash
 terraform output argocd-admin-secret
+```
+
+or directly via Kubernetes Secret:
+
+```bash
+kubectl -n argocd get secrets/argocd-initial-admin-secret --template={{.data.password}} | base64 -d
 ```
 
 ### Get rke2 admin kubeconfig
