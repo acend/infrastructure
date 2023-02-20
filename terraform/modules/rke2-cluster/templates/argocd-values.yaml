@@ -37,8 +37,11 @@ server:
     kustomize.buildOptions: "--enable-helm"
     resource.exclusions: |
       - kinds:
+        - "CiliumIdentity"
         - "ciliumidentities"
+        - "CiliumEndpoint"
         - "ciliumendpoints"
+        - "CiliumNode"
         - "ciliumnodes"
   ingress:
     enabled: true
