@@ -1,0 +1,7 @@
+console:
+  ingress:
+    enabled: true
+    host: minio-console.k8s-prod.acend.ch
+    tls:
+    - hosts:
+      - minio-console.k8s-prod.acend.ch
