@@ -1,0 +1,34 @@
+secrets: false
+
+tenant:
+  name: acend-s3
+  configuration:
+    name: acend-s3-env-configuration
+
+  pools:
+    - servers: 1
+      storageClassName: hcloud-volume
+      size: 5Gi
+
+  metrics:
+    enabled: true
+
+  prometheus:
+    disabled: true
+
+  log:
+    disabled: true
+
+  ingress:
+    api:
+      enabled: true
+      host: s3.k8s-prod.acend.ch
+      tls:
+      - hosts:
+        - s3.k8s-prod.acend.ch
+    console:
+      enabled: true
+      host: s3-console.k8s-prod.acend.ch
+      tls:
+      - hosts:
+        - s3-console.k8s-prod.acend.ch

@@ -1,0 +1,16 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: acend-s3-env-configuration
+  namespace: minio-operator
+spec:
+  encryptedData:
+    config.env: AgAzevO5AjUjK6sNiigEpZC9F37bIfEhpzXkVqH68DV4je0/06xDLijrGCw8RJNzOOxEsPoDC06eNepvYCGp+/tqhsCqinpTttHjpYC2+s6oL1yykvSbdVgkWa9w88YvY19ePYad76cfZTPFmMB4eLWQQU3fRV1dyAatUhMz4gTveMXg86q2KrHvGZrQO+eUOOFQ5rk28EjV/NBoyUFZJD/57wbLuhzOMXDAPcic1PfuktGumtmJJCgVn5jalqJTn+1xpp/tfBamon81xbk3QG94Nm2bBhpqVnCOtVeNgE7/ESRdM7etJaDz7bh12MAlCwdsc5FCJKmydzaRVv9lupId9mp1FGhq2unVGcSbgXdc6ydjaMHLQrZpnZOxA9SG2CVya4xA2a5sjDa9pEF8WUPh44IF+zJfk5xMLn6yWWFfGw71+ps61TtMoe5sy9khpGrUhrgjUJILG9g1T/CwfSe6RMwd3z0kGrR0K+qjsw931T7TlY9vlAMWJipu9Qqdv70iY+b8RgmIfD9F3eV5AQN+pryzlC7qu4eOCim23kTppgKYtx5oYUVjg85keY+wSTWe4cKzxS5jbIfyb39ILmZ79ouC+BbUVR3gFURYI+ppYTzyhyjP25VyD21BmwA0BEbTuqdtNV1db1g1bzYMkLdS4TLfHVSxxX6l33sg+sgZPnwWuZxk7DUi//kA38pRRWbnX69soe6KKy9faLPeaUxY/92Ajm+mU6pU0bVHyoJ/DdCfBCsUSvWVa7WsIcoAvgfeXGctDQecCA4UcRch+k1ljJfqZHsFp4kkWrIb9eiip+UWj8rtX/+iSc6UjqI6wPaQBeFCvEe+tSgAEa7REM6wUEr3P9t82Xt7/q3Z0WPD
+  template:
+    metadata:
+      creationTimestamp: null
+      name: acend-s3-env-configuration
+      namespace: minio-operator
+    type: Opaque
+
