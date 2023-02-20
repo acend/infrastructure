@@ -16,9 +16,7 @@ tenant:
   prometheus:
     disabled: true
 
-  prometheusOperator:
-    labels:
-      app: acend-s3
+  prometheusOperator: true
 
   log:
     disabled: true
