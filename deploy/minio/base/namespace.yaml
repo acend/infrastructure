@@ -5,3 +5,11 @@ metadata:
   name: minio-operator
   labels:
     app: minio-operator
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: acend-s3
+  labels:
+    app: acend-s3
