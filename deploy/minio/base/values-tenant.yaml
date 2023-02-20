@@ -19,16 +19,16 @@ tenant:
   log:
     disabled: true
 
-  ingress:
-    api:
-      enabled: true
-      host: s3.k8s-prod.acend.ch
-      tls:
-      - hosts:
-        - s3.k8s-prod.acend.ch
-    console:
-      enabled: true
-      host: s3-console.k8s-prod.acend.ch
-      tls:
-      - hosts:
-        - s3-console.k8s-prod.acend.ch
+ingress:
+  api:
+    enabled: true
+    host: s3.k8s-prod.acend.ch
+    tls:
+    - hosts:
+      - s3.k8s-prod.acend.ch
+  console:
+    enabled: true
+    host: s3-console.k8s-prod.acend.ch
+    tls:
+    - hosts:
+      - s3-console.k8s-prod.acend.ch
