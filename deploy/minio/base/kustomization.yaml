@@ -5,16 +5,24 @@ resources:
 - acend-s3-env-config.yaml
 
 helmCharts:
-  - name: operator
-    releaseName: minio-operator
-    namespace: minio-operator
-    version: 4.5.8
-    valuesFile: values.yaml
-    repo: https://operator.min.io/
-  # - name: tenant
-  #   releaseName: acend-s3-tenant
-  #   namespace: acend-s3
+  # - name: operator
+  #   releaseName: minio-operator
+  #   namespace: minio-operator
   #   version: 4.5.8
-  #   valuesFile: values-tenant.yaml
+  #   valuesFile: values.yaml
   #   repo: https://operator.min.io/
+  - name: tenant
+    releaseName: acend-s3-tenant
+    namespace: acend-s3
+    version: 4.5.8
+    valuesFile: values-tenant.yaml
+    repo: https://operator.min.io/
 
+patches:
+- target:
+    kind: Tenant
+    name: acend-s3
+  patch: |-
+    - op: add
+      path: /metadata/namespace
+      value: acend-s3
