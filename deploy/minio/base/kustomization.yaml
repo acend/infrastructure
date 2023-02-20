@@ -26,3 +26,17 @@ patches:
     - op: add
       path: /metadata/namespace
       value: acend-s3
+- target:
+    kind: Ingress
+    name: acend-s3
+  patch: |-
+    - op: add
+      path: /metadata/namespace
+      value: acend-s3
+- target:
+    kind: Ingress
+    name: acend-s3-console
+  patch: |-
+    - op: add
+      path: /metadata/namespace
+      value: acend-s3
