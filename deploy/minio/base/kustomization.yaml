@@ -11,10 +11,10 @@ helmCharts:
     version: 4.5.8
     valuesFile: values.yaml
     repo: https://operator.min.io/
-  - name: tenant
-    releaseName: acend-s3-tenant
-    namespace: acend-s3
-    version: 4.5.8
-    valuesFile: values-tenant.yaml
-    repo: https://operator.min.io/
+  # - name: tenant
+  #   releaseName: acend-s3-tenant
+  #   namespace: acend-s3
+  #   version: 4.5.8
+  #   valuesFile: values-tenant.yaml
+  #   repo: https://operator.min.io/
 
