@@ -7,7 +7,7 @@ tenant:
 
   pools:
     - servers: 1
-      storageClassName: hcloud-volume
+      storageClassName: hcloud-volumes
       size: 5Gi
 
   metrics:
