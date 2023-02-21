@@ -1,4 +1,11 @@
 loki:
+  structuredConfig:
+    limits_config:
+      retention_period: 744h #31 days
+
+  compactor:
+    retention_enabled: true
+
   storage:
     bucketNames:
       chunks: loki-chunks
@@ -15,24 +22,34 @@ monitoring:
   dashboards:
     enabled: true
     namespace: monitoring
-  serviceMonitor:
-    enabled: true
 
 test:
   enabled: false
 
 write:
   extraArgs:
-    - -config.expand-env: true
+    - -config.expand-env
+  extraEnvFrom:
+  - secretRef:
+      name: loki-s3-secret
 
 tableManager:
   extraArgs:
-    - -config.expand-env: true
+    - -config.expand-env
+  extraEnvFrom:
+  - secretRef:
+      name: loki-s3-secret
 
 read:
   extraArgs:
-    - -config.expand-env: true
+    - -config.expand-env
+  extraEnvFrom:
+  - secretRef:
+      name: loki-s3-secret
 
 backend:
   extraArgs:
-    - -config.expand-env: true
+    - -config.expand-env
+  extraEnvFrom:
+  - secretRef:
+      name: loki-s3-secret

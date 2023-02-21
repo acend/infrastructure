@@ -472,6 +472,14 @@ kubectl -n monitoring port-forward svc/kube-prometheus-stack-alertmanager 9093
 
 and then open [http://localhost:9093](http://localhost:9093)
 
+### Locally generate Application Manifest Files
+
+As we use kustomize, you can simple execute e.g.:
+
+```bash
+kustomize build --enable-helm ./deploy/acend/base
+```
+
 ## Troubleshooting
 
 ### Access ArgoCD when no ingress controller is available
