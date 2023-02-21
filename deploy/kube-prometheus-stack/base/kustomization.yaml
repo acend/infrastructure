@@ -14,6 +14,7 @@ resources:
 - grafana-dashboards/etcd.yaml
 - grafana-dashboards/nginx.yaml
 - grafana-dashboards/node-exporter.yaml
+- grafana-datasource/loki.yaml
 - prometheus-rules/argocd.yaml
 
 helmCharts:
