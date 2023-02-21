@@ -2,6 +2,8 @@ global:
   dnsService: rke2-coredns-rke2-coredns
 
 loki:
+  auth_enabled: false
+  
   structuredConfig:
     limits_config:
       retention_period: 744h #31 days
