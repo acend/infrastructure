@@ -4,7 +4,6 @@ namespace: loki
 
 resources:
 - namespace.yaml
-- loki-s3-secret.yaml
 
 helmCharts:
   - name: promtail
