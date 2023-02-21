@@ -12,5 +12,5 @@ helmCharts:
     namespace: loki
     version: 4.6.1
     valuesFile: values.yaml
-    includeCRDs: true
+    #includeCRDs: true
     repo: https://grafana.github.io/helm-charts
