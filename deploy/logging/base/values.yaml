@@ -18,14 +18,6 @@ monitoring:
   serviceMonitor:
     enabled: true
 
-  selfMonitoring:
-    enabled: false
-    grafanaAgent:
-      installOperator: false
-
-  lokiCanary: 
-    enabled: false
-
 test:
   enabled: false
 
