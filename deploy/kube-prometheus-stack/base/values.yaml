@@ -30,6 +30,9 @@ grafana:
       role_attribute_path: contains(groups[*], '@acend/team-cluster-admins') && 'GrafanaAdmin' || 'Viewer'
     auth:
       disable_login_form: true
+  sidecar:
+    dashboards:
+      searchNamespace: ALL
   ingress:
     enabled: true
     annotations:

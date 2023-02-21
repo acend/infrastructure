@@ -14,4 +14,3 @@ helmCharts:
     valuesFile: values.yaml
     includeCRDs: true
     repo: https://grafana.github.io/helm-charts
-
