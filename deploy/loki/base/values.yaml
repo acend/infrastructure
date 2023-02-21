@@ -38,6 +38,7 @@ test:
 write:
   replicas: 1
   persistence:
+    enableStatefulSetAutoDeletePVC: false
     size: 5Gi
   extraArgs:
     - -config.expand-env
@@ -55,6 +56,7 @@ tableManager:
 read:
   replicas: 1
   persistence:
+    enableStatefulSetAutoDeletePVC: false
     size: 5Gi
   extraArgs:
     - -config.expand-env
