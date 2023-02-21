@@ -1,0 +1,11 @@
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: full-backup
+  namespace: velero
+spec:
+  schedule: 0 2 * * *
+  template:
+    includedNamespaces:
+    - '*'
+    ttl: 336h0m0s
