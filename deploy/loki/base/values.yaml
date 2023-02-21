@@ -1,3 +1,6 @@
+global:
+  dnsService: rke2-coredns-rke2-coredns
+
 loki:
   structuredConfig:
     limits_config:
