@@ -1,0 +1,45 @@
+initContainers:
+  - name: velero-plugin-for-aws
+    image: velero/velero-plugin-for-aws:v1.5.2
+    imagePullPolicy: IfNotPresent
+    volumeMounts:
+      - mountPath: /target
+        name: plugins
+
+configuration:
+  provider: aws
+  backupStorageLocation:
+    bucket: velero-backup
+    default: true
+    config:
+      s3Url: https://minio.acend-s3.svc.cluster.local
+      s3ForcePathStyle: true
+      insecureSkipTLSVerify: true
+      publicUrl: https://s3.k8s-prod.acend.ch
+
+snapshotsEnabled: false
+
+credentials:
+  existingSecret: velero-s3-secret
+metrics:
+  serviceMonitor: 
+    enabled: true
+  prometheusRule:
+    enabled: true
+    spec:
+    - alert: VeleroBackupPartialFailures
+      annotations:
+        message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} partialy failed backups.
+      expr: |-
+        velero_backup_partial_failure_total{schedule!=""} / velero_backup_attempt_total{schedule!=""} > 0.25
+      for: 15m
+      labels:
+        severity: warning
+    - alert: VeleroBackupFailures
+      annotations:
+        message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} failed backups.
+      expr: |-
+        velero_backup_failure_total{schedule!=""} / velero_backup_attempt_total{schedule!=""} > 0.25
+      for: 15m
+      labels:
+        severity: warning
