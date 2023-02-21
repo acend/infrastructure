@@ -38,7 +38,7 @@ test:
 
 
 write:
-  replicas: 1
+  replicas: 2
   persistence:
     enableStatefulSetAutoDeletePVC: false
     size: 5Gi
@@ -56,7 +56,7 @@ tableManager:
       name: loki-s3-secret
 
 read:
-  replicas: 1
+  replicas: 2
   persistence:
     enableStatefulSetAutoDeletePVC: false
     size: 5Gi
@@ -67,7 +67,7 @@ read:
       name: loki-s3-secret
 
 backend:
-  replicas: 1
+  replicas: 2
   extraArgs:
     - -config.expand-env
   extraEnvFrom:
