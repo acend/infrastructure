@@ -14,4 +14,4 @@ data:
         url: http://loki-gateway.loki.svc.cluster.local
         access: proxy
         jsonData:
-          maxLines: 5000
+          maxLines: 1000
