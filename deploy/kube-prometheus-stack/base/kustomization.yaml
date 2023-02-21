@@ -23,5 +23,6 @@ helmCharts:
     namespace: monitoring
     version: 45.2.0
     valuesFile: values.yaml
+    includeCRDs: true
     repo: https://prometheus-community.github.io/helm-charts
 
