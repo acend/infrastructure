@@ -27,7 +27,13 @@ monitoring:
 test:
   enabled: false
 
+lokiCanary:
+  enabled: false
+
 write:
+  replicas: 1
+  persistence:
+    size: 5Gi
   extraArgs:
     - -config.expand-env
   extraEnvFrom:
@@ -42,6 +48,9 @@ tableManager:
       name: loki-s3-secret
 
 read:
+  replicas: 1
+  persistence:
+    size: 5Gi
   extraArgs:
     - -config.expand-env
   extraEnvFrom:
@@ -49,6 +58,7 @@ read:
       name: loki-s3-secret
 
 backend:
+  replicas: 1
   extraArgs:
     - -config.expand-env
   extraEnvFrom:
