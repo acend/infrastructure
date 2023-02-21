@@ -10,8 +10,8 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: deploy/minio/base
-    repoURL: https://github.com/logging/infrastructure.git
+    path: deploy/logging/base
+    repoURL: https://github.com/acend/infrastructure.git
     targetRevision: HEAD
   syncPolicy:
     automated:
