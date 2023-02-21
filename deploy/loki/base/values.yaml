@@ -24,8 +24,8 @@ monitoring:
     enabled: true
     namespace: monitoring
   selfMonitoring:
-    lokiCanary:
-      enabled: false
+  lokiCanary:
+    enabled: false
 
 test:
   enabled: false
