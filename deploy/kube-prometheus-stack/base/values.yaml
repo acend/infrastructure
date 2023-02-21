@@ -12,6 +12,8 @@ kubeEtcd:
 grafana:
   enabled: true
   envFromSecret: github-client
+  deploymentStrategy:
+    type: RollingUpdate
   grafana.ini:
     server:
       domain: grafana.k8s.labz.ch
