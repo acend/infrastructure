@@ -23,7 +23,6 @@ monitoring:
   dashboards:
     enabled: true
     namespace: monitoring
-  selfMonitoring:
   lokiCanary:
     enabled: false
 
