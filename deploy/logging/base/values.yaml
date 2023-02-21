@@ -1,0 +1,46 @@
+loki:
+  storage:
+    bucketNames:
+      chunks: loki-chunks
+      ruler: loki-ruler
+      admin: loki-admin
+    type: s3
+    s3:
+      endpoint: minio.acend-s3.svc.cluster.local
+      secretAccessKey: ${S3_SECRET_KEY}
+      accessKeyId: ${S3_ACCESS_KEY}
+      insecure: true # inside cluster, self signed
+
+monitoring:
+  dashboards:
+    enabled: true
+    namespace: monitoring
+  serviceMonitor:
+    enabled: true
+
+  selfMonitoring:
+    enabled: false
+    grafanaAgent:
+      installOperator: false
+
+  lokiCanary: 
+    enabled: false
+
+test:
+  enabled: false
+
+write:
+  extraArgs:
+    - -config.expand-env: true
+
+tableManager:
+  extraArgs:
+    - -config.expand-env: true
+
+read:
+  extraArgs:
+    - -config.expand-env: true
+
+backend:
+  extraArgs:
+    - -config.expand-env: true

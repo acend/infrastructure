@@ -5,6 +5,12 @@ tenant:
   configuration:
     name: acend-s3-env-configuration
 
+  buckets:
+  - name: velero-backup
+  - name: loki-chunks
+  - name: loki-ruler
+  - name: loki-admin
+
   pools:
     - servers: 1
       storageClassName: hcloud-volumes
