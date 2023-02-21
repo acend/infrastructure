@@ -23,12 +23,13 @@ monitoring:
   dashboards:
     enabled: true
     namespace: monitoring
+  selfMonitoring:
+    lokiCanary:
+      enabled: false
 
 test:
   enabled: false
 
-lokiCanary:
-  enabled: false
 
 write:
   replicas: 1
