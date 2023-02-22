@@ -269,6 +269,37 @@ For safe automated node reboots we use [kured](https://kured.dev/)
 
 When a reboot of a node is requered, `/var/run/reboot-required` is created by `unattended-upgrade`. Kured detects this and will safly reboot the node. Reboots are done everyday between 21:00 and 23:59:59 Europe/Zurich timezone. Befor rebooting, the node gets cordoned and drained and after the reboot uncordoned again. Only one node at the same time is rebooted.
 
+### Logging
+
+Folder: `deploy/loki` & `deploy/promtail`
+
+[Loki](https://grafana.com/oss/loki/) and [Promtail](https://grafana.com/docs/loki/latest/clients/promtail/) are in use for Container Logs.
+
+Logs are kept 31 days.
+
+Within Grafana / Explore you have access to the container logs.
+
+The storage backend is set to the local Minio S3 installation.
+
+### Minio S3
+
+Folder: `deploy/minio`
+
+The [minio operator](https://github.com/minio/operator) is deployed to create a S3 service.
+
+Access to the Minio is Console: https://minio-console.<cluster-domain> with the JWT Token in the secret `console-sa-secret`
+
+There is a Minio Tenant deployed with name `acend-s3` in the `acend-s3` Namespace. The Minio operator creates the Minio S3 instance.
+
+#### acend-s3 Tenant
+
+URL: https://s3.<cluster-domain>
+Console: https://s3-console.<cluster-domain>
+
+Credentials for console access in Secret `acend-s3-env-configuration` in Namespace `acend-s3`. S3 Access and Secret Keys can be generated in the S3 Console of the acend-s3 tenant.
+
+For Tenant configuration see `deploy/minio/base/values-tenant.yaml`.
+
 ### kyverno
 
 Folder: `deploy/kyverno`
@@ -316,6 +347,15 @@ Two plans are deployed:
 * `agent-plan` updates the `rke2` binary on the worker nodes after control-plane nodes are updated
 
 The System Upgrade Controller is scheduled on the control plane nodes.
+
+### Velero
+
+Folder: `deploy/velero`
+
+[Velero](https://velero.io/) is deployed for Kubernetes manifest backup.
+There is a `full-back` Schedule everynight at 02:00
+
+For the moment, the backupstoragelocation is set to the local Minio S3 installation.
 
 ## Acend configuration
 
