@@ -89,6 +89,8 @@ See [Anatomy of a Next Generation Kubernetes Distribution](https://docs.rke2.io/
 
 Check [Install Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli) for more details on how to use and install the cli.
 
+[Terraform Cloud](https://app.terraform.io) is used for execution of Terraform runs and remote state storage. All secrets required to bootstrap the infrastructure are also stored in Terraform Cloud.
+
 #### Important variables
 
 The following terraform variables are important:
@@ -118,15 +120,6 @@ modules/rke2-cluster (currently not set via root you can change defaults in `mod
 * `worker_type`: The node type for the worker nodes. Defaults to `cpx41`
 * `cluster-domain`: the domain used in Ingress Resources e.g. for ArgoCD.
 
-#### Terraform provider & modules
-
-* [Hetzner Cloud Provider](https://registry.terraform.io/providers/hetznercloud/hcloud/latest/docs)
-* [kubernetes](https://registry.terraform.io/providers/hashicorp/kubernetes/latest)
-* [helm](https://registry.terraform.io/providers/hashicorp/helm/latest)
-* [tls](https://registry.terraform.io/providers/hashicorp/tls/latest)
-* [SSH Terraform Provider](https://registry.terraform.io/providers/loafoe/ssh/latest)
-* [Terraform provider for generic REST APIs](https://registry.terraform.io/providers/Mastercard/restapi/1.18.0)
-  
 ### ArgoCD bootstrap & Configuration
 
 Terraform deploys a ArgoCD `Application` resource pointing to this repository which will deploy all resources from `deploy/bootstrap`. The `deploy/bootstrap` folder contains more ArgoCD `Applications` resources to deploy all our applications. An application can be deployed using plain Kubernetes resource files, from Kustomize or from Helm Charts. See [ArgoCD Documentation](https://argo-cd.readthedocs.io/en/stable/user-guide/application_sources/) for details.
