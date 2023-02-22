@@ -16,8 +16,8 @@ grafana:
     type: RollingUpdate
   grafana.ini:
     server:
-      domain: grafana.k8s.labz.ch
-      root_url: https://grafana.k8s.labz.ch
+      domain: grafana.k8s-prod.acend.ch
+      root_url: https://grafana.k8s-prod.acend.ch
     auth.github:
       enabled: true
       allow_sign_up: true
