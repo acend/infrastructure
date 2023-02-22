@@ -9,3 +9,4 @@ spec:
     includedNamespaces:
     - '*'
     ttl: 336h0m0s
+    useOwnerReferencesInBackup: true
