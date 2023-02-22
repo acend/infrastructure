@@ -51,6 +51,13 @@ For more details on how the Cluster Autoscaler works, see [FAQ](https://github.c
 
 The cluster autoscaler is scheduled on the control plane nodes.
 
+## Hetzner Kubernetes Cloud Controller Manager
+
+Folder: `terraform/modules/rke2-cluster/ccm.tf`
+
+The [Kubernetes Cloud Controller Manager for Hetzner Cloud](https://github.com/hetznercloud/hcloud-cloud-controller-manager) is deployed and allows to provision LoadBalancer based on Services with type `LoadBalancer`.
+The Cloud Controller Manager is also resposible to create all the necessary routes between the Kubernete Nodes. See [Network Support](https://github.com/hetznercloud/hcloud-cloud-controller-manager#networks-support) for details.
+
 ## Hetzner CSI
 
 Folder: none, directly from upstream repository
