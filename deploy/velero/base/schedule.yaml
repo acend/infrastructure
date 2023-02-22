@@ -5,8 +5,8 @@ metadata:
   namespace: velero
 spec:
   schedule: 0 2 * * *
+  useOwnerReferencesInBackup: true
   template:
     includedNamespaces:
     - '*'
     ttl: 336h0m0s
-    useOwnerReferencesInBackup: true
