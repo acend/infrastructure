@@ -158,10 +158,12 @@ The following applications are deployed:
 ## ArgoCD
 
 Folder: `terraform/modules/rke2-cluster/argocd.tf`
+URL: https://argocd.<clusterdomain>
 
 ArgoCD is deployed and then bootstrapped via Terraform.
 
 Login via GitHub OAuth is enabled. User in team `acend/team-cluster-admins` get full access to ArgoCD. There is also a local admin account. See [Get ArgoCD admin Credentials](#get-argocd-admin-credentials)
+
 
 ### Cert-Manager
 
@@ -203,7 +205,6 @@ For more details on how the Cluster Autoscaler works, see [FAQ](https://github.c
 
 The cluster autoscaler is scheduled on the control plane nodes.
 
-
 ### Hetzner CSI
 
 Folder: none, directly from upstream repository
@@ -217,6 +218,7 @@ The hetzner csi provider is scheduled on the control plane nodes.
 ### Monitoring
 
 Folder: `deploy/kube-prometheus-stack`
+Grafana URL: https://grafana.<clusterdomain>
 
 The [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus) stack is used for monitoring (Prometheus-Operator, Prometheus, Alertmanager, Grafana, Node-Exporter, kube-state-metrics).
 
@@ -225,6 +227,8 @@ The montoring stack is deployed in the `monitoring` namespace.
 As the `kube-scheduler`, `kube-controller-manager`, `etcd` only listens on `localhost` on the metrics port, [pushprox](https://github.com/prometheus-community/PushProx) is used to collect the metrics.
 
 Alertmanager is configured to send alerts to the #ops channel in our Slack workspace.
+
+The Grafana-UI is exposed as Ingress. Authentication via GitHub is enabled.
 
 ### kuberetes-replicator
 
@@ -315,7 +319,6 @@ Folder: `deploy/nginx-ingress-controller`
 The [NGINX Ingress Controller](https://kubernetes.github.io/ingress-nginx/) is used with a Hetzner LoadBalancer (automaticly deployed with a Kubernetes service of type `LoadBalancer`and the Hetzner Cloud Controller Manager).
 
 The NGINX Ingress Controller is scaled to 2 replicas and spread on the worker nodes. Proxy Protocol is enabled, `load-balancer.hetzner.cloud/uses-proxyprotocol: true` Annotation on the Service and `use-proxy-protocol: true` in the controller ConfigMap. This allows for real Client-IP's.
-
 
 ### rbac-manager
 
