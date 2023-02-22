@@ -39,14 +39,12 @@ grafana:
     enabled: true
     annotations:
       kubernetes.io/ingress.class: "nginx"
-      cert-manager.io/cluster-issuer: "letsencrypt-prod"
     hosts:
       - grafana.k8s-prod.acned.ch
     path: /
     tls:
       - hosts:
         - grafana.k8s-prod.acend.ch
-        secretName: grafana-general-tls
   serviceMonitor:
       enabled: true
   persistence:
