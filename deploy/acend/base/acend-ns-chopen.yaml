@@ -4,11 +4,11 @@ kind: Namespace
 metadata:
   labels:
     ci-bot: "true"
-  name: acend-argocd-basics-training-prod
+  name: acend-ch-open-workshop-tage-training-prod
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
   labels:
     ci-bot: "true"
-  name: acend-argocd-basics-training-test
+  name: acend-ch-open-workshop-tage-training-test
