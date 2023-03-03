@@ -9,7 +9,7 @@ URL: https://argocd.<clusterdomain>
 
 ArgoCD is deployed and then bootstrapped via Terraform.
 
-Login via GitHub OAuth is enabled. User in team `acend/team-cluster-admins` get full access to ArgoCD. There is also a local admin account. See [Get ArgoCD admin Credentials](#get-argocd-admin-credentials)
+Login via GitHub OAuth is enabled. User in team `acend/team-cluster-admins` get full access to ArgoCD. There is also a local admin account. See [Get ArgoCD admin Credentials](howto.md#get-argocd-admin-credentials)
 
 ## Cert-Manager
 
@@ -83,7 +83,7 @@ Alertmanager is configured to send alerts to the #ops channel in our Slack works
 
 The Grafana-UI is exposed as Ingress. Authentication via GitHub is enabled.
 
-## kuberetes-replicator
+## kubernetes-replicator
 
 Folder: `deploy/kubernetes-replicator`
 
@@ -187,7 +187,7 @@ Folder: `deploy/csealed-secrets`
 
 To keep Secrets safe in our Git Repository we use [sealed secrets](https://sealed-secrets.netlify.app/)
 
-For examples on how to use see [How To's / Encrypt a Secret](#encrypt-a-secret)
+For examples on how to use see [How To's / Encrypt a Secret](howto.md#encrypt-a-secret)
 
 Sealed Secrets is scheduled on the control plane nodes.
 
