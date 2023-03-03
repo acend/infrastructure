@@ -71,7 +71,7 @@ resource "hcloud_load_balancer" "lb" {
   }
 
   lifecycle {
-    prevent_destrox = var.delete_protection
+    prevent_destroy = true
   }
 }
 

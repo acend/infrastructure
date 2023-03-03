@@ -16,7 +16,7 @@ resource "hcloud_server" "controlplane" {
       user_data
     ]
 
-    prevent_destroy = var.delete_protection
+    prevent_destroy = true
   }
 
   name        = "${var.clustername}-controlplane-${count.index}"
