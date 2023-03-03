@@ -48,6 +48,8 @@ provider "restapi" {
 resource "hcloud_network" "network" {
   name     = var.clustername
   ip_range = var.network
+
+  delete_protection = var.delete_protection
 }
 
 resource "hcloud_network_subnet" "subnet" {

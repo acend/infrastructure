@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    ci-bot: "true"
+  name: acend-go-basics-training-prod
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    ci-bot: "true"
+  name: acend-go-basics-training-test
