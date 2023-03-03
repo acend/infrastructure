@@ -15,6 +15,8 @@ resource "hcloud_server" "controlplane" {
       # Ignore user_data for existing nodes as this requires a replacement
       user_data
     ]
+
+    prevent_destroy = var.delete_protection
   }
 
   name        = "${var.clustername}-controlplane-${count.index}"
@@ -30,6 +32,9 @@ resource "hcloud_server" "controlplane" {
   }
 
   ssh_keys = [hcloud_ssh_key.terraform.name]
+
+  delete_protection  = var.delete_protection
+  rebuild_protection = var.delete_protection
 
   user_data = templatefile("${path.module}/templates/cloudinit-controlplane.yaml", {
     api_token = var.hcloud_api_token,

@@ -135,3 +135,9 @@ variable "github-app-argocd-clientSecret" {
   type        = string
   description = "The client Secret for the ArgoCD Github Authentication"
 }
+
+variable "delete_protection" {
+  type        = bool
+  description = "If true, prevent deletion of resources"
+  default     = true
+}

@@ -6,6 +6,8 @@ terraform {
 module "acend-cluster" {
   source = "./modules/rke2-cluster"
 
+  delete_protection = var.delete_protection
+
   clustername = var.clustername
 
   rke2_version = var.rke2_version

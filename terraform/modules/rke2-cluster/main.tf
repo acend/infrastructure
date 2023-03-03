@@ -62,8 +62,16 @@ resource "hcloud_load_balancer" "lb" {
   load_balancer_type = var.lb_type
   location           = var.location
 
+  delete_protection = var.delete_protection
+
+
+
   labels = {
     cluster : var.clustername,
+  }
+
+  lifecycle {
+    prevent_destrox = var.delete_protection
   }
 }
 
