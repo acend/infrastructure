@@ -13,6 +13,6 @@ resources:
 - acend-ns-kubernetes.yaml
 - acend-ns-openshift-ops.yaml
 - acend-ns-prometheus.yaml
-- acend-ns-tektor.yaml
+- acend-ns-tekton.yaml
 - acend-ns-terraform.yaml
 - acend-wildcard-certificate.yaml
