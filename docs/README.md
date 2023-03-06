@@ -140,9 +140,17 @@ See the [Create a new ServiceAccount with a JWT Token and `cluster-admin` privil
 
 #### ci-bot Access
 
-There is a Service Account with name `ci-bot` in Namespace `rbac-manager` wich can be used to deploy into the Cluster from a CICD System (e.g. Github Actions). The `ci-bot` has a Role Binding to the `edit` Cluster Role in all Namespaces where the label `ci-bot: true` is set.
+There are twoService Account for automated deployment using a CI/CD System (e.g. Github Actions):
 
-There is a Kyverno `ClusterPolicy` with name `add-ci-bot-label-to-acend-ns` which automaticly adds the `ci-bot: true` Label to all Namespaces starting with `acend`.
+* `ci-bot` in Namespace `rbac-manager`
+* `ci-bot-test` in Namespace `rbac-manager`
+
+The `ci-bot*`s have a Role Binding to the `edit` Cluster Role in all Namespaces where:
+
+* for `ci-bot` the label `ci-bot: true` and `env: prod` is set
+* for `ci-bot-test` the label `ci-bot: true` and `env: test` is set
+
+There are twi Kyverno `ClusterPolicy`s with name `add-ci-bot-label-to-acend-prod-ns` & `add-ci-bot-label-to-acend-test-ns` which automaticly adds the `ci-bot: true` and correct `env` Label to all Namespaces with the `acend-*-prod` or `acend-*-test` name. But normally, Namespaces are deployed using ArgoCD, therefore the labels should be set there.
 
 ### Hetzner Cloud Console
 
