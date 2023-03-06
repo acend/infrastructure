@@ -5,7 +5,7 @@ The following applications are deployed:
 ## ArgoCD
 
 Folder: `terraform/modules/rke2-cluster/argocd.tf`
-URL: https://argocd.<clusterdomain>
+URL: See Bookmarks in #infrastructure Slack channel
 
 ArgoCD is deployed and then bootstrapped via Terraform.
 
@@ -71,7 +71,7 @@ The hetzner csi provider is scheduled on the control plane nodes.
 ## Monitoring
 
 Folder: `deploy/kube-prometheus-stack`
-Grafana URL: https://grafana.<clusterdomain>
+Grafana URL: See Bookmarks in #infrastructure Slack channel
 
 The [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus) stack is used for monitoring (Prometheus-Operator, Prometheus, Alertmanager, Grafana, Node-Exporter, kube-state-metrics).
 
