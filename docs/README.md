@@ -144,6 +144,16 @@ There is a Service Account with name `ci-bot` in Namespace `rbac-manager` wich c
 
 There is a Kyverno `ClusterPolicy` with name `add-ci-bot-label-to-acend-ns` which automaticly adds the `ci-bot: true` Label to all Namespaces starting with `acend`.
 
+### Hetzner Cloud Console
+
+The Hetzner Cloud Console can be accessed via [Hetzner Cloud Console](https://console.hetzner.cloud/). All provisioned resources are assigned to projects. We have the following projects:
+
+* [acend infrastructure](https://console.hetzner.cloud/projects/2003186/servers)
+
+Access, API tokens are assigned to projects.
+
+To get access, ask an existing project member to create a new invitation.
+
 ## Applications
 
 See [Applications](applications.md)
