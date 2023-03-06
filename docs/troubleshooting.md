@@ -21,3 +21,10 @@ argocd login localhost:8443
 3. Let Terraform recreate the VM'
 
 **warning**: Don't remove all controlplane together. Do it one by one.
+
+## No connection between Pods on different nodes
+
+We use the [Hetzner Cloud Controller Manager](applications.md#hetzner-kubernetes-cloud-controller-manager) to setup nativ routing for the cluster network.
+
+* Check if CCM is up and running and you don't see any errors in the log
+* Check the Hetzner Cloud Console. Go to Networks -> `prod` -> Routes and make sure you see the Kubernetes Cluster Network Routes from range `10.244.0.0/16`. There should be one `/24` route for each of the Kubernetes nodes.
