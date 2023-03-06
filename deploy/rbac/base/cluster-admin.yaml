@@ -15,6 +15,9 @@ rbacBindings:
       - kind: ServiceAccount
         name: thomas
         namespace: rbac-manager
+      - kind: ServiceAccount
+        name: benj
+        namespace: rbac-manager
     clusterRoleBindings:
       - clusterRole: cluster-admin
 
@@ -45,4 +48,13 @@ metadata:
   namespace: rbac-manager
   annotations:
     kubernetes.io/service-account.name: thomas
+type: kubernetes.io/service-account-token
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: benj
+  namespace: rbac-manager
+  annotations:
+    kubernetes.io/service-account.name: benj
 type: kubernetes.io/service-account-token
