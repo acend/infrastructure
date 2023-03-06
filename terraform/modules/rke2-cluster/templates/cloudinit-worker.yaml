@@ -51,5 +51,13 @@ write_files:
     for bin in $(readlink -f /var/lib/rancher/rke2/bin/*); do
       ln -sf $bin /usr/local/bin/$(basename $bin)
     done
+- path: /etc/systemd/system/apt-daily-upgrade.timer.d/override.conf
+  permissions: "0644"
+  owner: root:root
+  content: |
+    [Timer]
+    OnCalendar=
+    OnCalendar=Sat,Sun *-*-* 02:00:00
+    RandomizedDelaySec=60
 runcmd:
 - /opt/rke2/run_rke2.sh
