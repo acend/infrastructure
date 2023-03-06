@@ -59,7 +59,15 @@ flowchart LR
 
 ### Operating System
 
-We use Ubuntu 22.04 as our node operating system. Unattended-upgrade for automated security patching is enabled. If necessary, [kured](https://kured.dev/) will manage node reboots.
+We use Ubuntu 22.04 as our node operating system. Unattended-upgrade for automated security patching is enabled. If necessary, [kured](https://kured.dev/) will manage node reboots between 21:00 and 23:59:59.
+
+Unattended upgrade is configured to only run on Saturday & Sunday. This is configured by editing the `apt-daily-upgrade` timer. The override is in `/etc/systemd/system/apt-daily-upgrade.timer.d/override.conf` and created using cloud-init during deployment.
+
+```ini
+[Timer]
+OnCalendar=
+OnCalendar=Sat,Sun *-*-* 02:00:00
+```
 
 ### Cluster basic Design & Configuration and Setup Procedure
 
