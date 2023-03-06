@@ -1,0 +1,48 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    ci-bot: "true"
+    env: "prod"
+  name: acend-slack-notify 
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: slack-webhook
+  namespace: acend-slack-notify
+spec:
+  encryptedData:
+    SLACK_WEBHOOK: AgA779OIqWed2Tvx/UV/hxrUU7sExixbwJOTw2oqAk3mo50QCDZFwQSa//qCE9g3xkla+yO697M/KoznAExfeV0F0m5kdqm5QAbNk183E+26ANTOFAYHO0TuBoOpx1ZuTYUddmYljGPo2yHTbi2LchroBZ37zeA7Ba6sqpD5Szls4vhuIDz4JDHG7YQzECoaPycNUIYac9Ld+AjwmfdQkMuSjTawzmoB3QO8UmGiawaUfZzoaacQPDC3Bcf/ejTW8MNCs5v6H5JkXZ2B049KFQvZZmh1DL92Gj61qthW0AKdY0ZauFVZ1w1gxBktXjwN2jox3zww7o8YadHwahL7UYQktmHNBjd4PRnPC7dIOi/t3BS6Up+yAZXiZWkOvCAcJqdf3oqxh08BsSlctfc/u4xTZE3GllEBHiIQKvejLWXlD2FhsLVmVXTwzdWcab/kT+Q9cXKWQZz8/p1EEgAdeuFGb9pCe9y7WLFgklHJXJj5GMQY708ey3KLmFrzyv7zjao6F0ZHQERx3XS5IMFwu/GBgpfuja0XIfuG75earuYrI5TTpAG9y/DZ12UZWJpWUdpAgZKno6ocii7jU7e5E9BViAVzcO6p3/F5FsqRIbN2t4zBcurS05qnFJYu+txhC7dY0WdPmBYtN7qMpQ0x/xRtOgY3cSFbcsis6Fmhy3ijxL0NmjsCIwHizL9CJxwt7ltRL9REgFq9owpCBRIs79beYjzlpsjk7KhLnXiVOxtbA3M7sTUCUYFd6dludtf/xnovxod2csBqVd9JwgGo3mBHmHko/bFqPSIGJA6VsLh8dq4=
+  template:
+    metadata:
+      creationTimestamp: null
+      name: slack-webhook
+      namespace: acend-slack-notify
+    type: Opaque
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ted-lasso
+  namespace: acend-slack-notify
+spec:
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - env:
+            - name: SLACK_MESSAGE
+              value: Be curious. Not judgmental. So I'm curious what you're up to
+                this week, Diamond Dogs?
+            envFrom:
+            - secretRef:
+                name: slack-webhook
+                optional: false
+            image: ghcr.io/acend/slack-notify:latest
+            imagePullPolicy: Always
+            name: ted-lasso
+  schedule: 0 09 * * 1

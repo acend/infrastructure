@@ -16,3 +16,4 @@ resources:
 - acend-ns-tekton.yaml
 - acend-ns-terraform.yaml
 - acend-wildcard-certificate.yaml
+- acend-ted-lasso.yaml
