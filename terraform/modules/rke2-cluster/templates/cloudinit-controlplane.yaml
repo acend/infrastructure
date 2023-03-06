@@ -114,3 +114,11 @@ write_files:
     INSTALL_RKE2_METHOD='tar' INSTALL_RKE2_TYPE=server INSTALL_RKE2_VERSION=${rke2_version} ./install.sh
     systemctl enable rke2-server
     systemctl start rke2-server
+- path: /etc/systemd/system/apt-daily-upgrade.timer.d/override.conf
+  permissions: "0644"
+  owner: root:root
+  content: |
+    [Timer]
+    OnCalendar=
+    OnCalendar=Sat,Sun *-*-* 02:00:00
+    RandomizedDelaySec=60
