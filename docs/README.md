@@ -136,7 +136,7 @@ Design decisions:
 
 For the moment, no external authentication provider is included (see https://github.com/acend/infrastructure/issues/11). We rely on ServiceAccounts and ServiceAccount JWT Tokens to authenticate. RKE2 provides a set of Admin Credentials on intial installation. All other ServiceAccounts and the JWT Tokens are created manually or using the rbac-manager.
 
-See the [Create a new ServiceAccount with a JWT Token and `cluster-admin` privileges](#create-a-new-serviceaccount-with-a-jwt-token-and-cluster-admin-privileges) to create a new cluster access with `cluster-admin` privileges.
+See the [Create a new ServiceAccount with a JWT Token and `cluster-admin` privileges](howto.md#create-a-new-serviceaccount-with-a-jwt-token-and-cluster-admin-privileges) to create a new cluster access with `cluster-admin` privileges.
 
 #### ci-bot Access
 
