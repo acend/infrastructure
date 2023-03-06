@@ -10,7 +10,7 @@ rbacBindings:
         name: ci-bot
         namespace: rbac-manager
     roleBindings:
-      - clusterRole: admin
+      - clusterRole: cluster-admin
         namespaceSelector:
           matchLabels:
             ci-bot: "true"
@@ -36,7 +36,7 @@ rbacBindings:
         name: ci-bot-test
         namespace: rbac-manager
     roleBindings:
-      - clusterRole: edit
+      - clusterRole: cluster-admin
         namespaceSelector:
           matchLabels:
             ci-bot: "true"
