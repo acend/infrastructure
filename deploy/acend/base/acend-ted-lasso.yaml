@@ -29,10 +29,13 @@ metadata:
   name: ted-lasso
   namespace: acend-slack-notify
 spec:
+  concurrencyPolicy: Allow
+  failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
       template:
         spec:
+          restartPolicy: Never
           containers:
           - env:
             - name: SLACK_MESSAGE
