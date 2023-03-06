@@ -14,3 +14,12 @@ metadata:
     ci-bot: "true"
     env: "test"
   name: acend-website-test
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    ci-bot: "true"
+    env: "prod"
+  name: acend-webshell
