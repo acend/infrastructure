@@ -4,6 +4,7 @@ kind: Namespace
 metadata:
   labels:
     ci-bot: "true"
+    env: "prod"
   name: acend-terraform-training-prod
 ---
 apiVersion: v1
@@ -11,4 +12,5 @@ kind: Namespace
 metadata:
   labels:
     ci-bot: "true"
+    env: "test"
   name: acend-terraform-training-test

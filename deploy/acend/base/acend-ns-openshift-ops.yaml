@@ -4,6 +4,7 @@ kind: Namespace
 metadata:
   labels:
     ci-bot: "true"
+    env: "prod"
   name: acend-openshift-4-ops-training-prod
 ---
 apiVersion: v1
@@ -11,6 +12,7 @@ kind: Namespace
 metadata:
   labels:
     ci-bot: "true"
+    env: "test"
   name: acend-openshift-4-ops-training-test
 ---
 apiVersion: v1
@@ -18,6 +20,7 @@ kind: Namespace
 metadata:
   labels:
     ci-bot: "true"
+    env: "prod"
   name: acend-openshift-operations-training-prod
 ---
 apiVersion: v1
@@ -25,4 +28,5 @@ kind: Namespace
 metadata:
   labels:
     ci-bot: "true"
+    env: "test"
   name: acend-openshift-operations-training-test

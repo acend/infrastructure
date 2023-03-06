@@ -1,9 +1,10 @@
+---
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: add-ci-bot-label-to-acend-ns
+  name: add-ci-bot-label-to-acend-prod-ns
   annotations:
-    policies.kyverno.io/title: Add ci-bot Label to acend namespaces
+    policies.kyverno.io/title: Add ci-bot Label to acend prod namespaces
     policies.kyverno.io/category: Other
     policies.kyverno.io/severity: medium
     policies.kyverno.io/subject: Namespace
@@ -11,7 +12,7 @@ metadata:
     policies.kyverno.io/minversion: 1.7.0
     kyverno.io/kubernetes-version: "1.23"
     policies.kyverno.io/description: >-
-      Add the ci-bot: true label to all namespaces starting with `acend-*`    
+      Add the ci-bot: true label to all namespaces starting with `acend-*-prod`    
 spec:
  # mutateExistingOnPolicyUpdate: true
   rules:
@@ -20,7 +21,7 @@ spec:
       any:
       - resources:
           names:
-          - "acend-*"
+          - "acend-*-prod"
           kinds:
           - Namespace
     mutate:
@@ -31,3 +32,39 @@ spec:
         metadata:
           labels:
             ci-bot: "true"
+            env: "prod"
+---
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: add-ci-bot-label-to-acend-test-ns
+  annotations:
+    policies.kyverno.io/title: Add ci-bot Label to acend test namespaces
+    policies.kyverno.io/category: Other
+    policies.kyverno.io/severity: medium
+    policies.kyverno.io/subject: Namespace
+    kyverno.io/kyverno-version: 1.7.0
+    policies.kyverno.io/minversion: 1.7.0
+    kyverno.io/kubernetes-version: "1.23"
+    policies.kyverno.io/description: >-
+      Add the ci-bot: true label to all namespaces starting with `acend-*-test`    
+spec:
+ # mutateExistingOnPolicyUpdate: true
+  rules:
+  - name: label-acend-namespaces
+    match:
+      any:
+      - resources:
+          names:
+          - "acend-*-test"
+          kinds:
+          - Namespace
+    mutate:
+      targets:
+        - apiVersion: v1
+          kind: Namespace
+      patchStrategicMerge:
+        metadata:
+          labels:
+            ci-bot: "true"
+            env: "test"

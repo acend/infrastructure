@@ -14,6 +14,7 @@ rbacBindings:
         namespaceSelector:
           matchLabels:
             ci-bot: "true"
+            env: "prod"
 ---
 apiVersion: v1
 kind: Secret
@@ -22,4 +23,30 @@ metadata:
   namespace: rbac-manager
   annotations:
     kubernetes.io/service-account.name: ci-bot
+type: kubernetes.io/service-account-token
+---
+apiVersion: rbacmanager.reactiveops.io/v1beta1
+kind: RBACDefinition
+metadata:
+  name: ci-bot-test
+rbacBindings:
+  - name: ci-bot-test
+    subjects:
+      - kind: ServiceAccount
+        name: ci-bot-test
+        namespace: rbac-manager
+    roleBindings:
+      - clusterRole: edit
+        namespaceSelector:
+          matchLabels:
+            ci-bot: "true"
+            env: "test"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ci-bot-test
+  namespace: rbac-manager
+  annotations:
+    kubernetes.io/service-account.name: ci-bot-test
 type: kubernetes.io/service-account-token

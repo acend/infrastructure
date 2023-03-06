@@ -4,6 +4,7 @@ kind: Namespace
 metadata:
   labels:
     ci-bot: "true"
+    env: "prod"
   name: acend-ch-open-workshop-tage-training-prod
 ---
 apiVersion: v1
@@ -11,4 +12,5 @@ kind: Namespace
 metadata:
   labels:
     ci-bot: "true"
+    env: "test"
   name: acend-ch-open-workshop-tage-training-test
