@@ -13,7 +13,7 @@ grafana:
   enabled: true
   envFromSecret: github-client
   deploymentStrategy:
-    type: RollingUpdate
+    type: Recreate
   grafana.ini:
     server:
       domain: grafana.k8s-prod.acend.ch
