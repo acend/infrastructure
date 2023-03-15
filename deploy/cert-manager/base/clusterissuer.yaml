@@ -44,3 +44,4 @@ spec:
             - '*.k8s-prod.acend.ch'
             - '*.training.acend.ch'
             - '*.test.acend.ch'
+            - '*.training.puzzle.ch'
