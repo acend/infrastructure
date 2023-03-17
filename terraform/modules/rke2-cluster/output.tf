@@ -3,7 +3,7 @@ output "kubernetes_api" {
 }
 
 output "kubernetes_api_ipv4" {
-  value = local.kubernetes_api_ipv6
+  value = local.kubernetes_api_ipv4
 }
 
 output "kubernetes_api_ipv6" {
