@@ -13,7 +13,7 @@ rbacBindings:
       - clusterRole: cluster-admin
         namespaceSelector:
           matchLabels:
-#            ci-bot: "true"
+            ci-bot: "true"
             env: "prod"
 ---
 apiVersion: v1
@@ -39,7 +39,7 @@ rbacBindings:
       - clusterRole: cluster-admin
         namespaceSelector:
           matchLabels:
-#            ci-bot: "true"
+            ci-bot: "true"
             env: "test"
 ---
 apiVersion: v1
