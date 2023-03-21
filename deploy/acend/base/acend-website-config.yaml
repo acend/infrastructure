@@ -1,0 +1,22 @@
+---
+apiVersion: v1
+data:
+  SMTP_FROM: noreply@acend.ch
+  SMTP_HOST: smtp-relay.gmail.com
+  SMTP_PORT: "587"
+  SMTP_TO: sales+website@acend.ch
+kind: ConfigMap
+metadata:
+  name: acend-website-backend
+  namespace: acend-website
+---
+apiVersion: v1
+data:
+  SMTP_FROM: noreply@acend.ch
+  SMTP_HOST: smtp-relay.gmail.com
+  SMTP_PORT: "587"
+  SMTP_TO: hello+website-test@acend.ch
+kind: ConfigMap
+metadata:
+  name: acend-website-backend
+  namespace: acend-website-test
