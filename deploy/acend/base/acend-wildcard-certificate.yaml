@@ -28,3 +28,17 @@ spec:
     kind: ClusterIssuer
     name: letsencrypt-prod-dns01
   secretName: acend-test-wildcard
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: acend-main-wildcard
+  namespace: acend-website
+spec:
+  dnsNames:
+  - acend.ch
+  - '*.acend.ch'
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt-prod-dns01
+  secretName: acend-main-wildcard
