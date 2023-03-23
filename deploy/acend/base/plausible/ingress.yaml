@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/tls-acme: "true"
+  name: plausible
+spec:
+  rules:
+  - host: plausible.acend.ch
+    http:
+      paths:
+      - backend:
+          service:
+            name: plausible
+            port:
+              number: 8000
+  tls:
+  - hosts:
+    - plausible.acend.ch
+    secretName: plausible-acend-ch
