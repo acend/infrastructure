@@ -1,15 +1,13 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-
 namespace: acend-website
-
 resources:
 - plausible-config-secret.yaml
 - plausible-db-secret.yaml
 - plausible-event-db-secret.yaml
-- plausible.yaml
-- plausible-db.yaml
-- plausible-events-db.yaml
-- plausible-mail.yaml
-- ingress.yaml
+# - plausible.yaml
+# - plausible-db.yaml
+# - plausible-events-db.yaml
+# - plausible-mail.yaml
+# - ingress.yaml
