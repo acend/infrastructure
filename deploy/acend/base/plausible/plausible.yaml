@@ -60,6 +60,8 @@ spec:
               value: acend
             - name: BASE_URL
               value: https://plausible.acend.ch
+            - name: DISABLE_REGISTRATION
+              value: "true"
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
@@ -111,6 +113,8 @@ spec:
               value: acend
             - name: BASE_URL
               value: https://plausible.acend.ch
+            - name: DISABLE_REGISTRATION
+              value: "true"
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
