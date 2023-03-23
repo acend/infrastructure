@@ -15,6 +15,7 @@ spec:
             name: plausible
             port:
               number: 8000
+        pathType: ImplementationSpecific
   tls:
   - hosts:
     - plausible.acend.ch

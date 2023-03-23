@@ -20,4 +20,4 @@ resources:
 - acend-website-basicauth.yaml
 - acend-website-config.yaml
 - acend-ns-ops-uptime-monitoring.yaml
-#- plausible/
+- plausible/
