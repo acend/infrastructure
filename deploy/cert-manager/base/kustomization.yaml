@@ -15,6 +15,9 @@ helmCharts:
     repo: https://charts.jetstack.io
     valuesInLine:
       installCRDs: true
+      ingressShim:
+        defaultIssuerName: letsencrypt-prod
+        defaultIssuerKind: ClusterIssuer
       prometheus:
         servicemonitor:
           enabled: true
