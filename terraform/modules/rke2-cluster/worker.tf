@@ -53,18 +53,18 @@ resource "kubernetes_secret" "cloud_init_worker" {
 
   data = {
     "cloudinit.yaml" = base64encode(templatefile("${path.module}/templates/cloudinit-worker.yaml", {
-        api_token = var.hcloud_api_token,
+      api_token = var.hcloud_api_token,
 
-        clustername = var.clustername,
+      clustername = var.clustername,
 
-        rke2_version        = var.rke2_version,
-        rke2_cluster_secret = random_password.rke2_cluster_secret.result,
+      rke2_version        = var.rke2_version,
+      rke2_cluster_secret = random_password.rke2_cluster_secret.result,
 
-        extra_ssh_keys = var.extra_ssh_keys,
+      extra_ssh_keys = var.extra_ssh_keys,
 
-        lb_address = hcloud_load_balancer_network.lb.ip,
-        lb_id      = hcloud_load_balancer.lb.id,
-      }))
+      lb_address = hcloud_load_balancer_network.lb.ip,
+      lb_id      = hcloud_load_balancer.lb.id,
+    }))
   }
 
   type = "Opaque"

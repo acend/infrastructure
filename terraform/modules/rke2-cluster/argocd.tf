@@ -34,11 +34,11 @@ resource "helm_release" "argocd" {
 }
 
 resource "helm_release" "argocd-bootstrap" {
-  name         = "argocd-bootstrap"
-  repository   = "https://argoproj.github.io/argo-helm"
-  chart        = "argocd-apps"
-  namespace    = kubernetes_namespace.argocd.metadata.0.name
-  version      = "0.0.9"
+  name       = "argocd-bootstrap"
+  repository = "https://argoproj.github.io/argo-helm"
+  chart      = "argocd-apps"
+  namespace  = kubernetes_namespace.argocd.metadata.0.name
+  version    = "0.0.9"
 
   values = [
     templatefile("${path.module}/templates/argocd-bootstrap-values.yaml", {

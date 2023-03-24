@@ -14,8 +14,8 @@ variable "hosttech-dns-zone-id" {
 }
 
 variable "first_install" {
-  type = bool
-  default = false
+  type        = bool
+  default     = false
   description = "Indicate if this is the very first installation. RKE2 needs to handle the first controlplane node special when its the initial installation"
 }
 
