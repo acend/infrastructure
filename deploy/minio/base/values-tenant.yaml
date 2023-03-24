@@ -11,6 +11,12 @@ tenant:
   - name: loki-ruler
   - name: loki-admin
 
+  features:
+    domains:
+      console: https://s3-console.k8s-prod.acend.ch
+      minio:
+      - https://s3.k8s-prod.acend.ch
+
   pools:
     - servers: 1
       storageClassName: hcloud-volumes
