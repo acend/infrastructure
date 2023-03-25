@@ -1,9 +1,14 @@
 controller:
   replicaCount: 2
+  config:
+    use-proxy-protocol: true
   extraArgs:
     default-ssl-certificate: "ingress-nginx/k8s-prod-wildcard"
   ingressClassResource:
     default: true
+  service:
+    annotations:
+      load-balancer.hetzner.cloud/uses-proxyprotocol: "true"
   metrics:
     enabled: true
     serviceMonitor:
