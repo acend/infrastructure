@@ -14,7 +14,9 @@ packages:
 package_update: true
 package_upgrade: true
 runcmd:
-- echo 'fs.file-max = 65535' >> /etc/sysctl.conf
+- echo "*               soft    nofile          1000000" >> /etc/security/limits.conf
+- echo "*               hard    nofile          1000000" >> /etc/security/limits.conf
+- echo 'fs.file-max = 1000000' >> /etc/sysctl.conf
 - sysctl -p
 - /opt/rke2/run_rke2.sh
 - rm /opt/rke2/run_rke2.sh

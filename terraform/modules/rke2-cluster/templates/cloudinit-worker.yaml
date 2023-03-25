@@ -60,6 +60,8 @@ write_files:
     OnCalendar=Sat,Sun *-*-* 02:00:00
     RandomizedDelaySec=60
 runcmd:
-- echo 'fs.file-max = 65535' >> /etc/sysctl.conf
+- echo "*               soft    nofile          1000000" >> /etc/security/limits.conf
+- echo "*               hard    nofile          1000000" >> /etc/security/limits.conf
+- echo 'fs.file-max = 1000000' >> /etc/sysctl.conf
 - sysctl -p
 - /opt/rke2/run_rke2.sh
