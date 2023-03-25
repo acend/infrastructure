@@ -17,6 +17,8 @@ runcmd:
 - echo "*               soft    nofile          1000000" >> /etc/security/limits.conf
 - echo "*               hard    nofile          1000000" >> /etc/security/limits.conf
 - echo 'fs.file-max = 1000000' >> /etc/sysctl.conf
+- echo 'fs.inotify.max_user_instances=8192' >> /etc/sysctl.conf
+- echo 'fs.inotify.max_user_watches=524288' >> /etc/sysctl.conf
 - sysctl -p
 - /opt/rke2/run_rke2.sh
 - rm /opt/rke2/run_rke2.sh
