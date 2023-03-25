@@ -64,3 +64,8 @@ prometheus:
           resources:
             requests:
               storage: 50Gi
+
+alertmanager:
+  alertmanagerSpec:
+    secrets:
+    - slack-webhook-url
