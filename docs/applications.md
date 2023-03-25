@@ -51,6 +51,13 @@ For more details on how the Cluster Autoscaler works, see [FAQ](https://github.c
 
 The cluster autoscaler is scheduled on the control plane nodes.
 
+## hairpin-proxy
+
+Folder: `deploy/hairpin-proxy`
+
+Due to [proxy_protocol mode breaks HTTP01 challenge Check stage](https://github.com/cert-manager/cert-manager/issues/466) we need to use bypass calls comming from the cluster itself to the loadbalancer using the [hairpin-proxy](https://github.com/compumike/hairpin-proxy). A [slightly modified version](https://github.com/splattner/hairpin-proxy/commit/2fb03df58c5b2d445dce19fe4b9185de5e3c8c07) is deployed as we don't use the default CoreDNS ConfigMap name.
+This is mainly used for the http01 challenge of CertManager, as it does a self check before issuing the certificates. The call to the challenge ingress fails as Kubernetes [redirects traffic to the LoadBalancer IP](https://github.com/kubernetes/kubernetes/issues/66607) directly to the dedicated service. As our Hetzner LoadBalancer and the NGINX Ingress Controller uses the proxy protocol, this call fails. The hairpin-proxy uses haproxy to forward traffic to the NGINX Ingress Controller with Proxy Protocol enabled.
+
 ## Hetzner Kubernetes Cloud Controller Manager
 
 Folder: `terraform/modules/rke2-cluster/ccm.tf`
@@ -173,8 +180,6 @@ The [NGINX Ingress Controller](https://kubernetes.github.io/ingress-nginx/) is u
 
 The NGINX Ingress Controller is scaled to 2 replicas and spread on the worker nodes. Proxy Protocol is enabled, `load-balancer.hetzner.cloud/uses-proxyprotocol: true` Annotation on the Service and `use-proxy-protocol: true` in the controller ConfigMap. This allows for real Client-IP's.
 
-Due to [proxy_protocol mode breaks HTTP01 challenge Check stage][https://github.com/cert-manager/cert-manager/issues/466] we need to use bypass calls comming from the cluster itself to the loadbalancer using the [hairpin-proxy](https://github.com/compumike/hairpin-proxy). A [slightly modified version](https://github.com/splattner/hairpin-proxy/commit/2fb03df58c5b2d445dce19fe4b9185de5e3c8c07) is deployed as we don't use the default CoreDNS ConfigMap name.
-This is mainly used for the http01 challenge of CertManager, as it does a self check before issuing the certificates. The call to the challenge ingress fails as Kubernetes [redirects traffic to the LoadBalancer IP](https://github.com/kubernetes/kubernetes/issues/66607) directly to the dedicated service. As our Hetzner LoadBalancer and the NGINX Ingress Controller uses the proxy protocol, this call fails. The hairpin-proxy uses haproxy to forward traffic to the NGINX Ingress Controller with Proxy Protocol enabled.
 ## rbac-manager
 
 Folder: `deploy/rbac-manager` & `deploy/rbac`
