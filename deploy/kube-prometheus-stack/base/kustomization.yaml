@@ -4,7 +4,6 @@ resources:
 - namespace.yaml
 - slack_secret.yaml
 - github_client.yaml
-#- alertmanagerconfig.yaml
 - pushprox_etcd.yaml
 - pushprox_kube-controller-manager.yaml
 - pushprox_kube-scheduler.yaml
@@ -17,6 +16,7 @@ resources:
 - grafana-datasource/loki.yaml
 - grafana-datasource/alertmanager.yaml
 - prometheus-rules/argocd.yaml
+- hcloud-exporter/
 
 helmCharts:
   - name: kube-prometheus-stack
