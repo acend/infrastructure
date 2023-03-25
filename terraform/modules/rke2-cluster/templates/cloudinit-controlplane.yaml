@@ -14,6 +14,8 @@ packages:
 package_update: true
 package_upgrade: true
 runcmd:
+- echo 'fs.file-max = 65535' >> /etc/sysctl.conf
+- sysctl -p
 - /opt/rke2/run_rke2.sh
 - rm /opt/rke2/run_rke2.sh
 write_files:
