@@ -107,10 +107,6 @@ spec:
             - secretRef:
                 name: plausible-config
           env:
-            - name: ADMIN_USER_EMAIL
-              value: info@acend.ch
-            - name: ADMIN_USER_NAME
-              value: acend
             - name: BASE_URL
               value: https://plausible.acend.ch
             - name: DISABLE_REGISTRATION
