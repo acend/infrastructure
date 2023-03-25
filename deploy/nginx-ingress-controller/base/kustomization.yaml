@@ -5,6 +5,7 @@ namespace: ingress-nginx
 resources:
   - namespace.yaml
   - wildcard-certificate.yaml
+  - hairpin.yaml
 
 helmCharts:
   - name: ingress-nginx

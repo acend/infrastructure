@@ -39,6 +39,7 @@ grafana:
     enabled: true
     annotations:
       kubernetes.io/ingress.class: "nginx"
+      cert-manager.io/cluster-issuer: letsencrypt-prod-dns01
     hosts:
       - grafana.k8s-prod.acend.ch
     path: /
