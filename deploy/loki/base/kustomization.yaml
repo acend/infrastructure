@@ -10,7 +10,7 @@ helmCharts:
   - name: loki
     releaseName: loki
     namespace: loki
-    version: 4.8.0
+    version: 4.9.0
     valuesFile: values.yaml
     #includeCRDs: true
     repo: https://grafana.github.io/helm-charts
