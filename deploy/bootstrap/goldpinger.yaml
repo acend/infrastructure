@@ -2,8 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: hairpin-proxy
-  namespace: goldpinger
+  name: goldpinger
 spec:
   destination:
     namespace: kube-system
