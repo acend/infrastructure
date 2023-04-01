@@ -140,6 +140,10 @@ resource "hcloud_firewall" "firewall" {
   apply_to {
     label_selector = "cluster=${var.clustername}"
   }
+
+  apply_to {
+    label_selector = "hcloud/node-group=acend-workerpool1"
+  }
 }
 
 resource "random_password" "rke2_cluster_secret" {
