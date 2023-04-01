@@ -21,6 +21,8 @@ tenant:
     - servers: 1
       storageClassName: hcloud-volumes
       size: 5Gi
+      annotations:
+        "cluster-autoscaler.kubernetes.io/safe-to-evict": "true"
 
   metrics:
     enabled: true

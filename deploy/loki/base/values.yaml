@@ -62,6 +62,8 @@ read:
   persistence:
     enableStatefulSetAutoDeletePVC: false
     size: 5Gi
+  podAnnotation:
+    "cluster-autoscaler.kubernetes.io/safe-to-evict": "true"
   extraArgs:
     - -config.expand-env
   extraEnvFrom:
