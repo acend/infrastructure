@@ -35,6 +35,10 @@ monitoring:
   serviceMonitor:
     enabled: true
 
+gateway:
+  podAnnotations:
+    "cluster-autoscaler.kubernetes.io/safe-to-evict": "true"
+
 test:
   enabled: false
 
