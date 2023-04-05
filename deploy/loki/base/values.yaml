@@ -42,6 +42,9 @@ gateway:
 test:
   enabled: false
 
+memberlist:
+  service:
+    publishNotReadyAddresses: true
 
 write:
   replicas: 2
