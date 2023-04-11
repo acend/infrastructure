@@ -32,16 +32,3 @@ spec:
             config:
               secretName: hosttech-secret
               apiUrl: https://api.ns1.hosttech.eu/api/user/v1
-        selector:
-          dnsNames:
-            - 'labz.ch'
-            - '*.labz.ch'
-            - 'k8s.labz.ch'
-            - '*.k8s.labz.ch'
-            - 'acend.ch'
-            - '*.acend.ch'
-            - 'k8s-prod.acend.ch'
-            - '*.k8s-prod.acend.ch'
-            - '*.training.acend.ch'
-            - '*.test.acend.ch'
-            - '*.training.puzzle.ch'
