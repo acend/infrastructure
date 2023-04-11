@@ -1,9 +1,6 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod-dns01
-    kubernetes.io/tls-acme: "true"
   name: plausible
 spec:
   rules:
@@ -19,4 +16,4 @@ spec:
   tls:
   - hosts:
     - plausible.acend.ch
-    secretName: plausible-acend-ch
+    secretName: acend-main-wildcard
