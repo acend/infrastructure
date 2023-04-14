@@ -134,6 +134,7 @@ resource "kubernetes_deployment" "cloud-controller-manager" {
             "--leader-elect=false",
             "--allow-untagged-cloud",
             "--allocate-node-cidrs=true",
+            "--route-reconciliation-period=30s",
             "--cluster-cidr=${var.k8s-cluster-cidr}"
           ]
 
