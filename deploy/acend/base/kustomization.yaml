@@ -2,22 +2,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- acend-namespaces.yaml
-- acend-ns-argocd.yaml
-- acend-ns-chopen.yaml
-- acend-ns-cilium.yaml
-- acend-ns-container.yaml
-- acend-ns-go.yaml
-- acend-ns-helm.yaml
-- acend-ns-hugo-template.yaml
-- acend-ns-kubernetes.yaml
-- acend-ns-openshift-ops.yaml
-- acend-ns-prometheus.yaml
-- acend-ns-tekton.yaml
-- acend-ns-terraform.yaml
 - acend-wildcard-certificate.yaml
 - acend-ted-lasso.yaml
 - acend-website-basicauth.yaml
 - acend-website-config.yaml
-- acend-ns-ops-uptime-monitoring.yaml
+- namespaces/
 - plausible/
