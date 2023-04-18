@@ -6,5 +6,6 @@ resources:
 - acend-ted-lasso.yaml
 - acend-website-basicauth.yaml
 - acend-website-config.yaml
+- argocd-appprojects.yaml
 - namespaces/
 - plausible/
