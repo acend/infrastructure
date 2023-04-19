@@ -1,5 +1,20 @@
 # How to's
 
+- [How to's](#how-tos)
+  - [Terraform usage](#terraform-usage)
+  - [encrypt a secret](#encrypt-a-secret)
+  - [upgrade Kubernetes version](#upgrade-kubernetes-version)
+  - [Backup sealed-secret controller keys](#backup-sealed-secret-controller-keys)
+  - [Change RKE2 configuration after initial bootstrap](#change-rke2-configuration-after-initial-bootstrap)
+  - [Change Cilium configuration](#change-cilium-configuration)
+  - [Observe network traffic with hubble and the hubble-ui](#observe-network-traffic-with-hubble-and-the-hubble-ui)
+  - [Create a new ServiceAccount with a JWT Token and `cluster-admin` privileges](#create-a-new-serviceaccount-with-a-jwt-token-and-cluster-admin-privileges)
+  - [Get ArgoCD admin credentials](#get-argocd-admin-credentials)
+  - [Get rke2 admin kubeconfig](#get-rke2-admin-kubeconfig)
+  - [Access Prometheus and Alertmanager UI](#access-prometheus-and-alertmanager-ui)
+  - [Locally generate Application Manifest Files](#locally-generate-application-manifest-files)
+
+
 ## Terraform usage
 
 Login into Terraform cloud with your account using:
