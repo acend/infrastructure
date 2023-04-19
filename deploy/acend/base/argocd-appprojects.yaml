@@ -11,5 +11,7 @@ spec:
   destinations:
   - namespace: 'acend-ocp-uptime-monitoring-prod'
     server: '*'
+  - namespace: 'acend-openshift-operations-monitoring-prod'
+    server: '*'
   sourceRepos:
   - '*'
