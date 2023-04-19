@@ -226,5 +226,8 @@ Folder: `deploy/acend`
 
 For the acend related resources there is an `acend` ArgoCD Application. The application does:
 
-* Deploy acend Namespaces (in which Github can deploy resources)
-* Acend Certificates (e.g. our `*.training.acend.ch` wildcard certificate shared in all `acend-*` Namespaces)
+* Deploy acend Namespaces (in which Github can deploy resources). Subfolder `namespace`
+* Deploy [plausible](https://plausible.io/) Subfolder `plausible`
+* Deploy additional ArgoCD AppProject
+* Acend Website configuration
+* Secret `acend-wildcard` with Acend Certificates (e.g. our `*.training.acend.ch` wildcard certificate shared in all `acend-*` Namespaces)
