@@ -79,6 +79,8 @@ read:
 
 backend:
   replicas: 2
+  persistence:
+    enableStatefulSetAutoDeletePVC: false
   extraArgs:
     - -config.expand-env
   extraEnvFrom:

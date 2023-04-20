@@ -136,7 +136,7 @@ Design decisions:
 
 * We follow the [App of Apps Pattern](https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/)
 * We use [kustomize application](https://argo-cd.readthedocs.io/en/stable/user-guide/kustomize/). Each application folder in the `deploy` contains a `kustomization.yaml` defining all the resources that shall be deployed.
-* Each application folder contains a `base` folder.
+* Each application folder contains a `base` folder. To structure multiple parts of an application, subfolders can be used.
 * Each application folder can include a `overlay` folder if needed (e.g. if this repo is deployed into multiple environments)
 * For Helm Charts we also use [kustomize to generate YAML resources out of a Helm Chart](https://github.com/kubernetes-sigs/kustomize/blob/master/examples/chart.md)
 
