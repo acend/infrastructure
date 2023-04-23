@@ -56,9 +56,26 @@ write_files:
             - http
           relay:
             enabled: true
+            nodeSelector:
+              kubernetes.io/os: linux
+              node-role.kubernetes.io/control-plane: "true"
+            tolerations:
+            - key: "node-role.kubernetes.io/control-plane"
+              operator: "Exists"
+              effect: "NoSchedule"
           ui:
             enabled: true
+            nodeSelector:
+              kubernetes.io/os: linux
+              node-role.kubernetes.io/control-plane: "true"
+            tolerations:
+            - key: "node-role.kubernetes.io/control-plane"
+              operator: "Exists"
+              effect: "NoSchedule"
         operator:
+          nodeSelector:
+            kubernetes.io/os: linux
+            node-role.kubernetes.io/control-plane: "true"
           prometheus:
             enabled: true
             serviceMonitor:

@@ -113,6 +113,10 @@ resource "kubernetes_deployment" "cloud-controller-manager" {
           effect = "NoSchedule"
         }
 
+        node_selector = {
+          "node-role.kubernetes.io/control-plane" = "true"
+        }
+
         host_network = true
 
         priority_class_name = "system-cluster-critical"
