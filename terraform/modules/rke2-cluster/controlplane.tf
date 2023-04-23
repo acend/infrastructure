@@ -33,8 +33,8 @@ resource "hcloud_server" "controlplane" {
 
   ssh_keys = [hcloud_ssh_key.terraform.name]
 
-  delete_protection  = var.delete_protection
-  rebuild_protection = var.delete_protection
+  # delete_protection  = var.delete_protection
+  # rebuild_protection = var.delete_protection
 
   user_data = templatefile("${path.module}/templates/cloudinit-controlplane.yaml", {
     api_token = var.hcloud_api_token,
