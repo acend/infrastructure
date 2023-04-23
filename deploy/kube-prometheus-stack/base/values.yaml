@@ -97,5 +97,14 @@ alertmanager:
           {{ end }}
       
   alertmanagerSpec:
+    storage: 
+      volumeClaimTemplate:
+        spec:
+          storageClassName: hcloud-volumes
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 10Gi
+          selector: {}
     secrets:
     - slack-webhook-url
