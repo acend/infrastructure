@@ -105,6 +105,5 @@ alertmanager:
           resources:
             requests:
               storage: 10Gi
-          selector: {}
     secrets:
     - slack-webhook-url
