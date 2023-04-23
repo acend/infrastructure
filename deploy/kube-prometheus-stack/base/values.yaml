@@ -11,6 +11,8 @@ kubeEtcd:
   enabled: false # scraping via pushprox as binded to localhost
 grafana:
   enabled: true
+  podAnnotations:
+    "cluster-autoscaler.kubernetes.io/safe-to-evict": "true"
   envFromSecret: github-client
   deploymentStrategy:
     type: Recreate
