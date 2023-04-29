@@ -7,21 +7,22 @@ initContainers:
         name: plugins
 
 configuration:
-  provider: aws
   backupStorageLocation:
-    bucket: velero-backup
-    default: true
-    config:
-      region: minio
-      s3Url: https://minio.acend-s3.svc.cluster.local
-      s3ForcePathStyle: true
-      insecureSkipTLSVerify: true
-      publicUrl: https://s3.k8s-prod.acend.ch
+    - name: default
+      bucket: velero-backup
+      provider: aws
+      default: true
+      credentials:
+        existingSecret: velero-s3-secret
+      config:
+        region: minio
+        s3Url: https://minio.acend-s3.svc.cluster.local
+        s3ForcePathStyle: true
+        insecureSkipTLSVerify: true
+        publicUrl: https://s3.k8s-prod.acend.ch
 
 snapshotsEnabled: false
 
-credentials:
-  existingSecret: velero-s3-secret
 metrics:
   serviceMonitor: 
     enabled: true
