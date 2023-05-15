@@ -23,7 +23,7 @@ resource "helm_release" "argocd" {
   repository = "https://argoproj.github.io/argo-helm"
   chart      = "argo-cd"
   namespace  = kubernetes_namespace.argocd.metadata.0.name
-  version    = "5.32.1"
+  version    = "5.33.3"
 
   values = [
     templatefile("${path.module}/templates/argocd-values.yaml", {
