@@ -36,3 +36,4 @@ spec:
           dnsZones:
             - 'labz.ch'
             - 'acend.ch'
+            - 'training.puzzle.ch'
