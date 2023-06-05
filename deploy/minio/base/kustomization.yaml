@@ -14,7 +14,7 @@ helmCharts:
   - name: tenant
     releaseName: acend-s3-tenant
     namespace: acend-s3
-    version: 5.0.4
+    version: 5.0.5
     valuesFile: values-tenant.yaml
     repo: https://operator.min.io/
 
