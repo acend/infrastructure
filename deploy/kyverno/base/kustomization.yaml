@@ -24,5 +24,3 @@ helmCharts:
           node-role.kubernetes.io/control-plane: "true"
         serviceMonitor:
           enabled: true
-      upgrade:
-        fromV2: true.
