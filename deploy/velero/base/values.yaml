@@ -28,8 +28,10 @@ configuration:
 snapshotsEnabled: false
 
 metrics:
+  enabled: true
   serviceMonitor: 
     enabled: true
+    autodetect: false
   prometheusRule:
     enabled: true
     spec:
