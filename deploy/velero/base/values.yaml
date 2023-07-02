@@ -6,6 +6,9 @@ initContainers:
       - mountPath: /target
         name: plugins
 
+credentials:
+  existingSecret: velero-s3-secret
+
 configuration:
   backupStorageLocation:
     - name: default
