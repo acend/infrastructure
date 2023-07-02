@@ -13,7 +13,8 @@ configuration:
       provider: aws
       default: true
       credentials:
-        existingSecret: velero-s3-secret
+        name: velero-s3-secret
+        key: cloud
       config:
         region: minio
         s3Url: https://minio.acend-s3.svc.cluster.local
