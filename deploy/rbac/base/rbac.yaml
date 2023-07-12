@@ -50,3 +50,26 @@ metadata:
   annotations:
     kubernetes.io/service-account.name: ci-bot-test
 type: kubernetes.io/service-account-token
+---
+apiVersion: rbacmanager.reactiveops.io/v1beta1
+kind: RBACDefinition
+metadata:
+  name: argocd-cluster-bootstrap
+rbacBindings:
+  - name: argocd-cluster-bootstrap
+    subjects:
+      - kind: ServiceAccount
+        name: argocd-cluster-bootstrap
+        namespace: argocd
+    roleBindings:
+      - clusterRole: admin
+        namespace: argocd
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: argocd-cluster-bootstrap
+  namespace: argocd
+  annotations:
+    kubernetes.io/service-account.name: argocd-cluster-bootstrap
+type: kubernetes.io/service-account-token
