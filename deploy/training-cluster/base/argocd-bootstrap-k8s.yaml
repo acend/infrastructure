@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: argocd-bootstrap
+  namespace: argocd
+spec:
+  generators:
+  - clusters:
+      selector:
+        matchLabels:
+          flavor: k8s
+          type: training
+  template:
+    metadata:
+      name: 'bootstrap-cluster-{{name}}'
+    spec:
+      project: infra
+      source:
+        repoURL: https://github.com/acend/terraform-k8s-cluster-lab
+        targetRevision: HEAD
+        path: 'deploy/bootstrap/overlays/{{name}}'
+      destination:
+        server: '{{server}}'
+        namespace: "argocd"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
