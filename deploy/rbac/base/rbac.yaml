@@ -66,6 +66,7 @@ rbacBindings:
         namespace: argocd
       - clusterRole: admin
         namespace: external-secrets
+    clusterRoleBindings:
       - clusterRole: list-crd
 ---
 apiVersion: v1
