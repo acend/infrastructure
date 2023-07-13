@@ -64,6 +64,8 @@ rbacBindings:
     roleBindings:
       - clusterRole: admin
         namespace: argocd
+      - clusterRole: admin
+        namespace: external-secrets
 ---
 apiVersion: v1
 kind: Secret
