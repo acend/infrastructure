@@ -14,7 +14,7 @@ spec:
     metadata:
       name: 'bootstrap-cluster-{{name}}'
     spec:
-      project: infra
+      project: default
       source:
         repoURL: https://github.com/acend/terraform-k8s-cluster-lab
         targetRevision: HEAD
