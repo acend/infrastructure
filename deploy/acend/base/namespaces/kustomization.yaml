@@ -16,3 +16,4 @@ resources:
 - acend-ns-tekton.yaml
 - acend-ns-terraform.yaml
 - acend-ns-ops-uptime-monitoring.yaml
+- acend-ns-microservices.yaml
