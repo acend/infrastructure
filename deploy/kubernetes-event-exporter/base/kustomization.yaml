@@ -9,7 +9,7 @@ helmCharts:
     releaseName: kubernetes-event-exporter
     namespace: kubernetes-event-exporter
     version: 2.5.1
-    repo: https://bitnami-labs.github.io/kubernetes-event-exporter
+    repo: https://charts.bitnami.com/bitnami
     valuesInLine:
       tolerations:
         - key: "node-role.kubernetes.io/control-plane"
