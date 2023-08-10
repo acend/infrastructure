@@ -11,6 +11,9 @@ helmCharts:
     version: 2.5.1
     repo: https://charts.bitnami.com/bitnami
     valuesInLine:
+      config:
+        logLevel: info
+        logFormat: json
       metrics:
         enabled: true
         serviceMonitor:
