@@ -11,6 +11,10 @@ helmCharts:
     version: 2.5.1
     repo: https://charts.bitnami.com/bitnami
     valuesInLine:
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
       tolerations:
         - key: "node-role.kubernetes.io/control-plane"
           operator: "Exists"
