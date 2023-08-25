@@ -13,7 +13,7 @@ spec:
   source:
     path: deploy/kubernetes
     repoURL: https://github.com/hetznercloud/csi-driver.git
-    targetRevision: v2.3.2
+    targetRevision: v2.4.0
   syncPolicy:
     automated:
       prune: true
