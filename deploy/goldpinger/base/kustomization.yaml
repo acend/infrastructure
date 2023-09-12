@@ -11,6 +11,10 @@ helmCharts:
     version: 6.0.1
     repo: https://okgolove.github.io/helm-charts/
     valuesInLine:
+      resources:
+        requests:
+          memory: 26Mi
+          cpu: 5m
       service:
         type: ClusterIP
       tolerations:
