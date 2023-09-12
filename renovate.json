@@ -43,12 +43,17 @@
       "matchPaths": ["deploy/promtail/base/kustomization.yaml"],
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true
-    }
-    ,
+    },
     {
       "matchPaths": ["deploy/loki/base/kustomization.yaml"],
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true
+    },
+    {
+      "matchPaths": ["deploy/kube-prometheus-stack/base/kustomization.yaml"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
     }
+
   ]
 }
