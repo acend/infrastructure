@@ -18,3 +18,5 @@ spec:
     - clusterinfraassessmentreports.aquasecurity.github.io
     - clustercompliancereports.aquasecurity.github.io
     - vulnerabilityreports.aquasecurity.github.io
+    - configauditreports.aquasecurity.github.io
+    - exposedsecretreports.aquasecurity.github.io
