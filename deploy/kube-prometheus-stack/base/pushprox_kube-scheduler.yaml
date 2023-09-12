@@ -87,6 +87,9 @@ spec:
         - --use-localhost
         - --insecure-skip-verify
         - --token-path=/var/run/secrets/kubernetes.io/serviceaccount/token
+        resources:
+          requests:
+            memory: 10Mi
         env:
         - name: HOST_IP
           valueFrom:
@@ -155,6 +158,9 @@ spec:
         image: rancher/pushprox-proxy:v0.1.0-rancher2-proxy
         command:
           - "pushprox-proxy"
+        resources:
+          requests:
+            memory: 10Mi
 ---
 apiVersion: v1
 kind: Service

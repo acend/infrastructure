@@ -16,6 +16,10 @@ grafana:
   envFromSecret: github-client
   deploymentStrategy:
     type: Recreate
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
   grafana.ini:
     server:
       domain: grafana.k8s-prod.acend.ch
@@ -55,6 +59,10 @@ grafana:
     size: 5Gi
 prometheus:
   prometheusSpec:
+    resources:
+      requests:
+        cpu: 200m
+        memory: 2600Mi
     ruleSelectorNilUsesHelmValues: false
     serviceMonitorSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false
@@ -109,3 +117,9 @@ alertmanager:
               storage: 10Gi
     secrets:
     - slack-webhook-url
+
+  prometheus-node-exporter:
+    resources:
+      requests:
+        cpu: 10m
+        memory: 20Mi

@@ -58,6 +58,9 @@ spec:
         - --metrics-addr=$(PORT)
         - --allow-port=2381
         - --use-localhost
+        resources:
+          requests:
+            memory: 10Mi
         env:
         - name: HOST_IP
           valueFrom:
@@ -126,6 +129,9 @@ spec:
         image: rancher/pushprox-proxy:v0.1.0-rancher2-proxy
         command:
           - "pushprox-proxy"
+        resources:
+          requests:
+            memory: 10Mi
 ---
 apiVersion: v1
 kind: Service
