@@ -1,4 +1,8 @@
 controller:
+  resources:
+    requests:
+      cpu: 200m
+      memory: 1Gi
   metrics:
     enabled: true
     serviceMonitor:
@@ -44,6 +48,11 @@ server:
         - "ciliumendpoints"
         - "CiliumNode"
         - "ciliumnodes"
+  resources:
+    requests:
+      cpu: 50m
+      memory: 120Mi
+
   ingress:
     enabled: true
     ingressClassName: nginx
@@ -77,15 +86,27 @@ repoServer:
     enabled: true
     serviceMonitor:
       enabled: true
+  resources:
+    requests:
+      cpu: 50m
+      memory: 120Mi
 
 applicationSet:
   metrics:
     enabled: true
     serviceMonitor:
       enabled: true
+  resources:
+    requests:
+      cpu: 50m
+      memory: 80Mi
 
 notifications:
   metrics:
     enabled: true
     serviceMonitor:
       enabled: true
+  resources:
+    requests:
+      cpu: 10m
+      memory: 30Mi
