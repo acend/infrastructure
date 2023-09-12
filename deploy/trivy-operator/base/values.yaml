@@ -2,7 +2,7 @@
 resources:
   requests:
     memory: 590Mi
-    cpu: 100Mi
+    cpu: 100m
 
 serviceMonitor:
   enabled: true
