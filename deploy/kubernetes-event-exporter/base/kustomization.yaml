@@ -18,6 +18,10 @@ helmCharts:
         enabled: true
         serviceMonitor:
           enabled: true
+      resources:
+        requests:
+          cpu: 10m
+          memory: 50Mi
       tolerations:
         - key: "node-role.kubernetes.io/control-plane"
           operator: "Exists"
