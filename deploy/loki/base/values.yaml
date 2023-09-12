@@ -51,6 +51,10 @@ write:
   persistence:
     enableStatefulSetAutoDeletePVC: false
     size: 5Gi
+  resources:
+    requests:
+      cpu: 20m
+      memory: 320Mi
   extraArgs:
     - -config.expand-env
   extraEnvFrom:
@@ -73,6 +77,10 @@ read:
     "cluster-autoscaler.kubernetes.io/safe-to-evict": "true"
   extraArgs:
     - -config.expand-env
+  resources:
+    requests:
+      cpu: 10m
+      memory: 70Mi
   extraEnvFrom:
   - secretRef:
       name: loki-s3-secret
@@ -83,6 +91,10 @@ backend:
     enableStatefulSetAutoDeletePVC: false
   extraArgs:
     - -config.expand-env
+  resources:
+    requests:
+      cpu: 10m
+      memory: 130Mi
   extraEnvFrom:
   - secretRef:
       name: loki-s3-secret
