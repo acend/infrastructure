@@ -1,2 +1,19 @@
 serviceMonitor:
   enabled: true
+
+resources:
+  requests:
+    cpu: 10m
+    memory: 42Mi
+
+webhook:
+  resources: 
+    requests:
+      cpu: 10m
+      memory: 32Mi
+
+certController:
+  resources: 
+    requests:
+      cpu: 10m
+      memory: 32Mi
