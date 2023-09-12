@@ -17,6 +17,7 @@ tenant:
       console: https://s3-console.k8s-prod.acend.ch
       minio:
       - https://s3.k8s-prod.acend.ch
+      enableSFTP: false
 
   pools:
     - servers: 1
