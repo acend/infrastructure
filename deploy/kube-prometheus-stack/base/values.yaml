@@ -118,8 +118,8 @@ alertmanager:
     secrets:
     - slack-webhook-url
 
-  prometheus-node-exporter:
-    resources:
-      requests:
-        cpu: 10m
-        memory: 20Mi
+prometheus-node-exporter:
+  resources:
+    requests:
+      cpu: 10m
+      memory: 20Mi
