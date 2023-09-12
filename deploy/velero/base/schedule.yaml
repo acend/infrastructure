@@ -10,3 +10,11 @@ spec:
     includedNamespaces:
     - '*'
     ttl: 336h0m0s
+    excludedResources:
+    - sbomreports.aquasecurity.github.io
+    - clusterrbacassessmentreports.aquasecurity.github.io
+    - rbacassessmentreports.aquasecurity.github.io
+    - infraassessmentreports.aquasecurity.github.io
+    - clusterinfraassessmentreports.aquasecurity.github.io
+    - clustercompliancereports.aquasecurity.github.io
+    - vulnerabilityreports.aquasecurity.github.io
