@@ -13,6 +13,42 @@
     {
       "matchPaths": ["deploy/hetzner-csi/base/hetzner-csi.yaml"],
       "groupName": "csi storage"
+    },
+    {
+      "matchPaths": ["deploy/kubernetes-event-exporter/base/kustomization.yaml"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    },
+    {
+      "matchPaths": ["terraform/modules/rke2-cluster/argocd.tf"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    },
+    {
+      "matchPaths": ["deploy/external-secrets/base/kustomization.yaml"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    },
+    {
+      "matchPaths": ["deploy/kured/base/kustomization.yaml"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    },
+    {
+      "matchPaths": ["deploy/sealed-secrets/base/kustomization.yaml"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    },
+    {
+      "matchPaths": ["deploy/promtail/base/kustomization.yaml"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    }
+    ,
+    {
+      "matchPaths": ["deploy/loki/base/kustomization.yaml"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
     }
   ]
 }
