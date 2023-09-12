@@ -6,6 +6,10 @@ controller:
     default-ssl-certificate: "ingress-nginx/k8s-prod-wildcard"
   ingressClassResource:
     default: true
+  resources:
+    requests:
+      cpu: 100m
+      memory: 300Mi
   service:
     annotations:
       load-balancer.hetzner.cloud/uses-proxyprotocol: "true"
