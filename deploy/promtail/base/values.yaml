@@ -4,3 +4,8 @@ serviceMonitor:
 config:
     clients:
     - url: http://loki-gateway.loki.svc.cluster.local/loki/api/v1/push
+
+resources:
+  requests:
+    cpu: 30m
+    memory: 80Mi
