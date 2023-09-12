@@ -34,6 +34,7 @@ metrics:
     autodetect: false
   prometheusRule:
     enabled: true
+    autodetect: false
     spec:
     - alert: VeleroBackupPartialFailures
       annotations:
