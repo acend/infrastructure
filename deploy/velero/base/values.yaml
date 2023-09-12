@@ -26,6 +26,7 @@ configuration:
         publicUrl: https://s3.k8s-prod.acend.ch
 
 snapshotsEnabled: false
+deployNodeAgent: true
 
 metrics:
   enabled: true
