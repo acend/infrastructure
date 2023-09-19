@@ -18,10 +18,6 @@ kutt:
   jwt:
     existingSecret: kutt-jwt-key
 
-extraEnv: 
-- name: DEBUG
-  value: "*"
-
 postgresql:
   enabled: false
   
