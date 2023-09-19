@@ -4,7 +4,7 @@ kutt:
     emails: sebastian@acend.ch
   config:
     disallowAnonymousLinks: true
-    disallowRegistration: true
+    disallowRegistration: false
   domain:
     useFirstIngressHost: true
 
