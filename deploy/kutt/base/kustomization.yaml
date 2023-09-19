@@ -11,6 +11,6 @@ helmCharts:
   - name: kutt
     releaseName: kutt
     namespace: kutt
-    version: "2.12.0"
+    version: "3.0.0"
     repo: https://christianknell.github.io/helm-charts
     valuesFile: values.yaml
