@@ -9,6 +9,7 @@ extraArgs:
   scope: "user:email"
   custom-sign-in-logo: https://raw.githubusercontent.com/acend/.github/main/profile/images/AC-logo-claim-rgb-red.svg
   pass-authorization-header: true
+  pass-access-token: true
   whitelist-domain: "*.acend.ch,localhost:*"
 
 ingress:
