@@ -1,0 +1,15 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: akutt-smtp-config
+  namespace: kutt
+spec:
+  encryptedData:
+    MAIL_PASSWORD: AgBLdlDVtWMzxmePhB2RPQiPR9TPF3x1JbEnwfVkqd5JFUEdP3isMmLG01//H3ET1m6DVsczSwxUppCSSSOVVA77pC6GuKEI/Q5fc4qkLdHRCIcFZRuB+Oo8DNvgsG7b50OChi20NavBi6hvwVJh63QK1rIDfwQ0yXyVBpi2OgIoCAFCKJQti4Y/rVSb9SlTbOmKt7LLVjDAH5owYojgfpuR7upS4GccoiFbfxDfT0xIqlZt0ZzCXP2bM+S5Pqpy0S0qJkLv9riY+BuJPc3yFR/+QgJwe7sczQnOdEoA+KUccZbxPPWZ48nvB1AY0Usz9ZxFbdyjDJ0A98SjIveMPuYgW2+N/1qYjPbdXya9GwxTpY2PqEPOJR65HYX2o4GxHiQH8dUr12xOauj/r+iXOvDmdGPe9XUPoxU7uSe6HfTFr7XYG0IFBb6eAdTHv7xdUwBlYOECiTNpIQIaVF9avKraX14u8lLEEAKJQ0ZPfCmUhncaGo95hGKJNWc5fVK53F4SiGcOuOQ7psdACjuF2iEnFMNLom0Qnm2pCQFYx2xWhZC+Dh1w1UWSWfPcPSg8Yv7pzWX+IOln5PTgnrU+aacWh1cpFI5ktq8goEAmY8E/VQzfdtw4TeMO1ztIXDtrLZ8iYlrETGzD1hSSlI2y7bHeC0wT1O5solzITwBuAvsOyMetd/+SbZCvzpBr9TKLZkGc27jAfpraxa2DIWNkei8c
+  template:
+    metadata:
+      creationTimestamp: null
+      name: akutt-smtp-config
+      namespace: kutt
+    type: Opaque
