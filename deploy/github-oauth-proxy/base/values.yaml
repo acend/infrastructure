@@ -6,6 +6,7 @@ extraArgs:
   github-org: acend
   github-team: team-stream-1
   email-domain: "*"
+  scope: "user:email"
 
 ingress:
  enabled: true
