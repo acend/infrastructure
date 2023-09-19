@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: kutt
 resources:
   - namespace.yaml
-  - postgres-cluster.yaml
+#  - postgres-cluster.yaml
   - ingress-tls-secret.yaml
 
 
