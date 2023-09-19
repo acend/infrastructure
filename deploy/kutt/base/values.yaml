@@ -3,7 +3,7 @@ kutt:
   admin:
     emails: sebastian@acend.ch
   config:
-    disallowAnonymousLinks: true
+    disallowAnonymousLinks: false
     disallowRegistration: false
     siteName: acend.ch URL shortener
   domain:
