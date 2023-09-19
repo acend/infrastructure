@@ -42,3 +42,7 @@ spec:
     kind: ClusterIssuer
     name: letsencrypt-prod-dns01
   secretName: acend-main-wildcard
+  secretTemplate:
+    annotations:
+      replicator.v1.mittwald.de/replication-allowed: "true"
+      replicator.v1.mittwald.de/replication-allowed-namespaces: kutt
