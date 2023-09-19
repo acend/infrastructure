@@ -5,6 +5,7 @@ kutt:
   config:
     disallowAnonymousLinks: true
     disallowRegistration: false
+    siteName: acend.ch URL shortener
   domain:
     useFirstIngressHost: true
   mail:
@@ -14,6 +15,8 @@ kutt:
     from: noreply@acend.ch
     host: smtp-relay.gmail.com
     port: 587
+  jwt:
+    existingSecret: kutt-jwt-key
 
 postgresql:
   enabled: false

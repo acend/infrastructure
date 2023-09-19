@@ -4,8 +4,7 @@ namespace: kutt
 resources:
   - namespace.yaml
   - postgres-cluster.yaml
-  - ingress-tls-secret.yaml
-  - kutt-smtp-config.yaml
+  - secrets.yaml
 
 
 helmCharts:
