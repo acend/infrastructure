@@ -7,6 +7,12 @@ kutt:
     disallowRegistration: false
   domain:
     useFirstIngressHost: true
+  mail:
+    contactEmail: info@acend.ch
+    existingSecret: kutt-smtp-config
+    from: noreply@acend.ch
+    host: smtp-relay.gmail.com
+    port: 587
 
 postgresql:
   enabled: false
