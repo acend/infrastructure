@@ -9,6 +9,7 @@ kutt:
     useFirstIngressHost: true
   mail:
     contactEmail: info@acend.ch
+    username: johann@acend.ch
     existingSecret: kutt-smtp-config
     from: noreply@acend.ch
     host: smtp-relay.gmail.com
