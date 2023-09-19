@@ -5,6 +5,7 @@ kutt:
   config:
     disallowAnonymousLinks: true
     disallowRegistration: true
+    useFirstIngressHost: true
 
 postgresql:
   enabled: false
