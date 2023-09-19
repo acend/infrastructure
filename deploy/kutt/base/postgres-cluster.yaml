@@ -1,0 +1,42 @@
+---
+---
+apiVersion: v1
+data:
+  username: a3V0dAo=
+kind: Secret
+metadata:
+  name: cluster-kutt-user
+  namespace: kutt
+  annotations:
+    secret-generator.v1.mittwald.de/autogenerate: password
+type: kubernetes.io/basic-auth
+---
+apiVersion: v1
+data:
+  username: cG9zdGdyZXM=
+kind: Secret
+metadata:
+  name: cluster-kutt-superuser
+  namespace: kutt
+  annotations:
+    secret-generator.v1.mittwald.de/autogenerate: password
+type: kubernetes.io/basic-auth
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: kutt
+  namespace: kutt
+spec:
+  instances: 1
+  bootstrap:
+    initdb:
+      database: kutt
+      owner: kutt
+      secret:
+        name: cluster-kutt-user
+  superuserSecret:
+    name: cluster-kutt-superuser
+  storage:
+    storageClass: hcloud-volumes
+    size: 1Gi

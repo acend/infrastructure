@@ -1,0 +1,31 @@
+---
+kutt:
+  admin:
+    emails: sebastian@acend.ch
+  config:
+    disallowAnonymousLinks: true
+    disallowRegistration: true
+
+postgresql:
+  enabled: false
+  
+
+ingress:
+  enabled: true
+  hosts:
+  - host: go.acend.ch
+    paths:
+      - path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+      - go.acend.ch
+    secretName: kutt-tls-secret
+
+externalPostgresql:
+  auth:
+    database: kutt
+    existingSecret: cluster-kutt-user
+    username: kutt
+    userPasswordKey: password
+  hostname: kutt-rw
