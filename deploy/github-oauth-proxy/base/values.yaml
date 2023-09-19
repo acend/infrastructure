@@ -3,6 +3,8 @@ config:
 
 extraArgs:
   provider: github
+  github-org: acend
+  github-team: team-stream-1
 
 ingress:
  enabled: true
@@ -11,3 +13,4 @@ ingress:
  tls:
  - hosts:
    - github-oauth-proxy.acend.ch
+   secretName: oauth-tls-secret
