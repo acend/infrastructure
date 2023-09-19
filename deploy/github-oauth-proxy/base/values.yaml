@@ -1,0 +1,13 @@
+config:
+  existingSecret: github-oauth-proxy
+
+extraArgs:
+  provider: github
+
+ingress:
+ enabled: true
+ hosts:
+   - github-oauth-proxy.acend.ch
+ tls:
+ - hosts:
+   - github-oauth-proxy.acend.ch

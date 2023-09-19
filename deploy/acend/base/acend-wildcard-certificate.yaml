@@ -45,4 +45,4 @@ spec:
   secretTemplate:
     annotations:
       replicator.v1.mittwald.de/replication-allowed: "true"
-      replicator.v1.mittwald.de/replication-allowed-namespaces: kutt
+      replicator.v1.mittwald.de/replication-allowed-namespaces: kutt, github-oauth-proxy
