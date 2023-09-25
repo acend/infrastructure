@@ -40,3 +40,5 @@ spec:
   storage:
     storageClass: hcloud-volumes
     size: 1Gi
+  nodeMaintenanceWindow:
+    reusePVC: true
