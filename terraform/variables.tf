@@ -55,7 +55,7 @@ variable "clustername" {
 
 variable "rke2_version" {
   type        = string
-  default     = "v1.26.0+rke2r2"
+  default     = "v1.27.6+rke2r1"
   description = "Version of rke2 to install"
 }
 

@@ -22,7 +22,7 @@ spec:
 #    force: true
   upgrade:
     image: rancher/rke2-upgrade
-  version: v1.26.0+rke2r2
+  version: v1.27.6+rke2r1
 ---
 # Agent plan
 apiVersion: upgrade.cattle.io/v1
@@ -50,4 +50,4 @@ spec:
     force: true
   upgrade:
     image: rancher/rke2-upgrade
-  version: v1.26.0+rke2r2
+  version: v1.27.6+rke2r1
