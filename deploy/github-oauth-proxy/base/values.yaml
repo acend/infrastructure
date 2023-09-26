@@ -11,6 +11,7 @@ extraArgs:
   pass-authorization-header: true
   pass-access-token: true
   whitelist-domain: "*.acend.ch,localhost:*"
+  cookie-domain: "acend.ch"
 
 ingress:
  enabled: true
