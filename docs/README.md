@@ -165,7 +165,7 @@ In our Github organization a Kubeconfig file for the SA
 * `ci-bot` is stored as secret with name `KUBECONFIG_K8S_ACEND`
 * `ci-bot-test` is stored as secret with name `KUBECONFIG_K8S_ACEND_TEST`
 
-#### Certifikate & Token rotation
+#### Certificate & Token rotation
 
 From [Certificate Rotation](https://docs.rke2.io/advanced) in RKE2.
 
