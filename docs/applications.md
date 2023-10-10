@@ -4,6 +4,9 @@
   - [ArgoCD](#argocd)
   - [Cert-Manager](#cert-manager)
   - [Cluster Autoscaler](#cluster-autoscaler)
+  - [External Secrets](#external-secrets)
+  - [Oauth proxy](#oauth-proxy)
+  - [Goldpinger](#goldpinger)
   - [hairpin-proxy](#hairpin-proxy)
   - [Hetzner Kubernetes Cloud Controller Manager](#hetzner-kubernetes-cloud-controller-manager)
   - [Hetzner CSI](#hetzner-csi)
@@ -70,6 +73,58 @@ The two initially deployed worker nodes will never be removed and is part of the
 For more details on how the Cluster Autoscaler works, see [FAQ](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md).
 
 The cluster autoscaler is scheduled on the control plane nodes.
+
+## External Secrets
+
+Folder: `deploy/external-secrets`
+
+External Secrets is used for bootstrapping our training clusters and allows to push Secrets from this cluster to the training clusters
+
+## Oauth proxy
+
+Folder: `deploy/external-secrets`
+
+This deploys a [Oauth proxy](https://github.com/oauth2-proxy/oauth2-proxy) and allows authentication against our `acend` Github organization and team `team-stream-1`
+
+Example Usage for haproxy ingress controller:
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: welcome-teacher
+  namespace: welcome
+  annotations:
+    ingress.kubernetes.io/auth-signin: https://github-oauth-proxy.acend.ch/oauth2/start?rd=https%%3A%%2F%%2Fwelcome.training.cluster.acend.ch%%2Fteacher
+    ingress.kubernetes.io/auth-url: https://github-oauth-proxy.acend.ch/oauth2/auth
+spec:
+  ingressClassName: haproxy
+  rules:
+  - host: welcome.training.cluster.acend.ch
+    http:
+      paths:
+      - backend:
+          service:
+            name: welcome
+            port:
+              number: 80
+        path: /teacher
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - welcome.training.cluster.acend.ch
+```
+
+The annotations:
+
+- `ingress.kubernetes.io/auth-url`: Endpoint to redirect when not authenticated.
+- `ingress.kubernetes.io/auth-signin`: Verification if user is authenticated.
+
+## Goldpinger
+
+Folder: `deploy/goldpinger`
+
+Deploys [Goldpinger](https://github.com/bloomberg/goldpinger) for monitoring
 
 ## hairpin-proxy
 
