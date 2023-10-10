@@ -139,6 +139,18 @@ Run the following command in the `terraform` subfolder to get the kubeconfig fil
 terraform output -raw kubeconfig_raw > kubeconfig.yaml
 ```
 
+or you can SSH into a controlplane node and get the current admin token with:
+
+```bash
+cat /etc/rancher/rke2/rke2.yaml
+```
+
+Make sure to replace the server with the correct hostname of the loadbalancer. You can get this with:
+
+```bash
+tf output kubernetes_api
+````
+
 ## Access Prometheus and Alertmanager UI
 
 The Prometheus and Alertmanager UI are not exposed via Ingress Resource. You have to port-forward the services and access it via `localhost`.

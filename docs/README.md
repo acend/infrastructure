@@ -165,6 +165,14 @@ In our Github organization a Kubeconfig file for the SA
 * `ci-bot` is stored as secret with name `KUBECONFIG_K8S_ACEND`
 * `ci-bot-test` is stored as secret with name `KUBECONFIG_K8S_ACEND_TEST`
 
+#### Certifikate & Token rotation
+
+From [Certificate Rotation](https://docs.rke2.io/advanced) in RKE2.
+
+By default, certificates in RKE2 expire in 12 months. If the certificates are expired or have fewer than 90 days remaining before they expire, the certificates are rotated when RKE2 is restarted.
+
+This results in new Service Account Token and they have to be updated everywhere where needed.
+
 ### Hetzner Cloud Console
 
 The Hetzner Cloud Console can be accessed via [Hetzner Cloud Console](https://console.hetzner.cloud/). All provisioned resources are assigned to projects. We have the following projects:

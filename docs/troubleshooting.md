@@ -1,5 +1,9 @@
 # Troubleshooting
 
+## Kubeconfig not valid anymore
+
+The ServiceAccount Token might have changed due to Certificate Rotation of RKE2. You have to get a new Token.
+
 ## Access ArgoCD when no ingress controller is available
 
 In case where no ingress controller is available, you can still access ArgoCD using a port-forward:
