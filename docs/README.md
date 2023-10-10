@@ -158,7 +158,12 @@ The `ci-bot*`s have a Role Binding to the `edit` Cluster Role in all Namespaces 
 * for `ci-bot` the label `ci-bot: true` and `env: prod` is set
 * for `ci-bot-test` the label `ci-bot: true` and `env: test` is set
 
-There are twi Kyverno `ClusterPolicy`s with name `add-ci-bot-label-to-acend-prod-ns` & `add-ci-bot-label-to-acend-test-ns` which automaticly adds the `ci-bot: true` and correct `env` Label to all Namespaces with the `acend-*-prod` or `acend-*-test` name. But normally, Namespaces are deployed using ArgoCD, therefore the labels should be set there.
+There are two Kyverno `ClusterPolicy`s with name `add-ci-bot-label-to-acend-prod-ns` & `add-ci-bot-label-to-acend-test-ns` which automaticly adds the `ci-bot: true` and correct `env` Label to all Namespaces with the `acend-*-prod` or `acend-*-test` name. But normally, Namespaces are deployed using ArgoCD, therefore the labels should be set there.
+
+In our Github organization a Kubeconfig file for the SA
+
+* `ci-bot` is stored as secret with name `KUBECONFIG_K8S_ACEND`
+* `ci-bot-test` is stored as secret with name `KUBECONFIG_K8S_ACEND_TEST`
 
 ### Hetzner Cloud Console
 
