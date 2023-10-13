@@ -53,6 +53,11 @@
       "matchPaths": ["deploy/kube-prometheus-stack/base/kustomization.yaml"],
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true
+    },
+    {
+      "matchPaths": ["deploy/trivy-operator/base/kustomization.yaml"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
     }
 
   ]
