@@ -58,7 +58,12 @@
       "matchPaths": ["deploy/trivy-operator/base/kustomization.yaml"],
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true
+    },
+    {
+      "matchPaths": ["deploy/sealed-secrets/base/kustomization.yaml"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
     }
-
+   
   ]
 }
