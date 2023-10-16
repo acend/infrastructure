@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    ci-bot: "true"
+    env: "prod"
+  name: acend-quarkus-training-prod
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    ci-bot: "true"
+    env: "test"
+  name: acend-quarkus-training-test

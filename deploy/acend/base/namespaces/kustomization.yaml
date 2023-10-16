@@ -17,3 +17,4 @@ resources:
 - acend-ns-terraform.yaml
 - acend-ns-ops-uptime-monitoring.yaml
 - acend-ns-microservices.yaml
+- acend-ns-quarkus.yaml
