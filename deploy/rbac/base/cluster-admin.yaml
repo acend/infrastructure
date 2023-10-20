@@ -14,12 +14,15 @@ rbacBindings:
         namespace: rbac-manager
       - kind: ServiceAccount
         name: thomas
-        namespace: rbac-manager
+        namespace: rbac-managerpr-43-prometheus-basics-puzzle-84c6986b4c-d55q9
       - kind: ServiceAccount
         name: benj
         namespace: rbac-manager
       - kind: ServiceAccount
         name: raffael
+        namespace: rbac-manager
+      - kind: ServiceAccount
+        name: cschlatter
         namespace: rbac-manager
     clusterRoleBindings:
       - clusterRole: cluster-admin
@@ -69,4 +72,13 @@ metadata:
   namespace: rbac-manager
   annotations:
     kubernetes.io/service-account.name: raffael
+type: kubernetes.io/service-account-token
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cschlatter
+  namespace: rbac-manager
+  annotations:
+    kubernetes.io/service-account.name: cschlatter
 type: kubernetes.io/service-account-token
