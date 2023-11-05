@@ -37,6 +37,9 @@ configs:
     extra:
       dex.github.clientSecret: ${github-app-argocd-clientSecret}
 
+dex:
+  podAnnotations:
+    "cluster-autoscaler.kubernetes.io/safe-to-evict": "true"
 server:
   config:
     kustomize.buildOptions: "--enable-helm"
