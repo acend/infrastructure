@@ -9,3 +9,26 @@ resources:
   requests:
     cpu: 30m
     memory: 80Mi
+
+
+extraVolumes:
+- name: k8saudit
+  hostPath:
+    path: /var/lib/rancher/rke2/server/logs/audit.log
+    type: DirectoryOrCreate
+
+extraVolumeMounts:
+- name: k8saudit
+  mountPath: /var/lib/rancher/rke2/server/logs/audit.log
+  readOnly: true
+
+extraScrapeConfigs: |
+  - job_name: k8saudit
+    pipeline_stages:
+    - json: {}
+    static_configs:
+    - targets:
+        - localhost
+      labels:
+        job: k8saudit
+        __path__: /var/lib/rancher/rke2/server/logs/audit.log
