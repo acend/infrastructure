@@ -87,6 +87,8 @@ read:
 
 backend:
   replicas: 2
+  podAnnotations:
+    "cluster-autoscaler.kubernetes.io/safe-to-evict": "true"
   persistence:
     enableStatefulSetAutoDeletePVC: false
   extraArgs:
