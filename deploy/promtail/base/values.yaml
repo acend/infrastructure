@@ -15,7 +15,7 @@ extraVolumes:
 - name: k8saudit
   hostPath:
     path: /var/lib/rancher/rke2/server/logs/audit.log
-    type: DirectoryOrCreate
+    type: FileOrCreate
 
 extraVolumeMounts:
 - name: k8saudit
