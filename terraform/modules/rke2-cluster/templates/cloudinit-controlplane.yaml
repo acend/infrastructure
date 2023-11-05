@@ -98,6 +98,13 @@ write_files:
     disable-cloud-controller: true
     disable-kube-proxy: true
     cloud-provider-name: external
+    kube-apiserver-arg:
+    - audit-log-format=json
+    - audit-log-maxage=5
+    - audit-log-maxbackup=5
+    - audit-log-maxsize=100
+    - audit-log-path=/var/lib/rancher/rke2/server/logs/audit.log
+    - audit-policy-file=/etc/rancher/rke2/audit-policy.yaml
     node-taint:
     - "node-role.kubernetes.io/control-plane=true:NoSchedule"
     tls-san:
@@ -145,3 +152,12 @@ write_files:
     OnCalendar=
     OnCalendar=Sat,Sun *-*-* 02:00:00
     RandomizedDelaySec=60
+- path: /etc/rancher/rke2/audit-policy.yaml
+  permission: "0644"
+  owner: root:root
+  content: |
+    ---
+    apiVersion: audit.k8s.io/v1
+    kind: Policy
+    rules:
+    - level: Metadata
