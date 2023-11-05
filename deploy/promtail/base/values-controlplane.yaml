@@ -1,6 +1,9 @@
 serviceMonitor:
   enabled: true
 
+nodeSelector:
+  node-role.kubernetes.io/control-plane: true
+
 config:
     clients:
     - url: http://loki-gateway.loki.svc.cluster.local/loki/api/v1/push
@@ -9,7 +12,6 @@ resources:
   requests:
     cpu: 30m
     memory: 80Mi
-
 
 extraVolumes:
 - name: k8saudit
