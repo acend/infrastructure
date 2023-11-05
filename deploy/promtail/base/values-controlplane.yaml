@@ -10,8 +10,6 @@ config:
   snippets:
     extraScrapeConfigs: |
       - job_name: k8saudit
-        pipeline_stages:
-        - json: {}
         static_configs:
         - targets:
             - localhost
