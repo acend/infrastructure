@@ -14,7 +14,7 @@ rbacBindings:
         namespace: rbac-manager
       - kind: ServiceAccount
         name: thomas
-        namespace: rbac-managerpr-43-prometheus-basics-puzzle-84c6986b4c-d55q9
+        namespace: rbac-manager
       - kind: ServiceAccount
         name: benj
         namespace: rbac-manager

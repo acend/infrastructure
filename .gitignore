@@ -1,1 +1,3 @@
 deploy/*/base/charts
+
+kubeconfig.yaml
