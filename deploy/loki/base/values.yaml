@@ -36,6 +36,12 @@ monitoring:
     enabled: true
 
 gateway:
+  nodeSelector:
+    node-role.kubernetes.io/control-plane: "true"
+  tolerations:
+  - key: "node-role.kubernetes.io/control-plane"
+    operator: "Exists"
+    effect: "NoSchedule"
   podAnnotations:
     "cluster-autoscaler.kubernetes.io/safe-to-evict": "true"
 
@@ -47,7 +53,7 @@ memberlist:
     publishNotReadyAddresses: true
 
 write:
-  replicas: 2
+  replicas: 3
   persistence:
     enableStatefulSetAutoDeletePVC: false
     size: 5Gi
@@ -60,6 +66,12 @@ write:
   extraEnvFrom:
   - secretRef:
       name: loki-s3-secret
+  nodeSelector:
+    node-role.kubernetes.io/control-plane: "true"
+  tolerations:
+  - key: "node-role.kubernetes.io/control-plane"
+    operator: "Exists"
+    effect: "NoSchedule"
 
 tableManager:
   extraArgs:
@@ -69,7 +81,7 @@ tableManager:
       name: loki-s3-secret
 
 read:
-  replicas: 2
+  replicas: 3
   persistence:
     enableStatefulSetAutoDeletePVC: false
     size: 5Gi
@@ -84,9 +96,15 @@ read:
   extraEnvFrom:
   - secretRef:
       name: loki-s3-secret
+  nodeSelector:
+    node-role.kubernetes.io/control-plane: "true"
+  tolerations:
+  - key: "node-role.kubernetes.io/control-plane"
+    operator: "Exists"
+    effect: "NoSchedule"
 
 backend:
-  replicas: 2
+  replicas: 3
   podAnnotations:
     "cluster-autoscaler.kubernetes.io/safe-to-evict": "true"
   persistence:
@@ -100,3 +118,9 @@ backend:
   extraEnvFrom:
   - secretRef:
       name: loki-s3-secret
+  nodeSelector:
+    node-role.kubernetes.io/control-plane: "true"
+  tolerations:
+  - key: "node-role.kubernetes.io/control-plane"
+    operator: "Exists"
+    effect: "NoSchedule"
