@@ -8,7 +8,7 @@ helmCharts:
   - name: kubernetes-event-exporter
     releaseName: kubernetes-event-exporter
     namespace: kubernetes-event-exporter
-    version: 2.8.0
+    version: 2.8.1
     repo: https://charts.bitnami.com/bitnami
     valuesInLine:
       config:
