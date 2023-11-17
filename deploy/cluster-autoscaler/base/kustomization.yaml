@@ -6,7 +6,7 @@ helmCharts:
   - name: cluster-autoscaler
     releaseName: cluster-autoscaler
     namespace: kube-system
-    version: 9.30.1
+    version: 9.31.0
     valuesFile: values.yaml
     repo: https://kubernetes.github.io/autoscaler
 
