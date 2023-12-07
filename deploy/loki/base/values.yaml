@@ -6,7 +6,7 @@ loki:
   
   structuredConfig:
     limits_config:
-      retention_period: 744h #31 days
+      retention_period: 360h #15 days
 
   compactor:
     retention_enabled: true
