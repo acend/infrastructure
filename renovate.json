@@ -88,6 +88,16 @@
       "matchPaths": ["deploy/cloudnativepg/base/kustomization.yaml"],
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true
+    },
+    {
+      "matchPaths": ["deploy/goldpinger/base/kustomization.yaml"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    },
+    {
+      "matchPaths": ["deploy/cert-manager/base/kustomization.yaml"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
     }
    
   ]
