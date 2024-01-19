@@ -14,6 +14,9 @@ helmCharts:
     repo: https://kyverno.github.io/kyverno/
     valuesInLine:
       kyverno.pdb.apiVersion: "policy/v1"
+      reportsController:
+        podAnnotations:
+          "cluster-autoscaler.kubernetes.io/safe-to-evict": "true"
       admissionController:
         replicaCount: 1
         tolerations:
