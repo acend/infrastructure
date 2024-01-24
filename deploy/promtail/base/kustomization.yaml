@@ -9,13 +9,13 @@ helmCharts:
   - name: promtail
     releaseName: promtail
     namespace: promtail
-    version: 6.15.3
+    version: 6.15.4
     valuesFile: values-controlplane.yaml
     includeCRDs: true
     repo: https://grafana.github.io/helm-charts
   - name: promtail
     releaseName: promtail-worker
     namespace: promtail
-    version: 6.15.3
+    version: 6.15.4
     valuesFile: values-worker.yaml
     repo: https://grafana.github.io/helm-charts
