@@ -38,7 +38,7 @@ resource "helm_release" "argocd-bootstrap" {
   repository = "https://argoproj.github.io/argo-helm"
   chart      = "argocd-apps"
   namespace  = kubernetes_namespace.argocd.metadata.0.name
-  version    = "1.4.1"
+  version    = "1.5.0"
 
   values = [
     templatefile("${path.module}/templates/argocd-bootstrap-values.yaml", {
