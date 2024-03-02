@@ -1,5 +1,5 @@
 global:
-  domain: "https://argocd.${cluster-domain}"
+  domain: "argocd.${cluster-domain}"
 
 controller:
   resources:
@@ -63,13 +63,19 @@ server:
     annotations:
       nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-    tls: true
+    hostname: "argocd.${cluster-domain}"
+    extraTls:
+    - hosts:
+      - "argocd.${cluster-domain}"
   ingressGrpc:
     enabled: true
     ingressClassName: nginx
     annotations:
       nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
-    tls: true
+    hostname: "argocd-grpc.${cluster-domain}"
+    extraTls:
+    - hosts:
+      - "argocd-grpc.${cluster-domain}"
   metrics:
     enabled: true
     serviceMonitor:
