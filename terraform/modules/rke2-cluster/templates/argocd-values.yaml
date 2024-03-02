@@ -1,3 +1,6 @@
+global:
+  domain: "https://argocd.${cluster-domain}"
+
 controller:
   resources:
     requests:
@@ -11,8 +14,6 @@ controller:
 configs:
   cm:
     create: true
-    url: "https://argocd.${cluster-domain}"
-
     dex.config: |
       connectors:
         - type: github
