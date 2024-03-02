@@ -63,23 +63,13 @@ server:
     annotations:
       nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-    hosts:
-    - "argocd.${cluster-domain}"
-    https: true
-    tls:
-    - hosts:
-      - "argocd.${cluster-domain}"
+    tls: true
   ingressGrpc:
     enabled: true
     ingressClassName: nginx
     annotations:
       nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
-    hosts:
-    - "argocd-grpc.${cluster-domain}"
-    https: true
-    tls:
-    - hosts:
-      - "argocd-grpc.${cluster-domain}"
+    tls: true
   metrics:
     enabled: true
     serviceMonitor:
