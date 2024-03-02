@@ -14,6 +14,7 @@ controller:
 configs:
   cm:
     create: true
+    kustomize.buildOptions: "--enable-helm"
     dex.config: |
       connectors:
         - type: github
@@ -42,16 +43,6 @@ dex:
   podAnnotations:
     "cluster-autoscaler.kubernetes.io/safe-to-evict": "true"
 server:
-  config:
-    kustomize.buildOptions: "--enable-helm"
-    resource.exclusions: |
-      - kinds:
-        - "CiliumIdentity"
-        - "ciliumidentities"
-        - "CiliumEndpoint"
-        - "ciliumendpoints"
-        - "CiliumNode"
-        - "ciliumnodes"
   resources:
     requests:
       cpu: 50m
