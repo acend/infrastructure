@@ -15,6 +15,14 @@ configs:
   cm:
     create: true
     kustomize.buildOptions: "--enable-helm"
+    resource.exclusions: |
+        - kinds:
+          - "CiliumIdentity"
+          - "ciliumidentities"
+          - "CiliumEndpoint"
+          - "ciliumendpoints"
+          - "CiliumNode"
+          - "ciliumnodes"
     dex.config: |
       connectors:
         - type: github
