@@ -1,12 +1,29 @@
 controller:
   allowSnippetAnnotations: true
-  replicaCount: 2
+  replicaCount: 3
   config:
     use-proxy-protocol: true
   extraArgs:
     default-ssl-certificate: "ingress-nginx/k8s-prod-wildcard"
   ingressClassResource:
     default: true
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+    - labelSelector:
+        matchExpressions:
+        - key: app.kubernetes.io/name
+          operator: In
+          values:
+          - ingress-nginx
+        - key: app.kubernetes.io/instance
+          operator: In
+          values:
+          - ingress-nginx
+        - key: app.kubernetes.io/component
+          operator: In
+          values:
+          - controller
+      topologyKey: "kubernetes.io/hostname"
   resources:
     requests:
       cpu: 100m
@@ -14,6 +31,9 @@ controller:
   service:
     annotations:
       load-balancer.hetzner.cloud/uses-proxyprotocol: "true"
+      load-balancer.hetzner.cloud/health-check-interval: "5s"
+      load-balancer.hetzner.cloud/health-check-retries: "3"
+      load-balancer.hetzner.cloud/health-check-timeout: 5s
   metrics:
     enabled: true
     serviceMonitor:
