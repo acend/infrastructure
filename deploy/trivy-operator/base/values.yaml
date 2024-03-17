@@ -1,3 +1,8 @@
+operator:
+  configAuditScannerEnabled: false
+  rbacAssessmentScannerEnabled: false
+  infraAssessmentScannerEnabled: false
+  clusterComplianceEnabled: false
 
 resources:
   requests:
