@@ -33,7 +33,7 @@ controller:
       load-balancer.hetzner.cloud/uses-proxyprotocol: "true"
       load-balancer.hetzner.cloud/health-check-interval: "5s"
       load-balancer.hetzner.cloud/health-check-retries: "3"
-      load-balancer.hetzner.cloud/health-check-timeout: 5s
+      load-balancer.hetzner.cloud/health-check-timeout: "5s"
   metrics:
     enabled: true
     serviceMonitor:
