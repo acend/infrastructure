@@ -7,7 +7,7 @@ helmCharts:
   - name: kured
     releaseName: kured
     namespace: kube-system
-    version: 5.4.4
+    version: 5.4.5
     valuesFile: values.yaml
     repo: https://kubereboot.github.io/charts
 
