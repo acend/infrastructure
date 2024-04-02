@@ -10,7 +10,7 @@ deschedulerPolicy:
         - name: HighNodeUtilization
           args:
             thresholds:
-              pods: 90
+              pods:   90
       plugins:
         balance:
           enabled:
@@ -21,3 +21,10 @@ deschedulerPolicy:
             - RemovePodsViolatingInterPodAntiAffinity
 serviceMonitor:
   enabled: true
+
+tolerations:
+  - key: "node-role.kubernetes.io/control-plane"
+    operator: "Exists"
+    effect: "NoSchedule"
+nodeSelector:
+  node-role.kubernetes.io/control-plane: "true"
