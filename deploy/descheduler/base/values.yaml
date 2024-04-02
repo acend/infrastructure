@@ -1,0 +1,23 @@
+deschedulerPolicy:
+  profiles:
+    - name: default
+      pluginConfig:
+        - name: DefaultEvictor
+          args:
+            evictLocalStoragePods: true
+        - name: RemoveDuplicates
+        - name: RemovePodsViolatingInterPodAntiAffinity
+        - name: HighNodeUtilization
+          args:
+            thresholds:
+              pods: 90
+      plugins:
+        balance:
+          enabled:
+            - RemoveDuplicates
+            - HighNodeUtilization
+        deschedule:
+          enabled:
+            - RemovePodsViolatingInterPodAntiAffinity
+serviceMonitor:
+  enabled: true
