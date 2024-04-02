@@ -98,7 +98,11 @@
       "matchPaths": ["deploy/cert-manager/base/kustomization.yaml"],
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true
+    },
+    {
+      "matchPaths": ["deploy/descheduler/base/kustomization.yaml"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
     }
-   
   ]
 }
