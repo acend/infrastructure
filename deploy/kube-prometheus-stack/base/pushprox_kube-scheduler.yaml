@@ -76,7 +76,7 @@ spec:
       serviceAccountName: pushprox-kube-scheduler-client
       containers:
       - name: pushprox-client
-        image: rancher/pushprox-client:v0.1.2-rancher2-client
+        image: rancher/pushprox-client:v0.1.3-rc1-rancher2-client
         command:
           - "pushprox-client"
         args:
@@ -155,7 +155,7 @@ spec:
       serviceAccountName: pushprox-kube-scheduler-proxy
       containers:
       - name: pushprox-proxy
-        image: rancher/pushprox-proxy:v0.1.2-rancher2-proxy
+        image: rancher/pushprox-proxy:v0.1.3-rc1-rancher2-proxy
         command:
           - "pushprox-proxy"
         resources:
