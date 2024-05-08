@@ -155,7 +155,7 @@ spec:
       serviceAccountName: pushprox-kube-scheduler-proxy
       containers:
       - name: pushprox-proxy
-        image: rancher/pushprox-proxy:v0.1.0-rancher2-proxy
+        image: rancher/pushprox-proxy:v0.1.2-rancher2-proxy
         command:
           - "pushprox-proxy"
         resources:
