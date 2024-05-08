@@ -49,7 +49,7 @@ spec:
       serviceAccountName: pushprox-kube-etcd-client
       containers:
       - name: pushprox-client
-        image: rancher/pushprox-client:v0.1.0-rancher2-client
+        image: rancher/pushprox-client:v0.1.2-rancher2-client
         command:
           - "pushprox-client"
         args:
