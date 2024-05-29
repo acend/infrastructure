@@ -5,12 +5,13 @@ loki:
   auth_enabled: false
 
   schemaConfig:
-  - from: 2024-04-01
-    store: tsdb
-    object_store: s3
-    schema: v13
-    index:
-      period: 24h
+    configs:
+    - from: 2024-04-01
+      store: tsdb
+      object_store: s3
+      schema: v13
+      index:
+        period: 24h
   
   structuredConfig:
     limits_config:
