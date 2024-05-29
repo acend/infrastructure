@@ -20,7 +20,7 @@ tenant:
     enableSFTP: false
 
   pools:
-    - name: pool-0
+    - name: ss-0
       servers: 1
       storageClassName: hcloud-volumes
       size: 20Gi
