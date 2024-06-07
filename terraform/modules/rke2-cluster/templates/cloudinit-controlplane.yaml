@@ -43,7 +43,7 @@ write_files:
         ipam:
           mode: kubernetes
         hubble:
-          enabled: true
+          enabled: false
           metrics:
             serviceMonitor:
               enabled: false
@@ -55,7 +55,7 @@ write_files:
             - icmp
             - http
           relay:
-            enabled: true
+            enabled: false
             nodeSelector:
               kubernetes.io/os: linux
               node-role.kubernetes.io/control-plane: "true"
@@ -64,7 +64,7 @@ write_files:
               operator: "Exists"
               effect: "NoSchedule"
           ui:
-            enabled: true
+            enabled: false
             nodeSelector:
               kubernetes.io/os: linux
               node-role.kubernetes.io/control-plane: "true"
