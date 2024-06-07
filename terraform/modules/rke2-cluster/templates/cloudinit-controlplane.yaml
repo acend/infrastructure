@@ -55,7 +55,7 @@ write_files:
             - icmp
             - http
           relay:
-            enabled: false
+            enabled: true
             nodeSelector:
               kubernetes.io/os: linux
               node-role.kubernetes.io/control-plane: "true"
@@ -64,7 +64,7 @@ write_files:
               operator: "Exists"
               effect: "NoSchedule"
           ui:
-            enabled: false
+            enabled: true
             nodeSelector:
               kubernetes.io/os: linux
               node-role.kubernetes.io/control-plane: "true"
