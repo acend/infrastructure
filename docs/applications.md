@@ -13,7 +13,6 @@
   - [Monitoring](#monitoring)
   - [kubernetes-replicator](#kubernetes-replicator)
   - [kured](#kured)
-  - [Logging](#logging)
   - [Minio S3](#minio-s3)
     - [acend-s3 Tenant](#acend-s3-tenant)
   - [kyverno](#kyverno)
@@ -207,18 +206,6 @@ Folder: `deploy/kured`
 For safe automated node reboots we use [kured](https://kured.dev/)
 
 When a reboot of a node is requered, `/var/run/reboot-required` is created by `unattended-upgrade`. Kured detects this and will safly reboot the node. Reboots are done everyday between 21:00 and 23:59:59 Europe/Zurich timezone. Befor rebooting, the node gets cordoned and drained and after the reboot uncordoned again. Only one node at the same time is rebooted.
-
-## Logging
-
-Folder: `deploy/loki` & `deploy/promtail`
-
-[Loki](https://grafana.com/oss/loki/) and [Promtail](https://grafana.com/docs/loki/latest/clients/promtail/) are in use for Container Logs.
-
-Logs are kept 31 days.
-
-Within Grafana / Explore you have access to the container logs.
-
-The storage backend is set to the local Minio S3 installation.
 
 ## Minio S3
 

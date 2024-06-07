@@ -8,9 +8,6 @@ tenant:
 
   buckets:
   - name: velero-backup
-  - name: loki-chunks
-  - name: loki-ruler
-  - name: loki-admin
 
   features:
     domains:
