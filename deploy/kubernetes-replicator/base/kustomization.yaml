@@ -5,7 +5,7 @@ helmCharts:
   - name: kubernetes-replicator
     releaseName: kubernetes-replicator
     namespace: kube-system
-    version: 2.9.2
+    version: 2.10.0
     repo: https://helm.mittwald.de
     valuesInLine:
       tolerations:
