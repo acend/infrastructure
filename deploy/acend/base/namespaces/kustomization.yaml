@@ -11,6 +11,7 @@ resources:
 - acend-ns-helm.yaml
 - acend-ns-hugo-template.yaml
 - acend-ns-kubernetes.yaml
+- acend-ns-kubevirt.yaml
 - acend-ns-openshift-ops.yaml
 - acend-ns-prometheus.yaml
 - acend-ns-tekton.yaml
