@@ -5,7 +5,7 @@ metadata:
   labels:
     ci-bot: "true"
     env: "prod"
-  name: acend-kubevirt-training-prod
+  name: acend-kubevirt-basics-training-prod
 ---
 apiVersion: v1
 kind: Namespace
@@ -13,4 +13,4 @@ metadata:
   labels:
     ci-bot: "true"
     env: "test"
-  name: acend-kubevirt-training-test
+  name: acend-kubevirt-basics-training-test
