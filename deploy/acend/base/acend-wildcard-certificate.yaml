@@ -28,6 +28,9 @@ spec:
     kind: ClusterIssuer
     name: letsencrypt-prod-dns01
   secretName: acend-test-wildcard
+  secretTemplate:
+    annotations:
+      replicator.v1.mittwald.de/replicate-to: acend-websitenew-test
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -46,3 +49,4 @@ spec:
     annotations:
       replicator.v1.mittwald.de/replication-allowed: "true"
       replicator.v1.mittwald.de/replication-allowed-namespaces: kutt, github-oauth-proxy
+      replicator.v1.mittwald.de/replicate-to: acend-websitenew
