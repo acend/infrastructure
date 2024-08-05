@@ -14,7 +14,22 @@ metadata:
     ci-bot: "true"
     env: "test"
   name: acend-website-test
-
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    ci-bot: "true"
+    env: "prod"
+  name: acend-websitenew
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    ci-bot: "true"
+    env: "test"
+  name: acend-websitenew-test
 ---
 apiVersion: v1
 kind: Namespace
