@@ -38,7 +38,7 @@ variable "controlplane_count" {
 
 variable "worker_count" {
   type        = number
-  default     = 2
+  default     = 4
   description = "Count of rke2 workers"
 }
 
