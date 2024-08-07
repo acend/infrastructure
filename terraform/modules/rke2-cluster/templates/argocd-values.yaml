@@ -1,5 +1,11 @@
 global:
   domain: "argocd.${cluster-domain}"
+  tolerations:
+    - key: "node-role.kubernetes.io/control-plane"
+      operator: "Exists"
+      effect: "NoSchedule"
+  nodeSelector:
+    node-role.kubernetes.io/control-plane: "true"
 
 controller:
   resources:
