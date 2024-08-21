@@ -4,7 +4,7 @@ config:
 extraArgs:
   provider: github
   github-org: acend
-  github-team: team-stream-1,team-overall-stream
+  github-team: team-stream-1,team-overall-stream,team-external-contributors
   email-domain: "*"
   custom-sign-in-logo: https://raw.githubusercontent.com/acend/.github/main/profile/images/AC-logo-claim-rgb-red.svg
   pass-authorization-header: true
