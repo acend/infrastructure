@@ -1,6 +1,3 @@
-secrets:
-  existingSecret: acend-s3-env-configuration
-
 tenant:
   name: acend-s3
   configuration:
