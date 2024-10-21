@@ -49,7 +49,7 @@ helmCharts:
     releaseName: cert-manager-webhook-hosttech
     namespace: cert-manager
     version: 0.3.0
-    repo: https://piccobit.github.io/helm-charts
+    repo: https://stich.io/helm-charts
     valuesInLine:
       groupName: acme.acend.ch
 
