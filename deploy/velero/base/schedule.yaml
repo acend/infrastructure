@@ -2,29 +2,6 @@
 apiVersion: velero.io/v1
 kind: Schedule
 metadata:
-  name: full-backup
-  namespace: velero
-spec:
-  schedule: 0 2 * * *
-  useOwnerReferencesInBackup: true
-  template:
-    includedNamespaces:
-    - '*'
-    ttl: 336h0m0s
-    excludedResources:
-    - sbomreports.aquasecurity.github.io
-    - clusterrbacassessmentreports.aquasecurity.github.io
-    - rbacassessmentreports.aquasecurity.github.io
-    - infraassessmentreports.aquasecurity.github.io
-    - clusterinfraassessmentreports.aquasecurity.github.io
-    - clustercompliancereports.aquasecurity.github.io
-    - vulnerabilityreports.aquasecurity.github.io
-    - configauditreports.aquasecurity.github.io
-    - exposedsecretreports.aquasecurity.github.io
----
-apiVersion: velero.io/v1
-kind: Schedule
-metadata:
   name: full-backup-hcloud
   namespace: velero
 spec:
