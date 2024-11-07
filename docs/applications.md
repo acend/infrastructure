@@ -209,6 +209,8 @@ When a reboot of a node is requered, `/var/run/reboot-required` is created by `u
 
 ## Minio S3
 
+**Deprecated, we do not use minio s3 anymore as Hetzner provide S3 Storage**
+
 Folder: `deploy/minio`
 
 The [minio operator](https://github.com/minio/operator) is deployed to create a S3 service.
@@ -227,6 +229,8 @@ Credentials for console access in Secret `acend-s3-env-configuration` in Namespa
 For Tenant configuration see `deploy/minio/base/values-tenant.yaml`.
 
 ## kyverno
+
+**Deprecated: not in use anymore as we don't need it**
 
 Folder: `deploy/kyverno`
 
