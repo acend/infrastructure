@@ -47,7 +47,7 @@ provider "minio" {
 }
 
 resource "minio_s3_bucket" "acend" {
-  bucket         = "acend"
+  bucket         = "acend-s3-storage"
   acl            = "private"
   object_locking = false
 
