@@ -6,6 +6,10 @@ initContainers:
       - mountPath: /target
         name: plugins
 
+
+extraEnvVars:
+  AWS_EC2_METADATA_DISABLED: 'true'
+
 credentials:
   existingSecret: velero-s3-secret
 
