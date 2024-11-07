@@ -34,8 +34,6 @@ configuration:
       config:
         region: US
         s3Url: https://acend-velero.nbg1.your-objectstorage.com
-        s3ForcePathStyle: true
-        insecureSkipTLSVerify: true
         publicUrl: https://acend-velero.nbg1.your-objectstorage.com
 
 snapshotsEnabled: false
