@@ -15,20 +15,6 @@ configuration:
   extraEnvVars:
     AWS_EC2_METADATA_DISABLED: 'true'
   backupStorageLocation:
-    - name: default
-      bucket: velero-backup
-      provider: velero.io/aws
-      default: true
-      credentials:
-        name: velero-s3-secret
-        key: cloud
-      config:
-        region: minio
-        s3Url: https://minio.acend-s3.svc.cluster.local
-        s3ForcePathStyle: true
-        insecureSkipTLSVerify: true
-        publicUrl: https://s3.k8s-prod.acend.ch
-        profile: minio
     - name: hcloud
       bucket: acend-s3-storage
       prefix: velero
