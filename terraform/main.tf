@@ -42,7 +42,7 @@ provider "minio" {
   minio_server   = "fsn1.your-objectstorage.com"
   minio_user     = "${var.hcloud_s3_access_key}"
   minio_password = "${var.hcloud_s3_secret_key}"
-  minio_region   = "fsn1"
+  minio_region   = "nbg1"
   minio_ssl      = true
 }
 
@@ -50,4 +50,5 @@ resource "minio_s3_bucket" "acend" {
   bucket         = "acend"
   acl            = "private"
   object_locking = false
+
 }
