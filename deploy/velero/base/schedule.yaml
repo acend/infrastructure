@@ -6,6 +6,7 @@ metadata:
 spec:
   schedule: 0 2 * * *
   useOwnerReferencesInBackup: true
+  storageLocation: hcloud
   template:
     includedNamespaces:
     - '*'
