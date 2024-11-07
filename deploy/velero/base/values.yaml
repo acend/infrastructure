@@ -38,8 +38,9 @@ configuration:
         key: cloud
       config:
         region: nbg1
-        s3Url: https://acend-velero.nbg1.your-objectstorage.com
-        publicUrl: https://acend-velero.nbg1.your-objectstorage.com
+        s3Url: https://nbg1.your-objectstorage.com
+        publicUrl: https://nbg1.your-objectstorage.com
+        insecureSkipTLSVerify: true
         s3ForcePathStyle: false
         profile: hcloud
 
