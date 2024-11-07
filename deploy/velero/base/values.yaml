@@ -7,13 +7,13 @@ initContainers:
         name: plugins
 
 
-extraEnvVars:
-  AWS_EC2_METADATA_DISABLED: 'true'
 
 credentials:
   existingSecret: velero-s3-secret
 
 configuration:
+  extraEnvVars:
+    AWS_EC2_METADATA_DISABLED: 'true'
   backupStorageLocation:
     - name: default
       bucket: velero-backup
