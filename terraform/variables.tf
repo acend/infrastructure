@@ -91,3 +91,6 @@ variable "delete_protection" {
   description = "If true, prevent deletion of resources"
   default     = true
 }
+
+variable "hcloud_s3_access_key" {}
+variable "hcloud_s3_secret_key" {}
