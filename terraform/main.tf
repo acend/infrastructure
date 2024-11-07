@@ -39,7 +39,7 @@ module "acend-cluster" {
 }
 
 provider "minio" {
-  minio_server   = "fsn1.your-objectstorage.com"
+  minio_server   = "nbg1.your-objectstorage.com"
   minio_user     = "${var.hcloud_s3_access_key}"
   minio_password = "${var.hcloud_s3_secret_key}"
   minio_region   = "nbg1"
