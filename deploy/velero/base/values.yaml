@@ -32,7 +32,7 @@ configuration:
         name: velero-s3-secret
         key: hcloud
       config:
-        region: US
+        region: nbg1
         s3Url: https://acend-velero.nbg1.your-objectstorage.com
         publicUrl: https://acend-velero.nbg1.your-objectstorage.com
 
