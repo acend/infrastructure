@@ -43,6 +43,7 @@ configuration:
         insecureSkipTLSVerify: true
         s3ForcePathStyle: false
         profile: hcloud
+        checksumAlgorithm: ""
 
 snapshotsEnabled: false
 deployNodeAgent: false
