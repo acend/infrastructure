@@ -30,7 +30,8 @@ configuration:
         publicUrl: https://s3.k8s-prod.acend.ch
         profile: minio
     - name: hcloud
-      bucket: acend-velero
+      bucket: acend-s3-storage
+      prefix: velero
       provider: velero.io/aws
       default: false
       credentials:
