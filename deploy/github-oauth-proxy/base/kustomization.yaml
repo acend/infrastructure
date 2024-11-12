@@ -10,6 +10,6 @@ helmCharts:
   - name: oauth2-proxy
     releaseName: github-oauth-proxy
     namespace: github-oauth-proxy
-    version: 7.7.28
+    version: 7.7.29
     repo: https://oauth2-proxy.github.io/manifests
     valuesFile: values.yaml
