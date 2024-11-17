@@ -14,3 +14,9 @@ helmCharts:
           effect: "NoSchedule"
       nodeSelector:
         node-role.kubernetes.io/control-plane: "true"
+      replicationEnabled:
+        secrets: true
+        configMaps: false
+        roles: false
+        roleBindings: false
+        serviceAccounts: false
