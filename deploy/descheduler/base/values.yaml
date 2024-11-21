@@ -13,7 +13,7 @@ deschedulerPolicy:
         - name: HighNodeUtilization
           args:
             thresholds:
-              pods:   90
+              pods:   95
       plugins:
         balance:
           enabled:
