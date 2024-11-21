@@ -7,6 +7,7 @@ deschedulerPolicy:
       pluginConfig:
         - name: DefaultEvictor
           args:
+            ignorePvcPods: true
             evictLocalStoragePods: true
         - name: RemoveDuplicates
         - name: RemovePodsViolatingInterPodAntiAffinity
