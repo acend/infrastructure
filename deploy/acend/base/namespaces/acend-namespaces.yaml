@@ -47,7 +47,7 @@ metadata:
 spec:
   refreshInterval: 1h
   secretStoreRef:
-    kind: SecretStore
+    kind: ClusterSecretStore
     name: k8s-local-acend-website-test
   target:
     name: test-secret
