@@ -28,6 +28,5 @@ rbacBindings:
       - kind: ServiceAccount
         name: eso-store
         namespace: external-secrets
-    roleBindings:
+    clusterRoleBindings:
       - clusterRole: eso-store
-        namespace: external-secrets
