@@ -5,3 +5,27 @@ metadata:
   name: github-oauth-proxy
   labels:
     app: github-oauth-proxy
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: acend-main-wildcard
+  namespace: github-oauth-proxy
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: k8s-local-acend-website
+  target:
+    name: acend-main-wildcard
+    template:
+      type: kubernetes.io/tls
+  data:
+    - remoteRef:
+        key: acend-main-wildcard
+        property: tls.crt
+      secretKey: tls.crt
+    - remoteRef:
+        key: acend-main-wildcard
+        property: tls.key
+      secretKey: tls.key

@@ -14,3 +14,51 @@ metadata:
     ci-bot: "true"
     env: "test"
   name: acend-quarkus-training-test
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: acend-wildcard
+  namespace: acend-quarkus-training-prod
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: k8s-local-acend-website
+  target:
+    name: acend-wildcard
+    template:
+      type: kubernetes.io/tls
+  data:
+    - remoteRef:
+        key: acend-wildcard
+        property: tls.crt
+      secretKey: tls.crt
+    - remoteRef:
+        key: acend-wildcard
+        property: tls.key
+      secretKey: tls.key
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: acend-test-wildcard
+  namespace: acend-quarkus-training-test
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: acend-cilium-basics-training-test
+  target:
+    name: acend-test-wildcard
+    template:
+      type: kubernetes.io/tls
+  data:
+    - remoteRef:
+        key: acend-test-wildcard
+        property: tls.crt
+      secretKey: tls.crt
+    - remoteRef:
+        key: acend-test-wildcard
+        property: tls.key
+      secretKey: tls.key
