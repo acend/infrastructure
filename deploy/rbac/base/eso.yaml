@@ -28,5 +28,8 @@ rbacBindings:
       - kind: ServiceAccount
         name: eso-store
         namespace: acend-website
+      - kind: ServiceAccount
+        name: eso-store
+        namespace: acend-website-test
     roleBindings:
       - clusterRole: eso-store
