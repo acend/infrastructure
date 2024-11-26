@@ -19,7 +19,7 @@ apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
   name: acend-wildcard
-  namespace: acend-argocd-basics-training-prod
+  namespace: acend-ch-open-workshop-tage-training-prod
 spec:
   refreshInterval: 1h
   secretStoreRef:
