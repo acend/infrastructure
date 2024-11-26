@@ -30,6 +30,7 @@ rbacBindings:
         namespace: acend-website
     roleBindings:
       - clusterRole: eso-store
+        namespace: acend-website
 ---
 apiVersion: rbacmanager.reactiveops.io/v1beta1
 kind: RBACDefinition
@@ -43,3 +44,4 @@ rbacBindings:
         namespace: acend-website-test
     roleBindings:
       - clusterRole: eso-store
+        namespace: acend-website-test
