@@ -43,12 +43,12 @@ apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
   name: acend-test-wildcard
-  namespace: acend-websitenew-test
+  namespace: acend-ch-open-workshop-tage-training-test
 spec:
   refreshInterval: 1h
   secretStoreRef:
     kind: ClusterSecretStore
-    name: acend-argocd-basics-training-test
+    name: k8s-local-acend-website-test
   target:
     name: acend-test-wildcard
     template:

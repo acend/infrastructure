@@ -48,7 +48,7 @@ spec:
   refreshInterval: 1h
   secretStoreRef:
     kind: ClusterSecretStore
-    name: acend-cilium-basics-training-test
+    name: k8s-local-acend-website-test
   target:
     name: acend-test-wildcard
     template:
