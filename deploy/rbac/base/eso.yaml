@@ -1,0 +1,34 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  namespace: default
+  name: eso-store
+rules:
+- apiGroups: [""]
+  resources:
+  - secrets
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - authorization.k8s.io
+  resources:
+  - selfsubjectrulesreviews
+  verbs:
+  - create
+---
+apiVersion: rbacmanager.reactiveops.io/v1beta1
+kind: RBACDefinition
+metadata:
+  name: eso-store
+rbacBindings:
+  - name: eso-store
+    subjects:
+      - kind: ServiceAccount
+        name: eso-store
+        namespace: acend-website
+    roleBindings:
+      - clusterRole: eso-store
+        namespace: acend-website

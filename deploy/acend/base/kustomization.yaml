@@ -9,5 +9,6 @@ resources:
 - argocd-appprojects.yaml
 - acend-events.yaml
 - acend-events-secrets.yaml
+- secretstore.yaml
 - namespaces/
 - plausible/

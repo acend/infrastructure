@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
 - cluster-admin.yaml
 - rbac.yaml
+- eso.yaml
