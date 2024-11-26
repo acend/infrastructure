@@ -2,7 +2,6 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  namespace: default
   name: eso-store
 rules:
 - apiGroups: [""]
@@ -29,8 +28,5 @@ rbacBindings:
       - kind: ServiceAccount
         name: eso-store
         namespace: acend-website
-      - kind: ServiceAccount
-        name: eso-store
-        namespace: acend-website-test
     roleBindings:
       - clusterRole: eso-store
