@@ -38,3 +38,27 @@ metadata:
     ci-bot: "true"
     env: "prod"
   name: acend-webshell
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: acend-test-wildcard
+  namespace: acend-websitenew-test
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    kind: SecretStore
+    name: k8s-local-acend-website-test
+  target:
+    name: test-secret
+    template:
+      type: kubernetes.io/tls
+  data:
+    - remoteRef:
+        key: acend-test-wildcard
+        property: tls.crt
+      secretKey: tls.crt
+    - remoteRef:
+        key: acend-test-wildcard
+        property: tls.key
+      secretKey: tls.key
