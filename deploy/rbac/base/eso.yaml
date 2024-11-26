@@ -28,6 +28,16 @@ rbacBindings:
       - kind: ServiceAccount
         name: eso-store
         namespace: acend-website
+    roleBindings:
+      - clusterRole: eso-store
+---
+apiVersion: rbacmanager.reactiveops.io/v1beta1
+kind: RBACDefinition
+metadata:
+  name: eso-store-test
+rbacBindings:
+  - name: eso-store-test
+    subjects:
       - kind: ServiceAccount
         name: eso-store-test
         namespace: acend-website-test
