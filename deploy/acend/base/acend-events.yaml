@@ -242,8 +242,6 @@ kind: Ingress
 metadata:
   name: wordpress-ing
   namespace: acend-website
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: nginx
   tls:
