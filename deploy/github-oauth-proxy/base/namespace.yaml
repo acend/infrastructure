@@ -24,8 +24,14 @@ spec:
     - remoteRef:
         key: acend-main-wildcard
         property: tls.crt
+        conversionStrategy: Default
+        decodingStrategy: None
+        metadataPolicy: None
       secretKey: tls.crt
     - remoteRef:
         key: acend-main-wildcard
         property: tls.key
+        conversionStrategy: Default
+        decodingStrategy: None
+        metadataPolicy: None
       secretKey: tls.key
