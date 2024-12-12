@@ -39,6 +39,9 @@ grafana:
   sidecar:
     dashboards:
       searchNamespace: ALL
+  deleteDatasources:
+  - name: loki
+    orgId: 1
   ingress:
     enabled: true
     annotations:
