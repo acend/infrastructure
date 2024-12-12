@@ -40,7 +40,7 @@ grafana:
     dashboards:
       searchNamespace: ALL
   deleteDatasources:
-  - name: loki
+  - name: Loki
     orgId: 1
   ingress:
     enabled: true
