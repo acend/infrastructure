@@ -31,6 +31,7 @@ metadata:
 spec:
   concurrencyPolicy: Allow
   failedJobsHistoryLimit: 1
+  suspend: true
   jobTemplate:
     spec:
       template:
