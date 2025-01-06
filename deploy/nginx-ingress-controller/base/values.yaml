@@ -3,6 +3,7 @@ controller:
   replicaCount: 3
   config:
     use-proxy-protocol: true
+    annotations-risk-level: Critical
   extraArgs:
     default-ssl-certificate: "ingress-nginx/k8s-prod-wildcard"
   ingressClassResource:
