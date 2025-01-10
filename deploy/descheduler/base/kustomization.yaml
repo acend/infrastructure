@@ -11,3 +11,13 @@ helmCharts:
     valuesFile: values.yaml
     repo: https://kubernetes-sigs.github.io/descheduler/
 
+patches:
+- target:
+    kind: ClusterRole
+  patch: |
+    - op: add
+      path: /rules/-
+      value:
+        verbs: ["get", "watch", "list"]
+        apiGroups: ["policy"]
+        resources: ["poddisruptionbudgets"]
