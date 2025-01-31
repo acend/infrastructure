@@ -1,23 +1,22 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- namespace.yaml
-- slack_secret.yaml
-- github_client.yaml
-- pushprox_etcd.yaml
-- pushprox_kube-controller-manager.yaml
-- pushprox_kube-scheduler.yaml
-- grafana-dashboards/argocd.yaml
-- grafana-dashboards/cilium.yaml
-- grafana-dashboards/cluster-autoscaler.yaml
-- grafana-dashboards/etcd.yaml
-- grafana-dashboards/hcloud.yaml
-- grafana-dashboards/goldpinger.yaml
-- grafana-dashboards/nginx.yaml
-- grafana-dashboards/node-exporter.yaml
-#- grafana-datasource/alertmanager.yaml
-- prometheus-rules/argocd.yaml
-- hcloud-exporter/
+  - namespace.yaml
+  - slack_secret.yaml
+  - github_client.yaml
+  - pushprox_etcd.yaml
+  - pushprox_kube-controller-manager.yaml
+  - pushprox_kube-scheduler.yaml
+  - grafana-dashboards/argocd.yaml
+  - grafana-dashboards/cilium.yaml
+  - grafana-dashboards/cluster-autoscaler.yaml
+  - grafana-dashboards/etcd.yaml
+  - grafana-dashboards/hcloud.yaml
+  - grafana-dashboards/nginx.yaml
+  - grafana-dashboards/node-exporter.yaml
+  #- grafana-datasource/alertmanager.yaml
+  - prometheus-rules/argocd.yaml
+  - hcloud-exporter/
 
 helmCharts:
   - name: kube-prometheus-stack
@@ -27,4 +26,3 @@ helmCharts:
     valuesFile: values.yaml
     includeCRDs: true
     repo: https://prometheus-community.github.io/helm-charts
-
