@@ -15,8 +15,6 @@ resource "hcloud_server" "controlplane" {
       # Ignore user_data for existing nodes as this requires a replacement
       user_data
     ]
-
-    prevent_destroy = true
   }
 
   name        = "${var.clustername}-controlplane-${count.index}"
