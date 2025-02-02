@@ -19,7 +19,7 @@ resource "hcloud_server" "controlplane" {
 
   name        = "${var.clustername}-controlplane-${count.index}"
   location    = var.location
-  image       = count.index >= 2 ? "ubuntu-24.04" : var.node_image_type
+  image       = count.index >= 1 ? "ubuntu-24.04" : var.node_image_type
   server_type = var.controlplane_type
 
   placement_group_id = hcloud_placement_group.controlplane.id
