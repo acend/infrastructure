@@ -66,7 +66,7 @@ variable "lb_type" {
 
 variable "node_image_type" {
   type        = string
-  default     = "ubuntu-22.04"
+  default     = "ubuntu-24.04"
   description = "Image Type for all Nodes"
 }
 

@@ -11,7 +11,7 @@ resource "hcloud_server" "worker" {
 
   name        = "${var.clustername}-worker-${count.index}"
   location    = var.location
-  image       = "ubuntu-24.04"
+  image       = var.node_image_type
   server_type = var.worker_type
 
   labels = {
