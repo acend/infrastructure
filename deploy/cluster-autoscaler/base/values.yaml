@@ -8,7 +8,7 @@ autoscalingGroups:
 
 extraEnv:
   HCLOUD_SSH_KEY: "terraform" # generated in terraform, more keys are added in the cloudinit file
-  HCLOUD_IMAGE: "ubuntu-22.04"
+  HCLOUD_IMAGE: "ubuntu-24.04"
 
 extraArgs:
   write-status-configmap: true
