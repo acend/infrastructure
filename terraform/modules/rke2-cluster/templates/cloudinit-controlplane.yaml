@@ -35,7 +35,8 @@ write_files:
       namespace: kube-system
     spec:
       valuesContent: |-
-        tunnel: disabled
+        routingMode: native
+        tunnelProtocol: ""
         ipv4NativeRoutingCIDR: ${k8s-cluster-cidr}
         kubeProxyReplacement: strict
         k8sServiceHost: ${lb_address}
