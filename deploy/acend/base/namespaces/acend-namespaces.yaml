@@ -90,6 +90,30 @@ spec:
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
+  name: acend-main-wildcard
+  namespace: acend-websitenew
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: k8s-local-acend-website
+  target:
+    name: acend-main-wildcard
+    template:
+      type: kubernetes.io/tls
+  data:
+    - remoteRef:
+        key: acend-main-wildcard
+        property: tls.crt
+      secretKey: tls.crt
+    - remoteRef:
+        key: acend-main-wildcard
+        property: tls.key
+      secretKey: tls.key
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
   name: acend-wildcard
   namespace: acend-webshell
 spec:
