@@ -1,6 +1,10 @@
 global:
   rbac:
     createAggregateClusterRoles: true
+crds:
+  enabled: true
+  upgradeJob:
+    enabled: true
 kubeProxy:
   enabled: false # kube-proxy less installation
 kubeScheduler:
@@ -40,8 +44,9 @@ grafana:
     dashboards:
       searchNamespace: ALL
   deleteDatasources:
-  - name: Loki
-    orgId: 1
+    - name: Loki
+      orgId: 1
+  prune: true
   ingress:
     enabled: true
     annotations:
@@ -52,9 +57,9 @@ grafana:
     path: /
     tls:
       - hosts:
-        - grafana.k8s-prod.acend.ch
+          - grafana.k8s-prod.acend.ch
   serviceMonitor:
-      enabled: true
+    enabled: true
   persistence:
     enabled: true
     size: 5Gi
@@ -79,36 +84,36 @@ prometheus:
 alertmanager:
   config:
     route:
-      group_by: ['alertname']
+      group_by: ["alertname"]
       group_wait: 30s
       group_interval: 5m
       repeat_interval: 12h
-      receiver: 'slack'
+      receiver: "slack"
       routes:
-      - receiver: 'null'
-        matchers:
-          - alertname =~ "InfoInhibitor|Watchdog"
+        - receiver: "null"
+          matchers:
+            - alertname =~ "InfoInhibitor|Watchdog"
     receivers:
-    - name: 'null'
-    - name: 'slack'
-      slack_configs:
-      - channel: "#ops"
-        send_resolved: true
-        api_url_file: /etc/alertmanager/secrets/slack-webhook-url/webhook-url
-        icon_url: https://avatars3.githubusercontent.com/u/3380462
-        title: |-
-          [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .CommonLabels.alertname }} for {{ .CommonLabels.job }}
-        text: >-
-          {{ range .Alerts -}}
-          *Alert:* {{ .Annotations.title }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
-          *Description:* {{ .Annotations.description }}
-          *Details:*
-            {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
-            {{ end }}
-          {{ end }}
-      
+      - name: "null"
+      - name: "slack"
+        slack_configs:
+          - channel: "#ops"
+            send_resolved: true
+            api_url_file: /etc/alertmanager/secrets/slack-webhook-url/webhook-url
+            icon_url: https://avatars3.githubusercontent.com/u/3380462
+            title: |-
+              [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .CommonLabels.alertname }} for {{ .CommonLabels.job }}
+            text: >-
+              {{ range .Alerts -}}
+              *Alert:* {{ .Annotations.title }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
+              *Description:* {{ .Annotations.description }}
+              *Details:*
+                {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
+                {{ end }}
+              {{ end }}
+
   alertmanagerSpec:
-    storage: 
+    storage:
       volumeClaimTemplate:
         spec:
           storageClassName: hcloud-volumes
@@ -117,7 +122,7 @@ alertmanager:
             requests:
               storage: 10Gi
     secrets:
-    - slack-webhook-url
+      - slack-webhook-url
 
 prometheus-node-exporter:
   resources:
