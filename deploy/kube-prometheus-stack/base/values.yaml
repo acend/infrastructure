@@ -5,6 +5,7 @@ crds:
   enabled: true
   upgradeJob:
     enabled: true
+    forceConflicts: true
 kubeProxy:
   enabled: false # kube-proxy less installation
 kubeScheduler:
