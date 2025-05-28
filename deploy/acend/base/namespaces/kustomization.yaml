@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
 - acend-namespaces.yaml
 - acend-ns-argocd.yaml
-- acend-ns-chopen.yaml
 - acend-ns-cilium.yaml
 - acend-ns-container.yaml
 - acend-ns-go.yaml
