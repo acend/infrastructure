@@ -6,14 +6,13 @@ initContainers:
       - mountPath: /target
         name: plugins
 
-
-
 credentials:
   existingSecret: velero-s3-secret
 
 configuration:
   extraEnvVars:
-    AWS_EC2_METADATA_DISABLED: 'true'
+    - name: AWS_EC2_METADATA_DISABLED
+      value: "true"
   backupStorageLocation:
     - name: hcloud
       bucket: acend-s3-storage
@@ -37,32 +36,32 @@ deployNodeAgent: false
 
 nodeAgent:
   tolerations:
-  - key: "node-role.kubernetes.io/control-plane"
-    operator: "Exists"
-    effect: "NoSchedule"
+    - key: "node-role.kubernetes.io/control-plane"
+      operator: "Exists"
+      effect: "NoSchedule"
 
 metrics:
   enabled: true
-  serviceMonitor: 
+  serviceMonitor:
     enabled: true
     autodetect: false
   prometheusRule:
     enabled: true
     autodetect: false
     spec:
-    - alert: VeleroBackupPartialFailures
-      annotations:
-        message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} partialy failed backups.
-      expr: |-
-        velero_backup_partial_failure_total{schedule!=""} / velero_backup_attempt_total{schedule!=""} > 0.25
-      for: 15m
-      labels:
-        severity: warning
-    - alert: VeleroBackupFailures
-      annotations:
-        message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} failed backups.
-      expr: |-
-        velero_backup_failure_total{schedule!=""} / velero_backup_attempt_total{schedule!=""} > 0.25
-      for: 15m
-      labels:
-        severity: warning
+      - alert: VeleroBackupPartialFailures
+        annotations:
+          message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} partialy failed backups.
+        expr: |-
+          velero_backup_partial_failure_total{schedule!=""} / velero_backup_attempt_total{schedule!=""} > 0.25
+        for: 15m
+        labels:
+          severity: warning
+      - alert: VeleroBackupFailures
+        annotations:
+          message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} failed backups.
+        expr: |-
+          velero_backup_failure_total{schedule!=""} / velero_backup_attempt_total{schedule!=""} > 0.25
+        for: 15m
+        labels:
+          severity: warning
