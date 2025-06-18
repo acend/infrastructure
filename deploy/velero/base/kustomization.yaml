@@ -10,7 +10,7 @@ helmCharts:
   - name: velero
     releaseName: velero
     namespace: velero
-    version: 10.0.5
+    version: 9.2.0
     valuesFile: values.yaml
     includeCRDs: true
     repo: https://vmware-tanzu.github.io/helm-charts
