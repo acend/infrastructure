@@ -122,7 +122,7 @@ resource "kubernetes_deployment" "cloud-controller-manager" {
         priority_class_name = "system-cluster-critical"
 
         container {
-          image = "hetznercloud/hcloud-cloud-controller-manager:v1.25.1"
+          image = "hetznercloud/hcloud-cloud-controller-manager:v1.26.0"
           name  = "hcloud-cloud-controller-manager"
 
           resources {
