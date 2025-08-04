@@ -8,7 +8,7 @@ helmCharts:
     releaseName: external-secrets
     namespace: external-secrets
     includeCRDs: true
-    version: 0.18.2
+    version: 0.19.0
     valuesFile: values.yaml
     repo: https://charts.external-secrets.io
 
