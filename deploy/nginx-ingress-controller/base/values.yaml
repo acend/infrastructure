@@ -1,3 +1,5 @@
+admissionWebhooks:
+  enabled: false
 controller:
   allowSnippetAnnotations: true
   replicaCount: 3
