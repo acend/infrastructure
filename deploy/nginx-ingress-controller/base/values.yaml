@@ -1,6 +1,6 @@
-admissionWebhooks:
-  enabled: false
 controller:
+  admissionWebhooks:
+    enabled: false
   allowSnippetAnnotations: true
   replicaCount: 3
   config:
