@@ -195,7 +195,7 @@ spec:
         app: mariadb
     spec:
       containers:
-        - image: mariadb:11.5.2
+        - image: mariadb:12.1.2
           name: mariadb
           resources:
             requests:
