@@ -16,19 +16,6 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: acend-test-wildcard
-  namespace: acend-website-test
-spec:
-  dnsNames:
-  - '*.test.acend.ch'
-  issuerRef:
-    kind: ClusterIssuer
-    name: letsencrypt-prod-dns01
-  secretName: acend-test-wildcard
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
   name: acend-main-wildcard
   namespace: acend-website
 spec:
