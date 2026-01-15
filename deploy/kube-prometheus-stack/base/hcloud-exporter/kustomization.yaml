@@ -8,7 +8,7 @@ helmCharts:
   - name: hcloud-exporter
     releaseName: hcloud-exporter
     namespace: monitoring
-    version: 4.6.0
+    version: 4.7.0
     repo: https://promhippie.github.io/charts
     valuesInLine:
       serviceMonitor:
