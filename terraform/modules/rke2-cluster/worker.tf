@@ -12,7 +12,7 @@ resource "hcloud_server" "worker" {
   name        = "${var.clustername}-worker-${count.index}"
   location    = var.location
   image       = var.node_image_type
-  server_type = var.worker_type
+  server_type = lookup(var.worker_type_overrides, tostring(count.index), var.worker_type)
 
   labels = {
     cluster : var.clustername,
