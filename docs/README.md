@@ -109,6 +109,7 @@ Root:
 * `controlplane_count`: The number of controlplane nodes Terraform deploys. This should always be set to `3`
 * `worker_count`: The number of worker nodes Terraform deploys. This should be set to a minimum of `2`
 * `controlplane_type_overrides`: Optional map to overwrite controlplane `server_type` by node index (key is the Terraform `count.index` as string). If an index has no entry, `controlplane_type` is used.
+* `worker_type_overrides`: Optional map to overwrite controlplane `server_type` by node index (key is the Terraform `count.index` as string). If an index has no entry, `worker_type` is used.
 * `k8s_api_hostnames`: A list of hostnames to be added to the Kubernetes API Certificate
 * `extra_ssh_keys`: A list of extra SSH keys (besides the one generated in Terraform) to be deployed on the cluster nodes.
 * `hcloud_api_token`: Hetzner API Token
@@ -143,7 +144,7 @@ Design decisions:
 
 ### Cluster Access
 
-For the moment, no external authentication provider is included (see https://github.com/acend/infrastructure/issues/11). We rely on ServiceAccounts and ServiceAccount JWT Tokens to authenticate. RKE2 provides a set of Admin Credentials on intial installation. All other ServiceAccounts and the JWT Tokens are created manually or using the rbac-manager.
+For the moment, no external authentication provider is included (see <https://github.com/acend/infrastructure/issues/11>). We rely on ServiceAccounts and ServiceAccount JWT Tokens to authenticate. RKE2 provides a set of Admin Credentials on intial installation. All other ServiceAccounts and the JWT Tokens are created manually or using the rbac-manager.
 
 See the [Create a new ServiceAccount with a JWT Token and `cluster-admin` privileges](howto.md#create-a-new-serviceaccount-with-a-jwt-token-and-cluster-admin-privileges) to create a new cluster access with `cluster-admin` privileges.
 

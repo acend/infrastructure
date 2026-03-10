@@ -48,6 +48,13 @@ variable "controlplane_type_overrides" {
   description = "Optional per-index controlplane server type overrides (key = count.index as string, value = server type)"
 }
 
+variable "worker_type_overrides" {
+  type        = map(string)
+  default     = {}
+  description = "Optional per-index worker server type overrides (key = count.index as string, value = server type)"
+}
+
+
 variable "k8s_api_hostnames" {
   type        = list(string)
   description = "Host Name of K8S API, added as SAN to API Certificate"
