@@ -42,6 +42,12 @@ variable "worker_count" {
   description = "Count of rke2 workers"
 }
 
+variable "controlplane_type_overrides" {
+  type        = map(string)
+  default     = {}
+  description = "Optional per-index controlplane server type overrides (key = count.index as string, value = server type)"
+}
+
 variable "k8s_api_hostnames" {
   type        = list(string)
   description = "Host Name of K8S API, added as SAN to API Certificate"

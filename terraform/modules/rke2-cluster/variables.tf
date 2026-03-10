@@ -87,6 +87,12 @@ variable "controlplane_type" {
   description = "machine type to use for the controlplanes"
 }
 
+variable "controlplane_type_overrides" {
+  type        = map(string)
+  default     = {}
+  description = "Optional per-index controlplane server type overrides (key = count.index as string, value = server type)"
+}
+
 variable "worker_type" {
   type        = string
   default     = "cpx41"

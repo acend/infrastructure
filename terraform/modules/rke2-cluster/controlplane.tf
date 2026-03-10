@@ -20,7 +20,7 @@ resource "hcloud_server" "controlplane" {
   name        = "${var.clustername}-controlplane-${count.index}"
   location    = var.location
   image       = var.node_image_type
-  server_type = var.controlplane_type
+  server_type = lookup(var.controlplane_type_overrides, tostring(count.index), var.controlplane_type)
 
   placement_group_id = hcloud_placement_group.controlplane.id
 

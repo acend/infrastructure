@@ -108,6 +108,7 @@ Root:
 * `clustername`: The name of the Kubernetes Cluster. This is used as label on the cloud resources for better identification.
 * `controlplane_count`: The number of controlplane nodes Terraform deploys. This should always be set to `3`
 * `worker_count`: The number of worker nodes Terraform deploys. This should be set to a minimum of `2`
+* `controlplane_type_overrides`: Optional map to overwrite controlplane `server_type` by node index (key is the Terraform `count.index` as string). If an index has no entry, `controlplane_type` is used.
 * `k8s_api_hostnames`: A list of hostnames to be added to the Kubernetes API Certificate
 * `extra_ssh_keys`: A list of extra SSH keys (besides the one generated in Terraform) to be deployed on the cluster nodes.
 * `hcloud_api_token`: Hetzner API Token

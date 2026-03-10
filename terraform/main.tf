@@ -19,9 +19,10 @@ module "acend-cluster" {
 
   hosttech-dns-zone-id = var.hosttech-dns-zone-id
 
-  extra_ssh_keys     = var.extra_ssh_keys
-  controlplane_count = var.controlplane_count
-  worker_count       = var.worker_count
+  extra_ssh_keys              = var.extra_ssh_keys
+  controlplane_count          = var.controlplane_count
+  worker_count                = var.worker_count
+  controlplane_type_overrides = var.controlplane_type_overrides
 
   ## Helm and Kubernetes Provider Config
   provider-client-key             = var.provider-client-key
@@ -40,8 +41,8 @@ module "acend-cluster" {
 
 provider "minio" {
   minio_server   = "nbg1.your-objectstorage.com"
-  minio_user     = "${var.hcloud_s3_access_key}"
-  minio_password = "${var.hcloud_s3_secret_key}"
+  minio_user     = var.hcloud_s3_access_key
+  minio_password = var.hcloud_s3_secret_key
   minio_region   = "nbg1"
   minio_ssl      = true
 }
