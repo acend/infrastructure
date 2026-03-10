@@ -23,6 +23,7 @@ module "acend-cluster" {
   controlplane_count          = var.controlplane_count
   worker_count                = var.worker_count
   controlplane_type_overrides = var.controlplane_type_overrides
+  worker_type_overrides       = var.worker_type_overrides
 
   ## Helm and Kubernetes Provider Config
   provider-client-key             = var.provider-client-key
